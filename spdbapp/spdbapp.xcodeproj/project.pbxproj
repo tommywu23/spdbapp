@@ -20,6 +20,7 @@
 		6580FE2E1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */; };
 		6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */; };
 		6580FE311AFCA58400C7ACE7 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE301AFCA58400C7ACE7 /* DocViewController.swift */; };
+		6580FE331AFCACE000C7ACE7 /* 公司第五届董事会第三十五次会议决议公告.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6580FE321AFCACE000C7ACE7 /* 公司第五届董事会第三十五次会议决议公告.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaTableViewCell.xib; sourceTree = "<group>"; };
 		6580FE301AFCA58400C7ACE7 /* DocViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
+		6580FE321AFCACE000C7ACE7 /* 公司第五届董事会第三十五次会议决议公告.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "公司第五届董事会第三十五次会议决议公告.pdf"; path = "../../../../../Desktop/公司第五届董事会第三十五次会议决议公告.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,12 +97,12 @@
 				6580FE021AFB62DE00C7ACE7 /* MainViewController.swift */,
 				6580FE041AFB62DE00C7ACE7 /* Main.storyboard */,
 				6580FE201AFB63FF00C7ACE7 /* AgendaViewController.swift */,
-				6580FE071AFB62DE00C7ACE7 /* Images.xcassets */,
-				6580FE091AFB62DE00C7ACE7 /* LaunchScreen.xib */,
-				6580FDFE1AFB62DE00C7ACE7 /* Supporting Files */,
 				6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */,
 				6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */,
 				6580FE301AFCA58400C7ACE7 /* DocViewController.swift */,
+				6580FE091AFB62DE00C7ACE7 /* LaunchScreen.xib */,
+				6580FE071AFB62DE00C7ACE7 /* Images.xcassets */,
+				6580FDFE1AFB62DE00C7ACE7 /* Supporting Files */,
 			);
 			path = spdbapp;
 			sourceTree = "<group>";
@@ -108,6 +110,7 @@
 		6580FDFE1AFB62DE00C7ACE7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6580FE321AFCACE000C7ACE7 /* 公司第五届董事会第三十五次会议决议公告.pdf */,
 				6580FE221AFB64CC00C7ACE7 /* simsun.ttc */,
 				6580FE231AFB64CC00C7ACE7 /* 方正姚体.ttf */,
 				6580FE241AFB64CC00C7ACE7 /* 楷体_GB2312.ttf */,
@@ -220,6 +223,7 @@
 				6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */,
 				6580FE0B1AFB62DE00C7ACE7 /* LaunchScreen.xib in Resources */,
 				6580FE081AFB62DE00C7ACE7 /* Images.xcassets in Resources */,
+				6580FE331AFCACE000C7ACE7 /* 公司第五届董事会第三十五次会议决议公告.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

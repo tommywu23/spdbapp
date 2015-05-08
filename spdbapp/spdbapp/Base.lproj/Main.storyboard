@@ -142,14 +142,41 @@
                     <view key="view" contentMode="scaleToFill" id="lol-Wi-SER">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIC-1H-tkj">
+                                <rect key="frame" x="-35" y="-190" width="810" height="1220"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="jEX-nJ-1ZW" appends="YES" id="Sor-wZ-mKN"/>
+                                </connections>
+                            </webView>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edw-RU-7X0">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="49"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <tabBarItem id="3SD-ue-sI5"/>
+                                    <tabBarItem id="fqK-XC-ejM"/>
+                                </items>
+                                <color key="tintColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="selectedImageTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tabBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="docView" destination="LIC-1H-tkj" id="3AU-Ss-4qC"/>
+                        <outlet property="gesTap" destination="jEX-nJ-1ZW" id="fOr-Wd-rtF"/>
+                        <outlet property="tbTop" destination="edw-RU-7X0" id="wMG-F9-2Xb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YGo-PU-MG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="jEX-nJ-1ZW"/>
             </objects>
             <point key="canvasLocation" x="2316" y="40"/>
         </scene>

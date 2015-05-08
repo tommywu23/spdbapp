@@ -62,6 +62,13 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-       self.performSegueWithIdentifier("toDoc", sender: nil)
+       self.performSegueWithIdentifier("toDoc", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        // Create a new variable to store the instance of DocViewController
+        let c = segue.destinationViewController as! DocViewController
+        c.url = "/Users/tommy/Desktop/公司第五届董事会第三十五次会议决议公告.pdf"
+
     }
 }

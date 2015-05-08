@@ -9,11 +9,31 @@
 import UIKit
 
 class DocViewController: UIViewController {
-
+    var url : String = ""
+    
+    @IBOutlet weak var docView: UIWebView!
+    @IBOutlet var gesTap:UITapGestureRecognizer!
+    @IBOutlet weak var tbTop: UITabBar!
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        var urlString = NSURL(fileURLWithPath: url)
+        var request = NSURLRequest(URL: urlString!)
+        
+        docView.loadRequest(request)
+        
+        gesTap.addTarget(self, action: "actionBar")
         // Do any additional setup after loading the view.
+    }
+    
+    func actionBar(){
+        tbTop.hidden = !tbTop.hidden
+    }
+    
+    func hideBar(){
+        tbTop.hidden = true
     }
 
     override func didReceiveMemoryWarning() {
