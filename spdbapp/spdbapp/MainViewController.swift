@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
         style.lineSpacing = 20
         style.alignment = NSTextAlignment.Center
         var attr = [NSParagraphStyleAttributeName : style]
-        var name = "上海浦东发展银行股份有限公司第二届董事会第一次会议决议公告"
+        var name = "上海浦东发展银行股份有限公司第二届董事会第一次会议"
         lbConfName.attributedText = NSAttributedString(string: name, attributes : attr)
         
         btnConf.layer.cornerRadius = 8
