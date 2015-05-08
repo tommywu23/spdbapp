@@ -9,10 +9,13 @@
 import UIKit
 
 class AgendaViewController: UIViewController {
+   
+    @IBOutlet weak var lbConfType: UILabel!
+    @IBOutlet weak var tvAgenda: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        lbConfType.text = "党政联系会议"
     }
     
     override func didReceiveMemoryWarning() {
