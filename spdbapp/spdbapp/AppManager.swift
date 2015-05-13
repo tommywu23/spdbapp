@@ -13,12 +13,13 @@ import Alamofire
 
 class AppManager : NSObject {
     var current : GBConf?
-    var local : GBBox
+    var local : GBBox?
     dynamic var connect: Bool = true
 
     override init(){
+        super.init()
         local = GBBox()
-        Alamofire.request(Router.RegBox(["id":local.macId])).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+        Alamofire.request(Router.RegBox(["id":local!.macId])).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             
             if(error != nil){
                 self.connect = false
