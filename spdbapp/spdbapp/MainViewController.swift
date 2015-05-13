@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        var box = GBBox()
         // Do any additional setup after loading the view, typically from a nib.
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
