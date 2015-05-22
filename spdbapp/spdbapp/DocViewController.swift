@@ -12,21 +12,17 @@ class DocViewController: UIViewController, UIScrollViewDelegate,UIToolbarDelegat
     
     var url : String = ""
     
+    var fileIDInfo: String?
+    var fileNameInfo: String?
+    
+    
     @IBOutlet weak var docView: UIWebView!
     @IBOutlet var gesTap:UITapGestureRecognizer!
-    //@IBOutlet weak var tbTop: UITabBar!
     @IBOutlet weak var tbTop: UIToolbar!
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NSLog("111111111111")
-        var urlString = NSURL(fileURLWithPath: url)
-        var request = NSURLRequest(URL: urlString!)
-        NSLog("%@",request)
-        docView.loadRequest(request)
-        
         
         //初始化时候隐藏tab bar
         hideBar()
@@ -37,6 +33,7 @@ class DocViewController: UIViewController, UIScrollViewDelegate,UIToolbarDelegat
         tbTop.delegate = self
         gesTap.addTarget(self, action: "actionBar")
         
+        loadLocalPDFFile()
 
         var timer = Poller()
         timer.start(self, method: "timerDidFire:")
@@ -80,15 +77,27 @@ class DocViewController: UIViewController, UIScrollViewDelegate,UIToolbarDelegat
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func setDownloadPDFURL() -> String{
+        //获取当前文件的路径
+        var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
+        NSLog("docPath = %@", docPath)
+        var filePath: String = docPath.stringByAppendingPathComponent("\(self.fileNameInfo!)")
+        return filePath
     }
-    */
-
+    
+    //获取本地pdf文档
+    func loadLocalPDFFile(){
+        
+        var filePath: String = setDownloadPDFURL()
+        NSLog("----------------%@", filePath)
+        
+        var urlString = NSURL(fileURLWithPath: "\(filePath)")
+        var request = NSURLRequest(URL: urlString!)
+        
+        NSLog("开始加载本地pdf文档")
+        
+        self.docView.loadRequest(request)
+    }
+    
+    
 }

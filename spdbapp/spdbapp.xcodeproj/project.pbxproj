@@ -21,7 +21,6 @@
 		6580FE2E1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */; };
 		6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */; };
 		6580FE311AFCA58400C7ACE7 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE301AFCA58400C7ACE7 /* DocViewController.swift */; };
-		C42781041B0448120061F628 /* H2_AN201503180008803514_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */; };
 		C427810D1B047D280061F628 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427810C1B047D280061F628 /* SwiftyJSON.swift */; };
 		C42781101B049F1C0061F628 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427810F1B049F1C0061F628 /* Builder.swift */; };
 		C443E65C1B0B2AEB00170344 /* DownLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */; };
@@ -111,7 +110,6 @@
 		6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaTableViewCell.xib; sourceTree = "<group>"; };
 		6580FE301AFCA58400C7ACE7 /* DocViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
-		C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = H2_AN201503180008803514_1.pdf; sourceTree = "<group>"; };
 		C427810C1B047D280061F628 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		C427810F1B049F1C0061F628 /* Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownLoadManager.swift; path = ../DownLoadManager.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 				C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */,
 				C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */,
 				C47DC23E1B0ED82C004D0701 /* simsun.ttc */,
-				C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */,
 				6580FDFF1AFB62DE00C7ACE7 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -365,7 +362,6 @@
 				6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */,
 				6580FE0B1AFB62DE00C7ACE7 /* LaunchScreen.xib in Resources */,
 				C47DC23F1B0ED82C004D0701 /* 方正姚体.ttf in Resources */,
-				C42781041B0448120061F628 /* H2_AN201503180008803514_1.pdf in Resources */,
 				C47DC2411B0ED82C004D0701 /* simsun.ttc in Resources */,
 				6580FE081AFB62DE00C7ACE7 /* Images.xcassets in Resources */,
 			);

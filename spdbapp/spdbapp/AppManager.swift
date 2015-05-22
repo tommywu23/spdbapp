@@ -111,7 +111,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     func IsLocalExistID() -> Bool {
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         
-        //判断该文件是否存在，若不在，则创建该iddata. txt文件
+        //判断该文件是否存在，则创建该iddata. txt文件
         var manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(filePath){
             return false
