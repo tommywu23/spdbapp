@@ -111,7 +111,7 @@
 		6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaTableViewCell.xib; sourceTree = "<group>"; };
 		6580FE301AFCA58400C7ACE7 /* DocViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
-		C42780FD1B0447FF0061F628 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正姚体.ttf"; sourceTree = "<group>"; };
+		C42780FD1B0447FF0061F628 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "spdbapp/方正姚体.ttf"; sourceTree = SOURCE_ROOT; };
 		C42780FE1B0447FF0061F628 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "楷体_GB2312.ttf"; sourceTree = "<group>"; };
 		C42780FF1B0447FF0061F628 /* simsun.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = simsun.ttc; sourceTree = "<group>"; };
 		C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = H2_AN201503180008803514_1.pdf; sourceTree = "<group>"; };

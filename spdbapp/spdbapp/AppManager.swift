@@ -35,6 +35,7 @@ class Poller {
 class AppManager : NSObject, UIAlertViewDelegate {
     
     dynamic var current : GBMeeting = GBMeeting()
+    var reqData: String = ""
     var files: GBMeeting?
     var local : GBBox?
     
@@ -45,14 +46,16 @@ class AppManager : NSObject, UIAlertViewDelegate {
     override init(){
         super.init()
         reqBoxURL = self.baseURL + "/box"
-//        //定时器每隔2s检测当前current是否发生变化
-//        var getCurrentPoller = Poller()
-//        getCurrentPoller.start(self, method: "getCurrent:")
+        //定时器每隔2s检测当前current是否发生变化
+        var getCurrentPoller = Poller()
+        getCurrentPoller.start(self, method: "getCurrent:")
 
         
         local = createBox()
         
         DownLoadManager.downLoadJSON()
+        
+        //println("reqdata = \(reqData)")
         
     }
     
@@ -121,6 +124,8 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     //根据id获取ipad所需信息
     func createBox() -> GBBox{
+        //dynamic var respData = ""
+        
         var result = GBBox()
         var idstr = NSString()
         var b = IsLocalExistID()
@@ -154,7 +159,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
             if((data?.isEqual("not find type or name")) != nil){
                 UIAlertView(title: "未注册id", message: "请先注册id", delegate: self, cancelButtonTitle: "重试").show()
                 self.registerCurrentId()
-                //println("idstr ============= \(idstr)")
+                self.reqData = "not find type or name"
             }
             
             if(response?.statusCode == 200){

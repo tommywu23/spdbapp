@@ -20,17 +20,18 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     var filesDataInfo:[JSON] = []
+    var eHTTP: HTTPController = HTTPController()
+    var baseURl = "http://192.168.16.141:8080/meeting/current"
     
-    
-    var items = ["上海浦东发展银行股份有限公司第二届董事会第一次会议上海浦东发展银行股份有限公司第二届董事会第一次会议上海浦东发展银行股份有限公司第二届董事会第一次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第二次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第三次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第四次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第五次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第六次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第七次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第八次会议",
-        "上海浦东发展银行股份有限公司第二届董事会第九次会议"]
+//    var items = ["上海浦东发展银行股份有限公司第二届董事会第一次会议上海浦东发展银行股份有限公司第二届董事会第一次会议上海浦东发展银行股份有限公司第二届董事会第一次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第二次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第三次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第四次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第五次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第六次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第七次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第八次会议",
+//        "上海浦东发展银行股份有限公司第二届董事会第九次会议"]
     //var index = ["一、","二十一、","三、","四、","五、","六、","七十、","八、","九、","十、","二十一、"]
     
     override func viewDidLoad() {
@@ -43,6 +44,10 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.None
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
+        
+        eHTTP.delegate = self
+        eHTTP.onSearch(baseURl)
+        
         
         //初始化时候隐藏tab bar
         hideBar()
