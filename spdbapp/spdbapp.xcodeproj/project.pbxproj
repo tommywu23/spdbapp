@@ -21,9 +21,6 @@
 		6580FE2E1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */; };
 		6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */; };
 		6580FE311AFCA58400C7ACE7 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE301AFCA58400C7ACE7 /* DocViewController.swift */; };
-		C42781001B0447FF0061F628 /* 方正姚体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C42780FD1B0447FF0061F628 /* 方正姚体.ttf */; };
-		C42781011B0447FF0061F628 /* 楷体_GB2312.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C42780FE1B0447FF0061F628 /* 楷体_GB2312.ttf */; };
-		C42781021B0447FF0061F628 /* simsun.ttc in Resources */ = {isa = PBXBuildFile; fileRef = C42780FF1B0447FF0061F628 /* simsun.ttc */; };
 		C42781041B0448120061F628 /* H2_AN201503180008803514_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */; };
 		C427810D1B047D280061F628 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427810C1B047D280061F628 /* SwiftyJSON.swift */; };
 		C42781101B049F1C0061F628 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427810F1B049F1C0061F628 /* Builder.swift */; };
@@ -31,6 +28,9 @@
 		C44779CB1B09A96300F37F23 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44779C41B09A95C00F37F23 /* Alamofire.framework */; };
 		C44779CC1B09A96300F37F23 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C44779C41B09A95C00F37F23 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C47DC22E1B0EC58B004D0701 /* HTTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47DC22D1B0EC58B004D0701 /* HTTPController.swift */; };
+		C47DC23F1B0ED82C004D0701 /* 方正姚体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */; };
+		C47DC2401B0ED82C004D0701 /* 楷体_GB2312.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */; };
+		C47DC2411B0ED82C004D0701 /* simsun.ttc in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23E1B0ED82C004D0701 /* simsun.ttc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,15 +111,15 @@
 		6580FE2C1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaTableViewCell.swift; sourceTree = "<group>"; };
 		6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaTableViewCell.xib; sourceTree = "<group>"; };
 		6580FE301AFCA58400C7ACE7 /* DocViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
-		C42780FD1B0447FF0061F628 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "spdbapp/方正姚体.ttf"; sourceTree = SOURCE_ROOT; };
-		C42780FE1B0447FF0061F628 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "楷体_GB2312.ttf"; sourceTree = "<group>"; };
-		C42780FF1B0447FF0061F628 /* simsun.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = simsun.ttc; sourceTree = "<group>"; };
 		C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = H2_AN201503180008803514_1.pdf; sourceTree = "<group>"; };
 		C427810C1B047D280061F628 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		C427810F1B049F1C0061F628 /* Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownLoadManager.swift; path = ../DownLoadManager.swift; sourceTree = "<group>"; };
 		C44779BC1B09A95C00F37F23 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		C47DC22D1B0EC58B004D0701 /* HTTPController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPController.swift; sourceTree = "<group>"; };
+		C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "resources/方正姚体.ttf"; sourceTree = "<group>"; };
+		C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "楷体_GB2312.ttf"; path = "resources/楷体_GB2312.ttf"; sourceTree = "<group>"; };
+		C47DC23E1B0ED82C004D0701 /* simsun.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = simsun.ttc; path = resources/simsun.ttc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,10 +204,10 @@
 		6580FDFE1AFB62DE00C7ACE7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */,
+				C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */,
+				C47DC23E1B0ED82C004D0701 /* simsun.ttc */,
 				C42781031B0448120061F628 /* H2_AN201503180008803514_1.pdf */,
-				C42780FD1B0447FF0061F628 /* 方正姚体.ttf */,
-				C42780FE1B0447FF0061F628 /* 楷体_GB2312.ttf */,
-				C42780FF1B0447FF0061F628 /* simsun.ttc */,
 				6580FDFF1AFB62DE00C7ACE7 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -360,13 +360,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42781021B0447FF0061F628 /* simsun.ttc in Resources */,
-				C42781011B0447FF0061F628 /* 楷体_GB2312.ttf in Resources */,
+				C47DC2401B0ED82C004D0701 /* 楷体_GB2312.ttf in Resources */,
 				6580FE061AFB62DE00C7ACE7 /* Main.storyboard in Resources */,
 				6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */,
-				C42781001B0447FF0061F628 /* 方正姚体.ttf in Resources */,
 				6580FE0B1AFB62DE00C7ACE7 /* LaunchScreen.xib in Resources */,
+				C47DC23F1B0ED82C004D0701 /* 方正姚体.ttf in Resources */,
 				C42781041B0448120061F628 /* H2_AN201503180008803514_1.pdf in Resources */,
+				C47DC2411B0ED82C004D0701 /* simsun.ttc in Resources */,
 				6580FE081AFB62DE00C7ACE7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
