@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -92,7 +92,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="K5D-na-Jky">
-                                <rect key="frame" x="36" y="40" width="200" height="58"/>
+                                <rect key="frame" x="36" y="43" width="200" height="58"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7T-de-pw4">
                                 <rect key="frame" x="0.0" y="120" width="768" height="35"/>
@@ -114,22 +114,65 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dk5-8i-p3E">
+                                <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <barButtonItem title="返回" id="3DA-t5-7Et">
+                                        <connections>
+                                            <action selector="btnBack:" destination="und-vf-3cF" id="PNR-ht-LwT"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="615" style="plain" systemItem="fixedSpace" id="EkH-bw-lCV"/>
+                                    <barButtonItem title="历史会议" id="IiI-rF-yQM">
+                                        <connections>
+                                            <action selector="btnGoToHistory:" destination="und-vf-3cF" id="44d-S6-sPV"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="gesTap" destination="opO-Tj-I8Q" id="PKL-Sv-wrc"/>
                         <outlet property="lbConfType" destination="kIc-tc-ZAT" id="SVO-MK-FBk"/>
+                        <outlet property="tbTop" destination="dk5-8i-p3E" id="KtJ-F7-htP"/>
                         <outlet property="tvAgenda" destination="vzH-1j-s5r" id="3E5-IX-wva"/>
                         <segue destination="Pa6-Ix-LoW" kind="modal" identifier="toDoc" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="IgB-fz-fhv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DyT-0m-p1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="opO-Tj-I8Q">
+                    <connections>
+                        <outlet property="delegate" destination="1sq-K4-UHx" id="A3Z-JN-zWj"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1445" y="40"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="dTj-MG-v5g">
+            <objects>
+                <viewController id="18k-XF-gsR" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rN5-ER-8Xl"/>
+                        <viewControllerLayoutGuide type="bottom" id="A2P-7J-EUF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ROi-Ra-STD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YWV-EZ-wWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1191" y="1083"/>
         </scene>
         <!--Doc View Controller-->
         <scene sceneID="xyK-Bk-83V">
@@ -151,17 +194,22 @@
                                     <outletCollection property="gestureRecognizers" destination="jEX-nJ-1ZW" appends="YES" id="Sor-wZ-mKN"/>
                                 </connections>
                             </webView>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edw-RU-7X0">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="49"/>
-                                <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1TA-Qg-ghw">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <items>
-                                    <tabBarItem id="3SD-ue-sI5"/>
-                                    <tabBarItem id="fqK-XC-ejM"/>
+                                    <barButtonItem image="Back-50" id="kpn-jz-BQT">
+                                        <connections>
+                                            <action selector="btnBack:" destination="Pa6-Ix-LoW" id="RaX-Ae-SGb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="652" style="plain" systemItem="fixedSpace" id="H2E-ep-sif"/>
+                                    <barButtonItem image="Clock-50-4" id="PFv-iJ-vPL">
+                                        <connections>
+                                            <action selector="btnGoHistory:" destination="Pa6-Ix-LoW" id="XBU-8S-hsx"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
-                                <color key="tintColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="selectedImageTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </tabBar>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -172,7 +220,7 @@
                     <connections>
                         <outlet property="docView" destination="LIC-1H-tkj" id="3AU-Ss-4qC"/>
                         <outlet property="gesTap" destination="jEX-nJ-1ZW" id="fOr-Wd-rtF"/>
-                        <outlet property="tbTop" destination="edw-RU-7X0" id="wMG-F9-2Xb"/>
+                        <outlet property="tbTop" destination="1TA-Qg-ghw" id="Qho-tx-D2H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YGo-PU-MG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -182,6 +230,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Back-50" width="25" height="25"/>
+        <image name="Clock-50-4" width="25" height="25"/>
         <image name="app_logo" width="200" height="58"/>
         <image name="app_xuanchuanci" width="148" height="65"/>
     </resources>
