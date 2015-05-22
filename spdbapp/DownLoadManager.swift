@@ -46,7 +46,7 @@ class DownLoadManager: NSObject {
     
     
     
-    //DownLoad JSON  to local
+    //下载json数据到本地并保存
     class func downLoadJSON(){
         
         Alamofire.request(router.0, router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in

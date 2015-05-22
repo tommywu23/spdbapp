@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
     
     
     private var myContext = 1
-
+    //显示当前会议名
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         
         if keyPath == "current"{
