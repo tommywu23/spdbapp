@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var lbConfName: UILabel!
 
     var current = GBMeeting()
-    var builder = Builder()
+    //var builder = Builder()
     var appManager = AppManager()
     
     

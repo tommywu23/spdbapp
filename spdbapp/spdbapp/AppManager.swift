@@ -186,11 +186,20 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         Alamofire.request(router.0,router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             
-            if error != nil{
-                return
-            }
-            
             var builder = Builder()
+            if error != nil{
+                
+//                var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
+//                var filemanager = NSFileManager.defaultManager()
+//                
+//                if filemanager.fileExistsAtPath(localJSONPath){
+//                    let jsonLocal = filemanager.contentsAtPath(localJSONPath)
+    
+//                
+//            }
+                
+                
+            }
         
             let json = JSON(data!)
             // current meeting id
