@@ -22,6 +22,7 @@ class Builder: NSObject {
         
         
         var data = NSData(contentsOfURL: url!)
+        if(data != nil){
         var json: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil)!
         
         var fileLists = json.objectForKey("files") as! NSMutableArray
@@ -29,6 +30,7 @@ class Builder: NSObject {
         current.id = json["_id"] as! String
         current.name = json["name"] as! String
 
+        }
         return current
         
     }

@@ -71,32 +71,20 @@ class DocViewController: UIViewController, UIScrollViewDelegate,UIToolbarDelegat
     func hideBar(){
         tbTop.hidden = true
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    func setDownloadPDFURL() -> String{
-        //获取当前文件的路径
-        var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
-        NSLog("docPath = %@", docPath)
-        var filePath: String = docPath.stringByAppendingPathComponent("\(self.fileNameInfo!)")
-        return filePath
-    }
     
     //获取本地pdf文档
     func loadLocalPDFFile(){
-        
-        var filePath: String = setDownloadPDFURL()
-        NSLog("----------------%@", filePath)
-        
+        var filePath: String = NSHomeDirectory().stringByAppendingPathComponent("Documents/\(self.fileNameInfo!)")
         var urlString = NSURL(fileURLWithPath: "\(filePath)")
         var request = NSURLRequest(URL: urlString!)
-        
-        NSLog("开始加载本地pdf文档")
-        
         self.docView.loadRequest(request)
+        println("path = \(filePath)")
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     

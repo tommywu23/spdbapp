@@ -39,7 +39,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     var files: GBMeeting?
     var local : GBBox?
     
-    let baseURL : String = "http://192.168.21.82:8080"
+    let baseURL : String = "http://192.168.21.36:8080"
     var reqBoxURL : String?
 
     

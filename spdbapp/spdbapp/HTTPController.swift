@@ -16,6 +16,12 @@ class HTTPController: NSObject {
     //接收网址，回调代理的方法传回数据
     func onSearch(url: String){
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, error) -> Void in
+            if(error != nil)
+            {
+                NSLog("%@", error!)
+                return
+            }
+            
             self.delegate?.didReceiveResult(data!)
         }
     }

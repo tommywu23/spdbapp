@@ -18,7 +18,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var gesTap: UITapGestureRecognizer!
     
     
-    
     var filesDataInfo:[JSON] = []
     var eHTTP: HTTPController = HTTPController()
     var baseURl = "http://192.168.16.141:8080/meeting/current"
@@ -121,13 +120,11 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-       //self.performSegueWithIdentifier("toDoc", sender: self)
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         var rowData: JSON = filesDataInfo[indexPath.row]
         var id = rowData["_id"].stringValue
         var name = rowData["name"].stringValue
-        
         
         self.fileIDInfo = id
         self.fileNameInfo = name
@@ -148,8 +145,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Create a new variable to store the instance of DocViewController
-//        let c = segue.destinationViewController as! DocViewController
-//        c.url = "/Users/gbtouchg3/Desktop/spdbapp65524/spdbapp/spdbapp/H2_AN201503180008803514_1.pdf"
         
         if segue.identifier ==  "toDoc" {
             var obj = segue.destinationViewController as! DocViewController

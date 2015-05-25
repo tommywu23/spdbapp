@@ -60,11 +60,15 @@ class DownLoadManager: NSObject {
                     println("file create ok")
                 }
             }
+            
+            if(err != nil){
+                NSLog("%@", err!)
+                return
+            }
     
             var jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
 
             var b = jsondata?.writeToFile(jsonFilePath, atomically: true)
-            //println("b = \(b!)")
             if (b! == true) {
                 NSLog("当前json保存成功")
             }
