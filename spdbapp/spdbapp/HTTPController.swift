@@ -18,7 +18,7 @@ class HTTPController: NSObject {
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, error) -> Void in
             if(error != nil)
             {
-                NSLog("%@", error!)
+                println("网络错误，将读取本地会议文件")
                 return
             }
             

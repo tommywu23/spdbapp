@@ -17,7 +17,7 @@ protocol GBModelBaseAciton {
 
 //meeting type
 enum GBMeetingType {
-    case HANGBAN, DANGBAN, DANGWEI, DONGSHI, ALL
+    case HANGBAN, DANGBAN, DANGWEI, DONGSHI, dangzheng, ALL
 }
 
 class GBBase: NSObject {

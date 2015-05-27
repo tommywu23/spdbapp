@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -14,17 +14,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="5gL-Pb-DFx"/>
+                        <viewControllerLayoutGuide type="bottom" id="jhk-xZ-MgH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="RnY-T6-3XM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="RnY-T6-3XM">
                                 <rect key="frame" x="36" y="40" width="200" height="58"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app_xuanchuanci" translatesAutoresizingMaskIntoConstraints="NO" id="JP7-ao-EbR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="app_xuanchuanci" translatesAutoresizingMaskIntoConstraints="NO" id="JP7-ao-EbR">
                                 <rect key="frame" x="605" y="48" width="148" height="65"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Duz-g1-hn6">
@@ -51,7 +51,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="und-vf-3cF" kind="modal" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="3GV-ZV-zGg"/>
+                                    <segue destination="und-vf-3cF" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="3GV-ZV-zGg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="暂无会议" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCj-fE-Z3e">
@@ -64,6 +64,14 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JP7-ao-EbR" secondAttribute="trailing" constant="15" id="GJo-9f-KAF"/>
+                            <constraint firstItem="RnY-T6-3XM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="36" id="XkU-cv-AdF"/>
+                            <constraint firstItem="RnY-T6-3XM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="Xt1-3Q-qIf"/>
+                            <constraint firstItem="JP7-ao-EbR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="48" id="kMu-qN-es5"/>
+                            <constraint firstItem="JP7-ao-EbR" firstAttribute="leading" secondItem="RnY-T6-3XM" secondAttribute="trailing" constant="369" id="pPv-zs-wj4"/>
+                            <constraint firstItem="JP7-ao-EbR" firstAttribute="width" secondItem="RnY-T6-3XM" secondAttribute="width" id="qXw-LI-eAz"/>
+                        </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -84,8 +92,8 @@
             <objects>
                 <viewController id="und-vf-3cF" customClass="AgendaViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UsY-4G-YLJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="yIt-lF-syk"/>
+                        <viewControllerLayoutGuide type="top" id="REB-qG-fQ7"/>
+                        <viewControllerLayoutGuide type="bottom" id="wuD-H2-36s"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1sq-K4-UHx">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -108,12 +116,6 @@
                                 <color key="sectionIndexBackgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="未获取版本信息" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-tc-ZAT">
-                                <rect key="frame" x="601" y="54" width="200" height="65"/>
-                                <fontDescription key="fontDescription" name="FZYTJW--GB1-0" family="FZYaoTi-M06S" pointSize="22"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dk5-8i-p3E">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,6 +133,12 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="未获取版本信息" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-tc-ZAT">
+                                <rect key="frame" x="594" y="64" width="158" height="48"/>
+                                <fontDescription key="fontDescription" name="FZYTJW--GB1-0" family="FZYaoTi-M06S" pointSize="22"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -144,7 +152,7 @@
                         <outlet property="lbConfType" destination="kIc-tc-ZAT" id="SVO-MK-FBk"/>
                         <outlet property="tbTop" destination="dk5-8i-p3E" id="KtJ-F7-htP"/>
                         <outlet property="tvAgenda" destination="vzH-1j-s5r" id="3E5-IX-wva"/>
-                        <segue destination="Pa6-Ix-LoW" kind="modal" identifier="toDoc" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="IgB-fz-fhv"/>
+                        <segue destination="Pa6-Ix-LoW" kind="presentation" identifier="toDoc" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="IgB-fz-fhv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DyT-0m-p1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -161,8 +169,8 @@
             <objects>
                 <viewController id="18k-XF-gsR" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rN5-ER-8Xl"/>
-                        <viewControllerLayoutGuide type="bottom" id="A2P-7J-EUF"/>
+                        <viewControllerLayoutGuide type="top" id="i6s-2l-QYd"/>
+                        <viewControllerLayoutGuide type="bottom" id="bX2-R9-v7H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ROi-Ra-STD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -179,8 +187,8 @@
             <objects>
                 <viewController id="Pa6-Ix-LoW" customClass="DocViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ATF-NZ-mqf"/>
-                        <viewControllerLayoutGuide type="bottom" id="7yW-x5-YCH"/>
+                        <viewControllerLayoutGuide type="top" id="fMc-Cs-N4C"/>
+                        <viewControllerLayoutGuide type="bottom" id="JGm-5v-S58"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lol-Wi-SER">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -195,7 +203,7 @@
                                 </connections>
                             </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1TA-Qg-ghw">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <rect key="frame" x="1" y="0.0" width="768" height="44"/>
                                 <items>
                                     <barButtonItem image="Back-50" id="kpn-jz-BQT">
                                         <connections>

@@ -24,7 +24,7 @@ class DownLoadManager: NSObject {
             let jsonLocal = filemanager.contentsAtPath(localJSONPath)
             
             if jsonLocal == jsondata {
-                println("json数据信息已经存在")
+                //println("json数据信息已经存在")
                 return true
             }
             return false
@@ -48,7 +48,7 @@ class DownLoadManager: NSObject {
             var b = self.isSameJSONData(jsondata!)
             
             if b{
-                println("json 数据已经存在")
+                println("会议文件已经存在")
                 return
             }
             
@@ -87,24 +87,13 @@ class DownLoadManager: NSObject {
             //println("\(jsonFilePath)")
             
             if(err != nil){
-                NSLog("%@", err!)
-                //return
+                println("从服务器获取当前会议数据出错\(err)")
+                //NSLog("%@", err!)
+                return
             }
-            
-            var manager = NSFileManager.defaultManager()
-            if !manager.fileExistsAtPath(jsonFilePath){
-                var b = manager.createFileAtPath(jsonFilePath, contents: nil, attributes: nil)
-                if b{
-                    println("file create ok")
-                }
-            }
-            
-          
-           
-    
             var jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
-
-             var bool = self.isSameJSONData(jsondata!)
+            
+            var bool = self.isSameJSONData(jsondata!)
             if !bool{
                 var b = jsondata?.writeToFile(jsonFilePath, atomically: true)
                 if (b! == true) {
@@ -113,9 +102,17 @@ class DownLoadManager: NSObject {
                 else{
                     NSLog("请重新 baocun json")
                 }
-
+                
             }
-            
+
+            var manager = NSFileManager.defaultManager()
+            if !manager.fileExistsAtPath(jsonFilePath){
+                var b = manager.createFileAtPath(jsonFilePath, contents: nil, attributes: nil)
+                if b{
+                    println("file create ok")
+                }
+            }
+
             
         }
      }

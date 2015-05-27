@@ -50,7 +50,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
         var getCurrentPoller = Poller()
         getCurrentPoller.start(self, method: "getCurrent:")
 
-        
         local = createBox()
         
         DownLoadManager.downLoadJSON()
@@ -153,8 +152,11 @@ class AppManager : NSObject, UIAlertViewDelegate {
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
         NSLog("idstr = %@", idstr)
         Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+            if error != nil{
+                println("注册失败\(error)")
+                return
+            }
             println("getdata = \(data!)")
-            
             //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
             if((data?.isEqual("not find type or name")) != nil){
                 UIAlertView(title: "未注册id", message: "请先注册id", delegate: self, cancelButtonTitle: "重试").show()
@@ -183,26 +185,34 @@ class AppManager : NSObject, UIAlertViewDelegate {
     //获取当前会议current
     func getCurrent(timer: NSTimer){
         var router = Router.GetCurrentMeeting()
-        
+        var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
         Alamofire.request(router.0,router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-            
-            var builder = Builder()
-            if error != nil{
+            if error != nil {                                                   //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
+                println("从服务器获取当前会议出错\(error)")
+                println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
+                var builder = Builder()
+                self.current = builder.LocalCreateMeeting()
                 
+                return
 //                var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
 //                var filemanager = NSFileManager.defaultManager()
-//                
 //                if filemanager.fileExistsAtPath(localJSONPath){
-//                    let jsonLocal = filemanager.contentsAtPath(localJSONPath)
-    
-//                
+//                    var jsonLocal = filemanager.contentsAtPath(localJSONPath)
+//                    var json: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)!
+//                    var fileLists = json.objectForKey("files") as! NSMutableArray
+//                    self.current.id = json["_id"] as! String
+//                    self.current.name = json["name"] as! String
+//                    println(self.current.name)
+                    //println(fileLists)
+//                    var jsonLocalArray1 = [NSArray]()
+//                    var jsonLocalArray2 = [NSArray]()
+//                    jsonLocal = NSKeyedArchiver.archivedDataWithRootObject(jsonLocalArray1)
+//                    jsonLocalArray2 = NSKeyedUnarchiver.unarchiveObjectWithData(jsonLocal!)
 //            }
-                
-                
+//                     return
             }
-        
+            var builder = Builder()
             let json = JSON(data!)
-            // current meeting id
             var id = json["_id"].stringValue
             
             if self.current.isEqual(nil)  {
@@ -216,7 +226,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 return
             }
             self.current = builder.CreateMeeting(json)
-            DownLoadManager.downLoadAllFile()
+            //DownLoadManager.downLoadAllFile()
             //DownLoadManager.downLoadJSON()
         }
     }

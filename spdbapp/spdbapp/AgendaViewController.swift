@@ -36,7 +36,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.None
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
-        
+
         eHTTP.delegate = self
         eHTTP.onSearch(baseURl)
         
@@ -75,31 +75,8 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     
-    //屏幕滚动时，触发该事件
-    func scrollViewDidScroll(scrollView: UIScrollView){
-        hideBar()
-    }
-    
-    
-    //定时器函数，每隔5s自动隐藏tab bar
-    func timerDidFire(timer: NSTimer!){
-        if tbTop.hidden == false
-        {
-            tbTop.hidden = true
-        }
-    }
-    
-    func actionBar(){
-        tbTop.hidden = !tbTop.hidden
-    }
-    
-    func hideBar(){
-        tbTop.hidden = true
-    }
-    
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // return self.items.count
+        // return self.items.count
         return filesDataInfo.count
     }
     
@@ -132,17 +109,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.performSegueWithIdentifier("toDoc", sender: self)
     }
     
-    @IBAction func btnBack(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func btnGoToHistory(sender: UIBarButtonItem) {
-        
-    }
-    
-    
-    
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Create a new variable to store the instance of DocViewController
         
@@ -153,10 +119,44 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         
-
-
+        
+        
     }
     
+    //屏幕滚动时，触发该事件
+    func scrollViewDidScroll(scrollView: UIScrollView){
+        hideBar()
+    }
+    
+    
+    //定时器函数，每隔5s自动隐藏tab bar
+    func timerDidFire(timer: NSTimer!){
+        if tbTop.hidden == false
+        {
+            tbTop.hidden = true
+        }
+    }
+    
+    func actionBar(){
+        tbTop.hidden = !tbTop.hidden
+    }
+    
+    func hideBar(){
+        tbTop.hidden = true
+    }
+
+    
+    @IBAction func btnBack(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func btnGoToHistory(sender: UIBarButtonItem) {
+        
+    }
+    
+    
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
