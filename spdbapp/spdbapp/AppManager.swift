@@ -158,16 +158,24 @@ class AppManager : NSObject, UIAlertViewDelegate {
             }
             println("getdata = \(data!)")
             //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
-            if((data?.isEqual("not find type or name")) != nil){
-                UIAlertView(title: "未注册id", message: "请先注册id", delegate: self, cancelButtonTitle: "重试").show()
-                self.registerCurrentId()
-                self.reqData = "not find type or name"
-            }
+//            if((data?.isEqual("type or name is nil")) != nil){
+//                UIAlertView(title: "未注册id", message: "请先注册id", delegate: self, cancelButtonTitle: "重试").show()
+//                self.registerCurrentId()
+//                self.reqData = "type or name is nil"
+//            }
             
             if(response?.statusCode == 200){
+                println("注册成功")
                 result.macId = (data?.objectForKey("id")) as! String
                 result.type = (data?.objectForKey("type")) as? GBMeetingType
                 result.name = (data?.objectForKey("name")) as! String
+            }
+            //若不返回200则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
+            else
+            {
+                UIAlertView(title: "未注册id", message: "请先注册id", delegate: self, cancelButtonTitle: "重试").show()
+                self.registerCurrentId()
+
             }
         }
         return result
@@ -225,8 +233,8 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 return
             }
             self.current = builder.CreateMeeting(json)
-            //DownLoadManager.downLoadAllFile()
-            //DownLoadManager.downLoadJSON()
+            DownLoadManager.downLoadAllFile()
+            DownLoadManager.downLoadJSON()
         }
     }
  

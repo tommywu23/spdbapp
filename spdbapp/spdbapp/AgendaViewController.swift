@@ -33,7 +33,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //getMeetingFils()
+        getMeetingFils()
         localGetMeetingFiles()
         lbConfType.text = "党政联系会议"
         tvAgenda?.dataSource = self
@@ -82,6 +82,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.idlist = meeting.objectForKey("_id")! as! String
                 self.meetingNameArray.append(self.namelist)
                 self.meetingIdArray.addObject(self.idlist)
+                println("本地议程数\(meetingListCount)")
             }
         }
     }
@@ -112,9 +113,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             var url = NSURL(string: "http://192.168.16.141:8080/meeting/current")
             var data = NSData(contentsOfURL: url!)
             var json: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error:nil)!
-            if json.data == nil{
-                println("网络错误，将进入离线会议模式")
-            }
             var meetinglist = json.objectForKey("files")! as! NSArray
             self.meetingListCount = meetinglist.count
             for var i = 0;i < self.meetingListCount;i++ {
@@ -123,6 +121,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.idlist = meeting.objectForKey("_id")! as! String
                 self.meetingNameArray.append(self.namelist)
                 self.meetingIdArray.addObject(self.idlist)
+                println("在线议程数\(meetingListCount)")
             }
     }
 //
@@ -147,7 +146,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // return self.items.count
-        println("议程数\(meetingListCount)")
         return meetingListCount
         
     }
