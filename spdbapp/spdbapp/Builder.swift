@@ -35,10 +35,25 @@ class Builder: NSObject {
         
     }
     
+
+
+//离线状态下Create Meeting
+func LocalCreateMeeting() -> GBMeeting {
+    var current = GBMeeting()
+    var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
+    var filemanager = NSFileManager.defaultManager()
+    if filemanager.fileExistsAtPath(localJSONPath){
+        var jsonLocal = filemanager.contentsAtPath(localJSONPath)
+        var json: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)!
+        var fileLists = json.objectForKey("files") as! NSMutableArray
+        current.id = json["_id"] as! String
+        current.name = json["name"] as! String
+        println(current.name)
+    }
+    return current
 }
 
-
-
+}
 
 //var name : String = ""
 //var type : GBMeetingType = .ALL

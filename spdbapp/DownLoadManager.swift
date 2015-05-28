@@ -10,8 +10,9 @@ import UIKit
 import Alamofire
 
 class DownLoadManager: NSObject {
-   
+    
     static var router = Router.GetCurrentMeeting()
+    
     
     //判断当前文件夹是否存在jsondata数据，如果不存在，则继续进入下面的步骤
     //如果存在该数据，则判断当前json与本地jsonlocal是否一致，如果一致，则打印 json数据信息已经存在，return
@@ -24,13 +25,30 @@ class DownLoadManager: NSObject {
             let jsonLocal = filemanager.contentsAtPath(localJSONPath)
             
             if jsonLocal == jsondata {
-                println("json数据信息已经存在")
+                //println("json数据信息已经存在")
                 return true
             }
             return false
         }
         return false
     }
+    
+    
+    class func isSamePDFFile(fileName: String) -> Bool {
+        
+        
+        var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
+        var filePath = docPath.stringByAppendingPathComponent("\(fileName)")
+        //println("path = \(filePath)")
+        
+        var filemanager = NSFileManager.defaultManager()
+        
+        if filemanager.fileExistsAtPath(filePath){
+            return true
+        }
+        return false
+    }
+    
     
     
     //下载所有文件
@@ -45,36 +63,41 @@ class DownLoadManager: NSObject {
             let json = JSON(data!)
             let jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
             
-            var b = self.isSameJSONData(jsondata!)
-            
-            if b{
-                println("json 数据已经存在")
-                return
-            }
+            let meetingName = json["name"].stringValue
             
             if let filesInfo = json["files"].array
             {
                 //获取所有的文件信息
-                //println("fileInfo = \(filesInfo)")
                 for var i = 0 ;i < filesInfo.count ; i++ {
                     var file = filesInfo[i]
                     var fileid = file["_id"].stringValue
                     var filename = file["name"].stringValue
-        
-                    var getPDFURL = NSURL(string: "http://192.168.16.141:8080/file/" + fileid + ".pdf")
-        
+                    var filepath = "http://192.168.16.141:8080/file/" + fileid + ".pdf"
+                    
+                    //println("filename = \(filename)")
+                    var getPDFURL = NSURL(string: filepath)
+                    
+                    
                     let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
                         (temporaryURL, response) in
                         if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.AllDomainsMask)[0] as? NSURL{
-                            return directoryURL.URLByAppendingPathComponent("\(filename)")
+                            var filenameURL = directoryURL.URLByAppendingPathComponent("\(filename)")
+                            
+                            return filenameURL
                         }
                         return temporaryURL
                     }
-                    Alamofire.download(.GET, getPDFURL!, destination)
+                    
+                    //判断../Documents是否存在当前filename为名的文件，如果存在，则返回；如不存在，则下载文件
+                    var b = self.isSamePDFFile(filename)
+                    
+                    if b == false{
+                        Alamofire.download(.GET, getPDFURL!, destination)
+                        println("下载\(filename)成功")
+                    }
+                }
             }
-            println("下载所有文件成功")
         }
-      }
     }
     
     
@@ -87,8 +110,22 @@ class DownLoadManager: NSObject {
             //println("\(jsonFilePath)")
             
             if(err != nil){
-                NSLog("%@", err!)
-                //return
+                println("从服务器获取当前会议数据出错\(err)")
+                //NSLog("%@", err!)
+                return
+            }
+            var jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
+            
+            var bool = self.isSameJSONData(jsondata!)
+            if !bool{
+                var b = jsondata?.writeToFile(jsonFilePath, atomically: true)
+                if (b! == true) {
+                    NSLog("当前json保存成功")
+                }
+                else{
+                    NSLog("请重新 baocun json")
+                }
+                
             }
             
             var manager = NSFileManager.defaultManager()
@@ -98,26 +135,7 @@ class DownLoadManager: NSObject {
                     println("file create ok")
                 }
             }
-            
-          
-           
-    
-            var jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
-
-             var bool = self.isSameJSONData(jsondata!)
-            if !bool{
-                var b = jsondata?.writeToFile(jsonFilePath, atomically: true)
-                if (b! == true) {
-                    NSLog("当前json保存成功")
-                }
-                else{
-                    NSLog("请重新 baocun json")
-                }
-
-            }
-            
-            
         }
-     }
+    }
     
 }
