@@ -238,6 +238,13 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    @IBAction func btnGoToHistory(sender: UIBarButtonItem) {
+        
+    }
+    
+    
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
