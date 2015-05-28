@@ -237,15 +237,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func btnGoToHistory(sender: UIBarButtonItem) {
         
     }
-    
-    @IBAction func btnGoToHistory(sender: UIBarButtonItem) {
-        
-    }
-    
-    
-    
-
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
