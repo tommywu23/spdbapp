@@ -39,7 +39,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     var files: GBMeeting?
     var local : GBBox?
     
-    let baseURL : String = "http://192.168.21.36:8080"
+    let baseURL : String = "http://192.168.16.142:8088"
     var reqBoxURL : String?
     
     
@@ -50,11 +50,10 @@ class AppManager : NSObject, UIAlertViewDelegate {
         var getCurrentPoller = Poller()
         getCurrentPoller.start(self, method: "getCurrent:")
         
-        local = createBox()
+//        local = createBox()
         
-        DownLoadManager.downLoadJSON()
-        
-        //println("reqdata = \(reqData)")
+        //deleteAllInfo()
+//        DownLoadManager.downLoadJSON()
         
     }
     
@@ -105,6 +104,23 @@ class AppManager : NSObject, UIAlertViewDelegate {
         }
     }
     
+    func deleteAllInfo(){
+        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
+        //println("path = \(filepath)")
+        var manager = NSFileManager.defaultManager()
+        if let filelist = manager.contentsOfDirectoryAtPath(filepath, error: nil){
+            println("file = \(filelist)")
+            var count = filelist.count
+            for (var i = 0 ; i < count ; i++ ){
+                var docpath = filepath.stringByAppendingPathComponent("\(filelist[i])")
+                var b = manager.removeItemAtPath(docpath, error: nil)
+                if b{
+                    println("\(filelist[i])文件删除成功")
+                }
+            }
+        }
+    }
+    
     
     //读取本地iddata.txt中的id，若不存在，则重新注册并返回id，否则直接返回iddata.txt中的id
     func IsLocalExistID() -> Bool {
@@ -124,7 +140,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     //根据id获取ipad所需信息
     func createBox() -> GBBox{
-        //dynamic var respData = ""
         
         var result = GBBox()
         var idstr = NSString()
@@ -136,17 +151,17 @@ class AppManager : NSObject, UIAlertViewDelegate {
             var manager = NSFileManager.defaultManager()
             var bCreateFile = manager.createFileAtPath(filePath, contents: nil, attributes: nil)
             if bCreateFile{
-                println("ok file create")
+                println("idData文件创建成功")
                 idstr = GBNetwork.getMacId()
             }
         }
-        
+        NSLog("filePath = %@", filePath)
         var readData = NSData(contentsOfFile: filePath)
         idstr = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
         //如果不存在，则GBNetwork.getMacId()赋给id
         if (idstr.length <= 0){
-            println("chongxin zhuce")
+            println("请重新注册 ")
             idstr = GBNetwork.getMacId()
         }
         
@@ -187,6 +202,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     func getCurrent(timer: NSTimer){
         var router = Router.GetCurrentMeeting()
         var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
+        
         Alamofire.request(router.0,router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil {
                 //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
@@ -195,22 +211,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 var builder = Builder()
                 self.current = builder.LocalCreateMeeting()
                 return
-                //                var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
-                //                var filemanager = NSFileManager.defaultManager()
-                //                if filemanager.fileExistsAtPath(localJSONPath){
-                //                    var jsonLocal = filemanager.contentsAtPath(localJSONPath)
-                //                    var json: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)!
-                //                    var fileLists = json.objectForKey("files") as! NSMutableArray
-                //                    self.current.id = json["_id"] as! String
-                //                    self.current.name = json["name"] as! String
-                //                    println(self.current.name)
-                //println(fileLists)
-                //                    var jsonLocalArray1 = [NSArray]()
-                //                    var jsonLocalArray2 = [NSArray]()
-                //                    jsonLocal = NSKeyedArchiver.archivedDataWithRootObject(jsonLocalArray1)
-                //                    jsonLocalArray2 = NSKeyedUnarchiver.unarchiveObjectWithData(jsonLocal!)
-                //            }
-                //                     return
             }
             var builder = Builder()
             let json = JSON(data!)
@@ -218,6 +218,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
             
             if self.current.isEqual(nil)  {
                 self.current = builder.CreateMeeting(json)
+                //self.deleteAllInfo()
                 DownLoadManager.downLoadAllFile()
                 DownLoadManager.downLoadJSON()
                 NSLog("self.current.id = %@", self.current.id)
@@ -227,6 +228,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 return
             }
             self.current = builder.CreateMeeting(json)
+            //self.deleteAllInfo()
             DownLoadManager.downLoadAllFile()
             DownLoadManager.downLoadJSON()
         }

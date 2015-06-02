@@ -14,17 +14,20 @@ class MainViewController: UIViewController {
     @IBOutlet weak var lbConfName: UILabel!
 
     var current = GBMeeting()
-    //var builder = Builder()
+    
     var appManager = AppManager()
     
-    
+    var local = GBBox()
     var poller = Poller()
+    //var box = GBBox()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var box = GBBox()
-             
+        
+        appManager.deleteAllInfo()
+        local = appManager.createBox()
+        
         
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
@@ -41,9 +44,6 @@ class MainViewController: UIViewController {
         btnConf.enabled = false
        
         appManager.addObserver(self, forKeyPath: "current", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
-        
-        
-        
     }
     
     
@@ -52,10 +52,11 @@ class MainViewController: UIViewController {
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         
         if keyPath == "current"{
-            self.lbConfName.text = object.current.name
-            self.btnConf.enabled = true
-            btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-            
+            if !object.current.name.isEmpty{
+                self.lbConfName.text = object.current.name
+                self.btnConf.enabled = true
+                btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
+            }
         }
     }
     
