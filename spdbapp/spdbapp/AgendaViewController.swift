@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Alamofire
 
-class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UIToolbarDelegate,HttpProtocol {
+class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UIToolbarDelegate {
    
     @IBOutlet weak var lbConfType: UILabel!
     @IBOutlet weak var tvAgenda: UITableView!
@@ -19,8 +20,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     var filesDataInfo:[JSON] = []
-    var eHTTP: HTTPController = HTTPController()
-    var baseURl = "http://192.168.16.141:8080/meeting/current"
     
     var fileIDInfo:String?
     var fileNameInfo: String?
@@ -37,8 +36,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
         
-        eHTTP.delegate = self
-        eHTTP.onSearch(baseURl)
+        getMeetingFiles()
         
         
         //初始化时候隐藏tab bar
@@ -61,17 +59,37 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func didReceiveResult(results: AnyObject) {
-        let json = JSON(results)
+    func getMeetingFiles(){
         
-        if let filesInfo = json["files"].array
-        {
-            //获取所有的文件信息
-            self.filesDataInfo = filesInfo
-            //println("fileInfo = \(self.filesDataInfo)")
-            self.tvAgenda.reloadData()
+        Alamofire.request(.GET, Router.baseURLFile + "/meeting/current").responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
+            
+            println("data================%\(data!)")
+            
+            if (err != nil || (data)!.length <= 0){
+                NSLog("error")
+                
+                var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
+                var filemanager = NSFileManager.defaultManager()
+                if filemanager.fileExistsAtPath(localJSONPath){
+                    var jsonLocal = filemanager.contentsAtPath(localJSONPath)
+                    var json = JSON(data: jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)
+                    if let filesInfo = json["files"].array {
+                        self.filesDataInfo = filesInfo
+                        //println("fileInfo = \(self.filesDataInfo)")
+                        self.tvAgenda.reloadData()
+                    }
+                }
+                return
+            }
+            
+            var json = JSON(data!)
+            
+            if let filesInfo = json["files"].array {
+                self.filesDataInfo = filesInfo
+                //println("fileInfo = \(self.filesDataInfo)")
+                self.tvAgenda.reloadData()
+            }
         }
-        
     }
     
     
@@ -99,14 +117,14 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // return self.items.count
         return filesDataInfo.count
+        //return meetingListCount
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AgendaTableViewCell
         var row = indexPath.row as Int
-        //cell.lbAgenda.text = self.items[row]
+        
         var rowData = filesDataInfo[indexPath.row]
         
         cell.lbAgenda.text = rowData["name"].stringValue
@@ -140,9 +158,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    
-    
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Create a new variable to store the instance of DocViewController
         
@@ -152,9 +167,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             obj.fileNameInfo = self.fileNameInfo
             
         }
-        
-
-
     }
     
     

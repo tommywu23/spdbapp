@@ -11,10 +11,19 @@ import Foundation
 
 class Router{
     
-    static let baseURLString = "http://192.168.16.141:8080"
-        
+    var settingBundle = SettingsBundleConfig()
+    
+    static let baseURLFile = "http://192.168.16.141:8080"
+    static let baseURLBox = "http://192.168.16.142:8088"
+    
+//    static let settingsBundle: SettingsBundleConfig = SettingsBundleConfig()
+//    static let defaults = NSUserDefaults.standardUserDefaults()
+    
+    
+   
+    
     class  func GetCurrentMeeting() -> (Alamofire.Method, String)  {
-        return  (Alamofire.Method.GET , baseURLString + "/meeting/current")
+        return  (Alamofire.Method.GET , baseURLFile+"/meeting/current")
     }
     
     

@@ -39,22 +39,18 @@ class AppManager : NSObject, UIAlertViewDelegate {
     var files: GBMeeting?
     var local : GBBox?
     
-    let baseURL : String = "http://192.168.16.142:8088"
-    var reqBoxURL : String?
-    
+    //let baseURL : String = "http://192.168.16.141:3002"
+    let baseURLBox : String = "http://192.168.16.142:8088"
+    var reqBoxURL: String?
     
     override init(){
         super.init()
-        reqBoxURL = self.baseURL + "/box"
+        
+        reqBoxURL = self.baseURLBox + "/box"
+        
         //定时器每隔2s检测当前current是否发生变化
         var getCurrentPoller = Poller()
         getCurrentPoller.start(self, method: "getCurrent:")
-        
-//        local = createBox()
-        
-        //deleteAllInfo()
-//        DownLoadManager.downLoadJSON()
-        
     }
     
     
@@ -67,7 +63,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
             println("data = \(data!)")
             
             if(error != nil){
-                NSLog("%@", error!)
+                NSLog("=============%@", error!)
             }
             
             if(response?.statusCode != 200){
@@ -104,29 +100,13 @@ class AppManager : NSObject, UIAlertViewDelegate {
         }
     }
     
-    func deleteAllInfo(){
-        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
-        //println("path = \(filepath)")
-        var manager = NSFileManager.defaultManager()
-        if let filelist = manager.contentsOfDirectoryAtPath(filepath, error: nil){
-            println("file = \(filelist)")
-            var count = filelist.count
-            for (var i = 0 ; i < count ; i++ ){
-                var docpath = filepath.stringByAppendingPathComponent("\(filelist[i])")
-                var b = manager.removeItemAtPath(docpath, error: nil)
-                if b{
-                    println("\(filelist[i])文件删除成功")
-                }
-            }
-        }
-    }
+
     
     
     //读取本地iddata.txt中的id，若不存在，则重新注册并返回id，否则直接返回iddata.txt中的id
     func IsLocalExistID() -> Bool {
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
-        //println("self.id = \(GBNetwork.getMacId())")
-        
+   
         //判断该文件是否存在，则创建该iddata. txt文件
         var manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(filePath){
@@ -163,18 +143,20 @@ class AppManager : NSObject, UIAlertViewDelegate {
         if (idstr.length <= 0){
             println("请重新注册 ")
             idstr = GBNetwork.getMacId()
+            println("======\(idstr)=======")
         }
         
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
-        NSLog("idstr = %@", urlString)
+        NSLog("urlString = %@", urlString)
         Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil{
-                println("注册失败\(error)")
+                println("注册失败\(error!)")
                 return
             }
             println("getdata = \(data!)")
-            //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
             
+            
+            //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
             if(response?.statusCode == 200){
                 result.macId = (data?.objectForKey("id")) as! String
                 result.type = (data?.objectForKey("type")) as? GBMeetingType
@@ -203,36 +185,41 @@ class AppManager : NSObject, UIAlertViewDelegate {
         var router = Router.GetCurrentMeeting()
         var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
         
+        var builder = Builder()
+        
         Alamofire.request(router.0,router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil {
                 //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
                 println("从服务器获取当前会议出错\(error)")
                 println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
-                var builder = Builder()
                 self.current = builder.LocalCreateMeeting()
                 return
             }
-            var builder = Builder()
+            
+            
             let json = JSON(data!)
             var id = json["_id"].stringValue
             
             if self.current.isEqual(nil)  {
-                self.current = builder.CreateMeeting(json)
-                //self.deleteAllInfo()
+                self.current = builder.CreateMeeting()
+                
                 DownLoadManager.downLoadAllFile()
                 DownLoadManager.downLoadJSON()
-                NSLog("self.current.id = %@", self.current.id)
             }
             
             if(self.current.id == id) {
                 return
             }
-            self.current = builder.CreateMeeting(json)
-            //self.deleteAllInfo()
+            
+            self.current = builder.CreateMeeting()
             DownLoadManager.downLoadAllFile()
             DownLoadManager.downLoadJSON()
         }
     }
+    
+    
+    
+    
     
 }
 

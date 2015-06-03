@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -64,6 +65,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8NN-ay-YRq">
+                                <rect key="frame" x="304" y="745" width="160" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
+                                <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="24"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="清除会议信息">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnClearMeetingInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JpT-Kg-P3z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -119,7 +133,6 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="dk5-8i-p3E">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <barButtonItem title="返回" id="3DA-t5-7Et">
                                         <connections>
@@ -191,16 +204,16 @@
                                 </connections>
                             </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1TA-Qg-ghw">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="984" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <items>
-                                    <barButtonItem image="Back-50" id="kpn-jz-BQT">
+                                    <barButtonItem title="返回" id="kpn-jz-BQT">
                                         <connections>
                                             <action selector="btnBack:" destination="Pa6-Ix-LoW" id="RaX-Ae-SGb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="652" style="plain" systemItem="fixedSpace" id="H2E-ep-sif"/>
-                                    <barButtonItem image="Clock-50-4" id="PFv-iJ-vPL">
+                                    <barButtonItem width="626" style="plain" systemItem="fixedSpace" id="H2E-ep-sif"/>
+                                    <barButtonItem title="历史会议" id="PFv-iJ-vPL">
                                         <connections>
                                             <action selector="btnGoHistory:" destination="Pa6-Ix-LoW" id="XBU-8S-hsx"/>
                                         </connections>
@@ -227,8 +240,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back-50" width="25" height="25"/>
-        <image name="Clock-50-4" width="25" height="25"/>
         <image name="app_logo" width="200" height="58"/>
         <image name="app_xuanchuanci" width="148" height="65"/>
     </resources>

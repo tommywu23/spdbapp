@@ -28,17 +28,12 @@ class GBBase: NSObject {
 class GBBox: GBBase {
     var macId : String = "11-22-33-44-55-66"
     var type : GBMeetingType?
-    //add new name
     var name: String = ""
     
     override init(){
         super.init()
-        
-        //Defualt type = HANGBAN
         type = GBMeetingType.ALL
         macId = GBNetwork.getMacId()
-        
-        //add new name
         name = ""
     }
 }

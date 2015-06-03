@@ -19,22 +19,20 @@ class MainViewController: UIViewController {
     
     var local = GBBox()
     var poller = Poller()
-    //var box = GBBox()
+    var settingsBundle = SettingsBundleConfig()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        appManager.deleteAllInfo()
         local = appManager.createBox()
-        
         
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
         style.alignment = NSTextAlignment.Center
         var attr = [NSParagraphStyleAttributeName : style]
         
-        //上海浦东发展银行股份有限公司第二届董事会第一次会议
+        
         var name = "暂无会议"
         lbConfName.attributedText = NSAttributedString(string: name, attributes : attr)
         
@@ -46,6 +44,8 @@ class MainViewController: UIViewController {
         appManager.addObserver(self, forKeyPath: "current", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
     }
     
+    
+     
     
     private var myContext = 1
     //显示当前会议名
@@ -65,7 +65,18 @@ class MainViewController: UIViewController {
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
     }
 
+    
+    
+    @IBAction func btnClearMeetingInfo(sender: UIButton) {
+        DeleteManager.deleteInfo("jsondata.txt")
+    }
 
+    
+    @IBAction func btnClearAgendaInfo(sender: UIButton) {
+        DeleteManager.deleteAllInfo()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

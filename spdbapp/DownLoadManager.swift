@@ -61,20 +61,20 @@ class DownLoadManager: NSObject {
             }
             
             let json = JSON(data!)
-            let jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
+            //let jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
             
-            let meetingName = json["name"].stringValue
+            //let meetingName = json["name"].stringValue
             
             if let filesInfo = json["files"].array
             {
                 //获取所有的文件信息
                 for var i = 0 ;i < filesInfo.count ; i++ {
                     var file = filesInfo[i]
+                    
                     var fileid = file["_id"].stringValue
                     var filename = file["name"].stringValue
-                    var filepath = "http://192.168.16.141:8080/file/" + fileid + ".pdf"
-                    
-                    //println("filename = \(filename)")
+                    var filepath = Router.baseURLFile + "/file/" + fileid + ".pdf"
+    
                     var getPDFURL = NSURL(string: filepath)
                     
                     
@@ -111,7 +111,6 @@ class DownLoadManager: NSObject {
             
             if(err != nil){
                 println("从服务器获取当前会议数据出错\(err)")
-                //NSLog("%@", err!)
                 return
             }
             var jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
