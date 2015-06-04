@@ -12,13 +12,13 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>http://192.168.16.141:8080</string>
+			<string>http://192.168.16.142:8088</string>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>BoxURL    </string>
 			<key>Key</key>
-			<string>txtFileURL</string>
+			<string>txtBoxURL</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -28,7 +28,7 @@
 			<key>Key</key>
 			<string>txtMeetingURL</string>
 			<key>DefaultValue</key>
-			<string>http://192.168.16.142:8088</string>
+			<string>http://192.168.16.141:8080</string>
 		</dict>
 		<dict>
 			<key>Type</key>

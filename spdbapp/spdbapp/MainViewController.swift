@@ -24,8 +24,16 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        //create box
         local = appManager.createBox()
+        
+        settingsBundle.registerDefaultsFromSettingsBundle()
+        
+        
+        
+        
+        
+        
         
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
@@ -44,9 +52,38 @@ class MainViewController: UIViewController {
         appManager.addObserver(self, forKeyPath: "current", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
+    }
     
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    
+    
+    func defaultsSettingsChanged(){
+        let standardDefaults = NSUserDefaults.standardUserDefaults()
+        
+        // 监听txtFileURL是否发生改变  默认情况下是http://192.168.16.142:8088
+        if standardDefaults.stringForKey("txtBoxURL") != "http://192.168.16.142:8088"{
+            var baseBoxURL = standardDefaults.stringForKey("txtBoxURL")
+            println("txtBoxURL = \(baseBoxURL)")
+        }
+        
+        
+        // 监听txtMeetingURL是否发生改变，默认情况下是http://192.168.16.141:8080
+        if standardDefaults.stringForKey("txtMeetingURL") != "http://192.168.16.141:8080"{
+            var baseMeetingURL = standardDefaults.stringForKey("txtMeetingURL")
+            println("txtMeetingURL = \(baseMeetingURL)")
+        }
+
+        
+    }
+
      
     
+    //监听会议名是否发生改变
     private var myContext = 1
     //显示当前会议名
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
@@ -60,7 +97,6 @@ class MainViewController: UIViewController {
         }
     }
     
-    
     deinit{
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
     }
@@ -69,11 +105,6 @@ class MainViewController: UIViewController {
     
     @IBAction func btnClearMeetingInfo(sender: UIButton) {
         DeleteManager.deleteInfo("jsondata.txt")
-    }
-
-    
-    @IBAction func btnClearAgendaInfo(sender: UIButton) {
-        DeleteManager.deleteAllInfo()
     }
     
     

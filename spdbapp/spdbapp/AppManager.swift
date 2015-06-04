@@ -35,18 +35,15 @@ class Poller {
 class AppManager : NSObject, UIAlertViewDelegate {
     
     dynamic var current : GBMeeting = GBMeeting()
-    var reqData: String = ""
     var files: GBMeeting?
     var local : GBBox?
     
-    //let baseURL : String = "http://192.168.16.141:3002"
-    let baseURLBox : String = "http://192.168.16.142:8088"
     var reqBoxURL: String?
     
     override init(){
         super.init()
         
-        reqBoxURL = self.baseURLBox + "/box"
+        reqBoxURL = Router.baseURLBox + "/box"
         
         //定时器每隔2s检测当前current是否发生变化
         var getCurrentPoller = Poller()
@@ -60,14 +57,15 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         var id: NSString = ""
         Alamofire.request(.POST, reqBoxURL! ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) -> Void in
-            println("data = \(data!)")
+            println("post data = \(data!)")
             
             if(error != nil){
-                NSLog("=============%@", error!)
+                NSLog("注册当前id失败，error ＝ %@", error!.description)
+                return
             }
             
             if(response?.statusCode != 200){
-                println("res = \(response?.statusCode)")
+                //println("res = \(response?.statusCode)")
                 return
             }
             
@@ -80,10 +78,11 @@ class AppManager : NSObject, UIAlertViewDelegate {
     }
     
     
-    //保存当前iPad的id
+    //保存当前iPad的id,只在注册成功的情况下才保存id，否则不保存
     func idInfoSave(id: NSString) {
-        var idFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
-        println("iffilepath = \(idFilePath)")
+        var idFilePath = Router.idDataPath
+        println("该id保存地址 = \(idFilePath)")
+        
         var readData = NSData(contentsOfFile: idFilePath)
         var content = NSString(data: readData!, encoding: NSUTF8StringEncoding)!
         
@@ -105,7 +104,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     //读取本地iddata.txt中的id，若不存在，则重新注册并返回id，否则直接返回iddata.txt中的id
     func IsLocalExistID() -> Bool {
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
+        var filePath = Router.idDataPath
    
         //判断该文件是否存在，则创建该iddata. txt文件
         var manager = NSFileManager.defaultManager()
@@ -124,7 +123,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         var result = GBBox()
         var idstr = NSString()
         var b = IsLocalExistID()
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
+        var filePath = Router.idDataPath
         
         //如果iddata文件夹不存在，则创建iddata.txt文件
         if !b{
@@ -141,16 +140,16 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         //如果不存在，则GBNetwork.getMacId()赋给id
         if (idstr.length <= 0){
-            println("请重新注册 ")
-            idstr = GBNetwork.getMacId()
-            println("======\(idstr)=======")
+            println("请重新注册id")
+            //idstr = GBNetwork.getMacId()
         }
         
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
         NSLog("urlString = %@", urlString)
+        
         Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil{
-                println("注册失败\(error!)")
+                println("注册失败当前id失败，error = \(error!)")
                 return
             }
             println("getdata = \(data!)")
@@ -169,14 +168,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
             }
         }
         return result
-    }
-    
-    //打印当前文件路径
-    func printFilePath()-> String{
-        var home = NSHomeDirectory()
-        var docPath = home.stringByAppendingPathComponent("Documents")
-        //NSLog("%@", docPath)
-        return docPath
     }
     
     

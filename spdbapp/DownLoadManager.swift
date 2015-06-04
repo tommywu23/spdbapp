@@ -54,16 +54,13 @@ class DownLoadManager: NSObject {
     //下载所有文件
     class func downLoadAllFile(){
         
-        Alamofire.request(router.0, router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
+        Alamofire.request(.GET, Router.baseURLFile+"/meeting/current").responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
             if(err != nil){
-                NSLog("%@", err!)
+                NSLog("%download allfile error ==== @", err!)
                 //return
             }
             
             let json = JSON(data!)
-            //let jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
-            
-            //let meetingName = json["name"].stringValue
             
             if let filesInfo = json["files"].array
             {
@@ -106,15 +103,17 @@ class DownLoadManager: NSObject {
     class func downLoadJSON(){
         
         Alamofire.request(router.0, router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
-            var jsonFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
+            var jsonFilePath = Router.jsonFilePath
+            
             //println("\(jsonFilePath)")
             
             if(err != nil){
-                println("从服务器获取当前会议数据出错\(err)")
+                println("下载当前json出错，error ===== \(err)")
                 return
             }
             var jsondata = NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions.allZeros, error: nil)
             
+            //如果当前json和服务器上的json数据不一样，则保存。保存成功提示：当前json保存成功，否则提示：当前json保存失败。
             var bool = self.isSameJSONData(jsondata!)
             if !bool{
                 var b = jsondata?.writeToFile(jsonFilePath, atomically: true)
@@ -122,7 +121,7 @@ class DownLoadManager: NSObject {
                     NSLog("当前json保存成功")
                 }
                 else{
-                    NSLog("请重新 baocun json")
+                    NSLog("当前json保存失败")
                 }
                 
             }
@@ -131,7 +130,7 @@ class DownLoadManager: NSObject {
             if !manager.fileExistsAtPath(jsonFilePath){
                 var b = manager.createFileAtPath(jsonFilePath, contents: nil, attributes: nil)
                 if b{
-                    println("file create ok")
+                    println("创建json成功")
                 }
             }
         }

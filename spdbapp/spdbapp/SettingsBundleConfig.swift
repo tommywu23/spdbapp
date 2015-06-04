@@ -26,13 +26,13 @@ class SettingsBundleConfig: NSObject {
         
         for(var i = 0 ; i < preferences.count ; i++){
             var prefSpecification = preferences[i] as! NSDictionary
-            //println("prefSpecification = \(prefSpecification)")
+            println("prefSpecification = \(prefSpecification)")
             
             var key: NSCopying? = prefSpecification.objectForKey("Key") as! NSCopying?
             if (key != nil) {
                 defaultsToRegister.setObject((prefSpecification.objectForKey("DefaultValue"))!, forKey: key!)
                 var value: AnyObject? = prefSpecification.objectForKey("DefaultValue")
-                println("writing as default:\(value!) to the key :\(key!)")
+                //println("writing as default:\(value!) to the key :\(key!)")
             }
         }
         
