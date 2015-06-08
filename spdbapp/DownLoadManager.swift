@@ -12,7 +12,7 @@ import Alamofire
 class DownLoadManager: NSObject {
     
     //static var router = Router.GetCurrentMeeting()
-    
+    static let server = Server()
     
     //判断当前文件夹是否存在jsondata数据，如果不存在，则继续进入下面的步骤
     //如果存在该数据，则判断当前json与本地jsonlocal是否一致，如果一致，则打印 json数据信息已经存在，return
@@ -63,11 +63,7 @@ class DownLoadManager: NSObject {
     
     //下载所有文件
     class func downLoadAllFile(){
-        
-//        Alamofire.request(.GET, Router.baseURLFile+"/meeting/current").responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
-       
-        
-        Alamofire.request(.GET, ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
+        Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
         if(err != nil){
                 NSLog("download allfile error ==== %@", err!)
                 //return
@@ -87,7 +83,7 @@ class DownLoadManager: NSObject {
 //                    var filepath = Router.baseURLFile + "/file/" + fileid + ".pdf"
                     
                     
-                    var filepath = ServerConfig.getFileService() + fileid + ".pdf"
+                    var filepath = self.server.fileServiceUrl + fileid + ".pdf"
                     var getPDFURL = NSURL(string: filepath)
                     
                     
@@ -118,7 +114,7 @@ class DownLoadManager: NSObject {
     //下载json数据到本地并保存
     class func downLoadJSON(){
         
-        Alamofire.request(.GET, ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
+        Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
             var jsonFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
             
             //println("\(jsonFilePath)")

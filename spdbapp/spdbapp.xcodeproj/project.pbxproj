@@ -97,7 +97,7 @@
 
 /* Begin PBXFileReference section */
 		6507787D1B005B4200C2BCFB /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		6507787F1B007FCA00C2BCFB /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppManager.swift; path = spdbapp/AppManager.swift; sourceTree = "<group>"; };
+		6507787F1B007FCA00C2BCFB /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		650778851B00820000C2BCFB /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		65473C361B0319110019E121 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		6580FDFB1AFB62DE00C7ACE7 /* spdbapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spdbapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,15 +115,15 @@
 		6580FE2D1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaTableViewCell.xib; sourceTree = "<group>"; };
 		6580FE301AFCA58400C7ACE7 /* DocViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
 		C427810C1B047D280061F628 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownLoadManager.swift; sourceTree = "<group>"; };
+		C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownLoadManager.swift; path = ../DownLoadManager.swift; sourceTree = "<group>"; };
 		C44779BC1B09A95C00F37F23 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
-		C45BE6281B213F2C00B62D46 /* ServerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
+		C45BE6281B213F2C00B62D46 /* ServerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerConfig.swift; path = ../ServerConfig.swift; sourceTree = "<group>"; };
 		C45BE63A1B2585E400B62D46 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleConfig.swift; sourceTree = "<group>"; };
 		C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "resources/方正姚体.ttf"; sourceTree = "<group>"; };
 		C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "楷体_GB2312.ttf"; path = "resources/楷体_GB2312.ttf"; sourceTree = "<group>"; };
 		C47DC23E1B0ED82C004D0701 /* simsun.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = simsun.ttc; path = resources/simsun.ttc; sourceTree = "<group>"; };
-		C4824D471B1D885E0098A932 /* DeleteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeleteManager.swift; path = spdbapp/DeleteManager.swift; sourceTree = "<group>"; };
+		C4824D471B1D885E0098A932 /* DeleteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteManager.swift; sourceTree = "<group>"; };
 		C4824D851B1DA6100098A932 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C4AA12441B12D3380043358D /* Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,16 +147,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		650778781B004CCD00C2BCFB /* models */ = {
+		650778781B004CCD00C2BCFB /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				6507787D1B005B4200C2BCFB /* Models.swift */,
 				C45BE63A1B2585E400B62D46 /* Server.swift */,
 			);
-			name = models;
+			name = Models;
 			sourceTree = "<group>";
 		};
-		650778811B00818C00C2BCFB /* utils */ = {
+		650778811B00818C00C2BCFB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				C427810C1B047D280061F628 /* SwiftyJSON.swift */,
@@ -165,7 +165,7 @@
 				65473C361B0319110019E121 /* Router.swift */,
 				C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */,
 			);
-			name = utils;
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		6580FDF21AFB62DE00C7ACE7 = {
@@ -191,12 +191,15 @@
 			isa = PBXGroup;
 			children = (
 				C4824D851B1DA6100098A932 /* Settings.bundle */,
-				C4824D461B1D88210098A932 /* Controller */,
+				650778811B00818C00C2BCFB /* Utils */,
+				650778781B004CCD00C2BCFB /* Models */,
 				C4824D421B1D880B0098A932 /* View */,
-				650778811B00818C00C2BCFB /* utils */,
-				C45BE62E1B214E0C00B62D46 /* Other */,
-				650778781B004CCD00C2BCFB /* models */,
+				C4824D461B1D88210098A932 /* Controller */,
+				6507787F1B007FCA00C2BCFB /* AppManager.swift */,
 				6580FE001AFB62DE00C7ACE7 /* AppDelegate.swift */,
+				C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */,
+				C4824D471B1D885E0098A932 /* DeleteManager.swift */,
+				C45BE6281B213F2C00B62D46 /* ServerConfig.swift */,
 				6580FE071AFB62DE00C7ACE7 /* Images.xcassets */,
 				6580FDFE1AFB62DE00C7ACE7 /* Supporting Files */,
 			);
@@ -240,18 +243,6 @@
 				C44779CA1B09A95C00F37F23 /* Alamofire OSX Tests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C45BE62E1B214E0C00B62D46 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				6507787F1B007FCA00C2BCFB /* AppManager.swift */,
-				C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */,
-				C4824D471B1D885E0098A932 /* DeleteManager.swift */,
-				C45BE6281B213F2C00B62D46 /* ServerConfig.swift */,
-			);
-			name = Other;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		C4824D421B1D880B0098A932 /* View */ = {

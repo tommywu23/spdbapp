@@ -11,6 +11,8 @@
 			<string>配置信息</string>
 		</dict>
 		<dict>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
 			<key>DefaultValue</key>
 			<string>192.168.16.142</string>
 			<key>Type</key>

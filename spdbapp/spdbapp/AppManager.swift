@@ -35,37 +35,36 @@ class Poller {
 class AppManager : NSObject, UIAlertViewDelegate {
     
     dynamic var current : GBMeeting = GBMeeting()
-    
     dynamic var netConnect: Bool = false
-    
     dynamic var local = GBBox()
     
-    var count: Int = 0
+    var server = Server()
     
     var files: GBMeeting?
-    
     
     var reqBoxURL: String?
     
     override init(){
         super.init()
         
+        server.IsCreateFileOK()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-        var dict = NSMutableDictionary(contentsOfFile: filePath)
+        var ipStr = String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding, error: nil)
         
         //配置url信息
-        if dict?.count <= 0{
-            ServerConfig.defaultsSettings()
+        if (ipStr?.isEmpty != nil) {
+            ipStr = server.defaultsIPStr()
         }else{
-            dict = ServerConfig.getSettingsBundleInfo()
+            ipStr = server.getIPStr()
         }
         
-        reqBoxURL = ServerConfig.getBoxService()
+        
+        reqBoxURL = server.boxServiceUrl
         
         //程序启动先创建Box，当box为空，则弹出对话框“当前id未注册”，否则程序轮询去getCurrent,获取当前会议。
         local = createBox()
         print("local ========= \(local.macId)")
-        if (local is NilLiteralConvertible ){
+        if (local is NilLiteralConvertible){
             UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
             return
         }
@@ -83,7 +82,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     func startHeartbeat(timer: NSTimer){
         
         //var url = "http://192.168.16.142:8088/heartbeat?id=" + GBNetwork.getMacId()
-        var url = ServerConfig.getHeartBeatService()
+        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
 
             if error != nil{
@@ -220,7 +219,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         var builder = Builder()
         
-        Alamofire.request(.GET,ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+        Alamofire.request(.GET,server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil {
                 //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
                 println("会议信息将直接从本地读取，本地文件地址为\(docPath)")

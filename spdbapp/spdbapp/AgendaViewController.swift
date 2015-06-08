@@ -26,6 +26,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     var router = Router()
+    var server = Server()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +66,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func getMeetingFiles(){
 
-        Alamofire.request(.GET, ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
+        Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
             println("data================\(data!)")
             
             if (err != nil || (data)!.length <= 0){
@@ -93,11 +94,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
-//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        
-//        var touch = (touches as NSSet).anyObject()?.locationInView(self.view)
-//        println("x= \(touch?.x) === y =\(touch?.y)")
-//    }
     
     //根据tableview的cell数目对tableview空白部分的toolbar显示进行设置。当count数<=6,则底部也会显示toobar，否则不显示
     func createViewHeight(){

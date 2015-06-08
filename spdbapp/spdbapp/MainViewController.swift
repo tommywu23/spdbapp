@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     var settingsBundle = SettingsBundleConfig()
     var heartbearCount = 0
     
+    var server = Server()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +38,10 @@ class MainViewController: UIViewController {
         
         settingsBundle.registerDefaultsFromSettingsBundle()
        
-        var boxURL = ServerConfig.getBoxService()
+        var boxURL = server.boxServiceUrl
         println("boxURL===================\(boxURL)")
 
-        ServerConfig.getSettingsBundleInfo()
+        //ServerConfig.getSettingsBundleInfo()
 
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
@@ -96,7 +97,7 @@ class MainViewController: UIViewController {
     
     func startHeartbeat(){
         
-        var url = ServerConfig.getHeartBeatService()
+        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             
             if error != nil{
