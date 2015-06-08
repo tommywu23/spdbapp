@@ -13,6 +13,7 @@ class SettingsBundleConfig: NSObject {
     //register seeting.bundle info
     func registerDefaultsFromSettingsBundle() {
         
+        
         var settingsBundle = NSBundle.mainBundle().pathForResource("Settings", ofType: "bundle")
         if(settingsBundle?.isEmpty == true) {
             NSLog("Could not find Settings.bundle");
@@ -26,12 +27,14 @@ class SettingsBundleConfig: NSObject {
         
         for(var i = 0 ; i < preferences.count ; i++){
             var prefSpecification = preferences[i] as! NSDictionary
-            println("prefSpecification = \(prefSpecification)")
+            //println("prefSpecification = \(prefSpecification)")
             
             var key: NSCopying? = prefSpecification.objectForKey("Key") as! NSCopying?
             if (key != nil) {
-                defaultsToRegister.setObject((prefSpecification.objectForKey("DefaultValue"))!, forKey: key!)
+                
                 var value: AnyObject? = prefSpecification.objectForKey("DefaultValue")
+
+                defaultsToRegister.setObject(value!, forKey: key!)
                 //println("writing as default:\(value!) to the key :\(key!)")
             }
         }
@@ -39,45 +42,4 @@ class SettingsBundleConfig: NSObject {
         NSUserDefaults.standardUserDefaults().registerDefaults(defaultsToRegister as [NSObject : AnyObject])
         NSUserDefaults.standardUserDefaults().synchronize()
     }
-    
-    let standardDefaults = NSUserDefaults.standardUserDefaults()
-    
-    
-    
-    //return txtFileURL
-    func GetFileURL() -> NSString{
-        var txtFileURL: NSString?
-        self.registerDefaultsFromSettingsBundle()
-        if let testArray: AnyObject? = standardDefaults.objectForKey("txtFileURL") {
-            txtFileURL = testArray as? NSString
-            //println("txtFileURL = \(txtFileURL!)")
-        }
-        return txtFileURL!
-    }
-    
-    //return txtMeetingURL
-    func GetMeetingURL() -> NSString{
-        self.registerDefaultsFromSettingsBundle()
-        var txtMeetingURL: NSString?
-        if let testArray: AnyObject? = standardDefaults.objectForKey("txtMeetingURL") {
-            txtMeetingURL = testArray as? NSString
-            //println("txtMeetingURL = \(txtMeetingURL!)")
-        }
-        return txtMeetingURL!
-    }
-
-
-    func IsClearAllFiles() -> Bool{
-     
-        self.registerDefaultsFromSettingsBundle()
-        var isClearCacheFile: Bool?
-        if let testArray: AnyObject? = standardDefaults.objectForKey("isClearCacheFile") {
-            isClearCacheFile = testArray as? Bool
-            println("isClearCacheFile = \(isClearCacheFile!)")
-        }
-    
-        return isClearCacheFile!
-    }
-
-    
 }

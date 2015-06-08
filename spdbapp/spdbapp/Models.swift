@@ -30,11 +30,15 @@ class GBBox: GBBase {
     var type : GBMeetingType?
     var name: String = ""
     
+    var connect: Bool = false
+    
     override init(){
         super.init()
         type = GBMeetingType.ALL
         macId = GBNetwork.getMacId()
         name = ""
+        
+        connect = false
     }
 }
 

@@ -13,11 +13,11 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
    
     @IBOutlet weak var lbConfType: UILabel!
     @IBOutlet weak var tvAgenda: UITableView!
-    
+    @IBOutlet weak var getTopView: UIView!
     
     @IBOutlet weak var tbTop: UIToolbar!
     @IBOutlet var gesTap: UITapGestureRecognizer!
-    
+    @IBOutlet var gesTap1: UITapGestureRecognizer!
     
     var filesDataInfo:[JSON] = []
     
@@ -25,8 +25,13 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var fileNameInfo: String?
     
     
+    var router = Router()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+        
         lbConfType.text = "党政联系会议"
         tvAgenda?.dataSource = self
         tvAgenda?.delegate = self
@@ -42,32 +47,28 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //初始化时候隐藏tab bar
         hideBar()
         
-        // 点击该区域内，添加手势，弹出tabbar
-        var topView = UIView(frame: CGRectMake(0, 0, 768, 155))
-        topView.backgroundColor = UIColor.clearColor()
-        self.view.addSubview(topView)
-        
         //为uitabbar添加代理
         tbTop.delegate = self
+        
+        //gestap是对于底部的toolbar进行设置，gestap1是对头部的toolbar进行设置
         gesTap.addTarget(self, action: "actionBar")
-        topView.addGestureRecognizer(gesTap)
+        gesTap1.addTarget(self, action: "actionBar")
+        self.getTopView.addGestureRecognizer(self.gesTap1)
         
         //添加定时器，每隔5s自动隐藏tar bar
         var timer = Poller()
         timer.start(self, method: "timerDidFire:")
         
-        
     }
     
+   
+    
     func getMeetingFiles(){
-        
-        Alamofire.request(.GET, Router.baseURLFile + "/meeting/current").responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
-            
-            println("data================%\(data!)")
+
+        Alamofire.request(.GET, ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
+            println("data================\(data!)")
             
             if (err != nil || (data)!.length <= 0){
-                NSLog("error")
-                
                 var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
                 var filemanager = NSFileManager.defaultManager()
                 if filemanager.fileExistsAtPath(localJSONPath){
@@ -75,20 +76,39 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     var json = JSON(data: jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)
                     if let filesInfo = json["files"].array {
                         self.filesDataInfo = filesInfo
-                        //println("fileInfo = \(self.filesDataInfo)")
+                        println("fileInfo = \(self.filesDataInfo)")
                         self.tvAgenda.reloadData()
+                        self.createViewHeight()
                     }
                 }
                 return
             }
             
             var json = JSON(data!)
-            
             if let filesInfo = json["files"].array {
                 self.filesDataInfo = filesInfo
                 //println("fileInfo = \(self.filesDataInfo)")
                 self.tvAgenda.reloadData()
+                self.createViewHeight()
             }
+        }
+    }
+//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+//        
+//        var touch = (touches as NSSet).anyObject()?.locationInView(self.view)
+//        println("x= \(touch?.x) === y =\(touch?.y)")
+//    }
+    
+    //根据tableview的cell数目对tableview空白部分的toolbar显示进行设置。当count数<=6,则底部也会显示toobar，否则不显示
+    func createViewHeight(){
+        var count = self.filesDataInfo.count
+        var y = CGFloat(140 * count)
+        if count <= 6{
+            var height = CGFloat(869 - 140 * count + 10)
+            var tapView = UIView(frame: CGRectMake(0, y, 768, height))
+            tapView.backgroundColor = UIColor.clearColor()
+            self.tvAgenda.addSubview(tapView)
+            tapView.addGestureRecognizer(self.gesTap)
         }
     }
     
@@ -118,7 +138,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filesDataInfo.count
-        //return meetingListCount
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -134,6 +153,8 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         customColorView.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 0.85)
         cell.selectedBackgroundView =  customColorView;
         
+        cell.removeGestureRecognizer(self.gesTap)
+        
         return cell
     }
     
@@ -146,6 +167,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.fileIDInfo = id
         self.fileNameInfo = name
+        
         
         self.performSegueWithIdentifier("toDoc", sender: self)
     }

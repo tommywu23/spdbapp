@@ -9,24 +9,18 @@
 import Alamofire
 import Foundation
 
+
+
 class Router{
     
     //var settingBundle = SettingsBundleConfig()
     
-    static let baseURLFile = "http://192.168.16.141:8080"
-    static let baseURLBox = "http://192.168.16.142:8088"
+//    static let baseURLFile = "http://192.168.16.141:8080"
+//    static let baseURLBox = "http://192.168.16.142:8088"
     
-    static let idDataPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
-    static let jsonFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
-//    static let settingsBundle: SettingsBundleConfig = SettingsBundleConfig()
-//    static let defaults = NSUserDefaults.standardUserDefaults()
-    
-    
-   
-    
-    class  func GetCurrentMeeting() -> (Alamofire.Method, String)  {
-        return  (Alamofire.Method.GET , baseURLFile+"/meeting/current")
-    }
+//    class  func GetCurrentMeeting() -> (Alamofire.Method, String)  {
+//        return  (Alamofire.Method.GET , ServerConfig.getMeetingService())
+//    }
     
     
 }

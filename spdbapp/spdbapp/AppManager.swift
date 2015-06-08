@@ -35,6 +35,11 @@ class Poller {
 class AppManager : NSObject, UIAlertViewDelegate {
     
     dynamic var current : GBMeeting = GBMeeting()
+    
+    dynamic var netConnect: Bool = false
+    
+    var count: Int = 0
+    
     var files: GBMeeting?
     var local : GBBox?
     
@@ -43,13 +48,53 @@ class AppManager : NSObject, UIAlertViewDelegate {
     override init(){
         super.init()
         
-        reqBoxURL = Router.baseURLBox + "/box"
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+        var dict = NSMutableDictionary(contentsOfFile: filePath)
+        
+        //配置url信息
+        if dict?.count <= 0{
+            ServerConfig.defaultsSettings()
+        }else{
+            dict = ServerConfig.getSettingsBundleInfo()
+        }
+        
+        reqBoxURL = ServerConfig.getBoxService()
+        
+        //程序启动先创建Box，当box为空，则弹出对话框“当前id未注册”，否则程序轮询去getCurrent,获取当前会议。
+        local = createBox()
+        if ((local?.isEqual(nil)) != nil){
+            UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
+            return
+        }
         
         //定时器每隔2s检测当前current是否发生变化
         var getCurrentPoller = Poller()
         getCurrentPoller.start(self, method: "getCurrent:")
+        
+        //定时器每隔一段时间去检测当前联网状态
+        var timerHearbeat = Poller()
+        timerHearbeat.start(self, method: "startHeartbeat:")
+
     }
     
+    func startHeartbeat(timer: NSTimer){
+        
+        //var url = "http://192.168.16.142:8088/heartbeat?id=" + GBNetwork.getMacId()
+        var url = ServerConfig.getHeartBeatService()
+        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+
+            if error != nil{
+                return
+            }
+            
+            if response?.statusCode == 200{
+                self.netConnect = true
+                //println("netConnect ok")
+            }
+        }
+    }
+    
+
     
     //register current ipad id to server，返回已经注册的id并保存
     func registerCurrentId(){
@@ -64,11 +109,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 return
             }
             
-            if(response?.statusCode != 200){
-                //println("res = \(response?.statusCode)")
-                return
-            }
-            
             //如果注册成功，则保存当前的iPad的id至../Documents/idData.txt 目录文件中
             if(response?.statusCode == 200){
                 id = (data?.objectForKey("id")) as! NSString
@@ -80,13 +120,14 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     //保存当前iPad的id,只在注册成功的情况下才保存id，否则不保存
     func idInfoSave(id: NSString) {
-        var idFilePath = Router.idDataPath
+        var idFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         println("该id保存地址 = \(idFilePath)")
         
         var readData = NSData(contentsOfFile: idFilePath)
         var content = NSString(data: readData!, encoding: NSUTF8StringEncoding)!
         
         if(content == id){
+            NSLog("当前ipad的id已保存")
             return
         }
         
@@ -95,16 +136,14 @@ class AppManager : NSObject, UIAlertViewDelegate {
             NSLog("当前ipad的id保存成功")
         }
         else{
-            NSLog("请重新注册id")
+            NSLog("当前ipad的id保存失败，请重新保存id")
         }
     }
-    
-
     
     
     //读取本地iddata.txt中的id，若不存在，则重新注册并返回id，否则直接返回iddata.txt中的id
     func IsLocalExistID() -> Bool {
-        var filePath = Router.idDataPath
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
    
         //判断该文件是否存在，则创建该iddata. txt文件
         var manager = NSFileManager.defaultManager()
@@ -115,15 +154,13 @@ class AppManager : NSObject, UIAlertViewDelegate {
     }
     
     
-    
-    
     //根据id获取ipad所需信息
     func createBox() -> GBBox{
         
         var result = GBBox()
         var idstr = NSString()
         var b = IsLocalExistID()
-        var filePath = Router.idDataPath
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         
         //如果iddata文件夹不存在，则创建iddata.txt文件
         if !b{
@@ -141,7 +178,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         //如果不存在，则GBNetwork.getMacId()赋给id
         if (idstr.length <= 0){
             println("请重新注册id")
-            //idstr = GBNetwork.getMacId()
+            idstr = GBNetwork.getMacId()
         }
         
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
@@ -149,7 +186,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil{
-                println("注册失败当前id失败，error = \(error!)")
+                println("当前id未注册，请先注册后使用，error = \(error!)")
                 return
             }
             println("getdata = \(data!)")
@@ -162,9 +199,8 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 result.name = (data?.objectForKey("name")) as! String
             }
             else {
-                UIAlertView(title: "未注册id", message: "请先注册id", delegate: self, cancelButtonTitle: "重试").show()
+                UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
                 self.registerCurrentId()
-                
             }
         }
         return result
@@ -173,15 +209,14 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     //获取当前会议current
     func getCurrent(timer: NSTimer){
-        var router = Router.GetCurrentMeeting()
+        //var router = Router.GetCurrentMeeting()
         var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
         
         var builder = Builder()
         
-        Alamofire.request(router.0,router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+        Alamofire.request(.GET,ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil {
                 //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
-                println("从服务器获取当前会议出错\(error)")
                 println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
                 self.current = builder.LocalCreateMeeting()
                 return
@@ -194,8 +229,10 @@ class AppManager : NSObject, UIAlertViewDelegate {
             if self.current.isEqual(nil)  {
                 self.current = builder.CreateMeeting()
                 
-                DownLoadManager.downLoadAllFile()
-                DownLoadManager.downLoadJSON()
+                DownLoadManager.isStart(true)
+                
+//                DownLoadManager.downLoadAllFile()
+//                DownLoadManager.downLoadJSON()
             }
             
             if(self.current.id == id) {
@@ -203,8 +240,10 @@ class AppManager : NSObject, UIAlertViewDelegate {
             }
             
             self.current = builder.CreateMeeting()
-            DownLoadManager.downLoadAllFile()
-            DownLoadManager.downLoadJSON()
+            DownLoadManager.isStart(true)
+            
+//            DownLoadManager.downLoadAllFile()
+//            DownLoadManager.downLoadJSON()
         }
     }
     

@@ -17,8 +17,8 @@ class Builder: NSObject {
     func CreateMeeting() -> GBMeeting {
       
         var current = GBMeeting()
-        var url = NSURL(string: Router.baseURLFile + "/meeting/current")
-        
+        //var url = NSURL(string: Router.baseURLFile + "/meeting/current")
+        var url = NSURL(string: ServerConfig.getMeetingService())
         
         var data = NSData(contentsOfURL: url!)
         if(data != nil){
@@ -47,7 +47,7 @@ class Builder: NSObject {
             
             current.id = json["_id"] as! String
             current.name = json["name"] as! String
-            println(current.name)
+            //println(current.name)
         }
         return current
     }

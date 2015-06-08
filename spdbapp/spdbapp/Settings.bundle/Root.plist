@@ -12,49 +12,33 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>http://192.168.16.142:8088</string>
+			<string>192.168.16.142</string>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>BoxURL    </string>
+			<string>服务器: </string>
 			<key>Key</key>
 			<string>txtBoxURL</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>MeetingURL</string>
-			<key>Key</key>
-			<string>txtMeetingURL</string>
 			<key>DefaultValue</key>
-			<string>http://192.168.16.141:8080</string>
+			<string>  </string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>清除历史纪录</string>
+			<key>Key</key>
+			<string>clearHistory</string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>清除本地缓存信息 </string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>删除本地缓存ID</string>
-			<key>Key</key>
-			<string>isClearCacheID</string>
 			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
+			<string>  </string>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSTitleValueSpecifier</string>
 			<key>Title</key>
-			<string>删除本地缓存文件</string>
+			<string>清除配置信息</string>
 			<key>Key</key>
-			<string>isClearCacheFile</string>
-			<key>DefaultValue</key>
-			<false/>
+			<string>clearData</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

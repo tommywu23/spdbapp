@@ -11,7 +11,7 @@ import Alamofire
 
 class DownLoadManager: NSObject {
     
-    static var router = Router.GetCurrentMeeting()
+    //static var router = Router.GetCurrentMeeting()
     
     
     //判断当前文件夹是否存在jsondata数据，如果不存在，则继续进入下面的步骤
@@ -49,14 +49,27 @@ class DownLoadManager: NSObject {
         return false
     }
     
+    class func isStart(bool: Bool){
+        if bool == true{
+            downLoadAllFile()
+            downLoadJSON()
+        }
+    }
+
     
+    class func finish() {
+        
+    }
     
     //下载所有文件
     class func downLoadAllFile(){
         
-        Alamofire.request(.GET, Router.baseURLFile+"/meeting/current").responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
-            if(err != nil){
-                NSLog("%download allfile error ==== @", err!)
+//        Alamofire.request(.GET, Router.baseURLFile+"/meeting/current").responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
+       
+        
+        Alamofire.request(.GET, ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
+        if(err != nil){
+                NSLog("download allfile error ==== %@", err!)
                 //return
             }
             
@@ -70,8 +83,11 @@ class DownLoadManager: NSObject {
                     
                     var fileid = file["_id"].stringValue
                     var filename = file["name"].stringValue
-                    var filepath = Router.baseURLFile + "/file/" + fileid + ".pdf"
-    
+                    
+//                    var filepath = Router.baseURLFile + "/file/" + fileid + ".pdf"
+                    
+                    
+                    var filepath = ServerConfig.getFileService() + fileid + ".pdf"
                     var getPDFURL = NSURL(string: filepath)
                     
                     
@@ -102,8 +118,8 @@ class DownLoadManager: NSObject {
     //下载json数据到本地并保存
     class func downLoadJSON(){
         
-        Alamofire.request(router.0, router.1).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
-            var jsonFilePath = Router.jsonFilePath
+        Alamofire.request(.GET, ServerConfig.getMeetingService()).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
+            var jsonFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
             
             //println("\(jsonFilePath)")
             

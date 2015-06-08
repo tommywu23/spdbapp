@@ -65,17 +65,25 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8NN-ay-YRq">
-                                <rect key="frame" x="304" y="745" width="160" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络失去连接" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tti-hb-58U">
+                                <rect key="frame" x="617" y="976" width="136" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kMN-AM-AqF">
+                                <rect key="frame" x="521" y="973" width="88" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="24"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="清除会议信息">
+                                <state key="normal" title="重连">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="btnClearMeetingInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JpT-Kg-P3z"/>
+                                    <action selector="btnReConnection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RoP-o7-cQt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -88,12 +96,14 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="btnConf" destination="CBg-4z-qvc" id="Sln-Pt-Wya"/>
+                        <outlet property="btnReCon" destination="kMN-AM-AqF" id="mBe-fk-hWP"/>
                         <outlet property="lbConfName" destination="cCj-fE-Z3e" id="grd-B1-BCW"/>
+                        <outlet property="lbConnect" destination="Tti-hb-58U" id="hhU-3V-t7Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="668.15999999999997" y="68.266666666666666"/>
+            <point key="canvasLocation" x="668" y="68"/>
         </scene>
         <!--Agenda View Controller-->
         <scene sceneID="GJX-f7-i8W">
@@ -103,6 +113,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" id="Dox-ah-73f">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="155"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" id="K5D-na-Jky">
                                 <rect key="frame" x="36" y="43" width="200" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -139,13 +154,10 @@
                                             <action selector="btnBack:" destination="und-vf-3cF" id="PNR-ht-LwT"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="615" style="plain" systemItem="fixedSpace" id="EkH-bw-lCV"/>
-                                    <barButtonItem title="重连" id="IiI-rF-yQM">
-                                        <connections>
-                                            <action selector="btnGoToHistory:" destination="und-vf-3cF" id="44d-S6-sPV"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem width="705" style="plain" systemItem="fixedSpace" id="EkH-bw-lCV"/>
                                 </items>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,6 +169,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="gesTap" destination="opO-Tj-I8Q" id="PKL-Sv-wrc"/>
+                        <outlet property="gesTap1" destination="tsE-eg-Zem" id="CBF-wU-dPy"/>
+                        <outlet property="getTopView" destination="Dox-ah-73f" id="5ce-gb-m3e"/>
                         <outlet property="lbConfType" destination="kIc-tc-ZAT" id="SVO-MK-FBk"/>
                         <outlet property="tbTop" destination="dk5-8i-p3E" id="KtJ-F7-htP"/>
                         <outlet property="tvAgenda" destination="vzH-1j-s5r" id="3E5-IX-wva"/>
@@ -169,8 +183,9 @@
                         <outlet property="delegate" destination="1sq-K4-UHx" id="A3Z-JN-zWj"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="tsE-eg-Zem"/>
             </objects>
-            <point key="canvasLocation" x="1849.6000000000001" y="68.266666666666666"/>
+            <point key="canvasLocation" x="1849" y="68"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dTj-MG-v5g">
@@ -212,12 +227,7 @@
                                             <action selector="btnBack:" destination="Pa6-Ix-LoW" id="RaX-Ae-SGb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="626" style="plain" systemItem="fixedSpace" id="H2E-ep-sif"/>
-                                    <barButtonItem title="历史会议" id="PFv-iJ-vPL">
-                                        <connections>
-                                            <action selector="btnGoHistory:" destination="Pa6-Ix-LoW" id="XBU-8S-hsx"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem width="702" style="plain" systemItem="fixedSpace" id="H2E-ep-sif"/>
                                 </items>
                             </toolbar>
                         </subviews>
