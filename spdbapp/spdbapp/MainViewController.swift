@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
     
     var appManager = AppManager()
     
-    //var local = GBBox()
+    var local = GBBox()
     
     var settingsBundle = SettingsBundleConfig()
     var heartbearCount = 0
@@ -60,9 +60,10 @@ class MainViewController: UIViewController {
         btnReCon.backgroundColor = UIColor.grayColor()
         lbConnect.backgroundColor = UIColor.clearColor()
         
-       
-        appManager.addObserver(self, forKeyPath: "current", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
-        appManager.addObserver(self, forKeyPath: "netConnect", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
+       var options = NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old
+        appManager.addObserver(self, forKeyPath: "current", options: options, context: nil)
+        appManager.addObserver(self, forKeyPath: "netConnect", options: options, context: nil)
+        appManager.addObserver(self, forKeyPath: "local", options: options, context: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -151,6 +152,12 @@ class MainViewController: UIViewController {
                 self.lbConnect.text = " 网络已连接"
                 self.lbConnect.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
                 btnReCon.hidden = true
+            }
+        }
+        
+        if keyPath == "local"{
+            if object.local.isEqual(nil){
+                UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
             }
         }
     }

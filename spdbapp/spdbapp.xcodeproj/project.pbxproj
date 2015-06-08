@@ -26,6 +26,7 @@
 		C44779CB1B09A96300F37F23 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44779C41B09A95C00F37F23 /* Alamofire.framework */; };
 		C44779CC1B09A96300F37F23 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C44779C41B09A95C00F37F23 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C45BE6291B213F2C00B62D46 /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BE6281B213F2C00B62D46 /* ServerConfig.swift */; };
+		C45BE63B1B2585E400B62D46 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BE63A1B2585E400B62D46 /* Server.swift */; };
 		C469D19E1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */; };
 		C47DC23F1B0ED82C004D0701 /* 方正姚体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */; };
 		C47DC2401B0ED82C004D0701 /* 楷体_GB2312.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */; };
@@ -117,6 +118,7 @@
 		C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownLoadManager.swift; sourceTree = "<group>"; };
 		C44779BC1B09A95C00F37F23 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		C45BE6281B213F2C00B62D46 /* ServerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
+		C45BE63A1B2585E400B62D46 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleConfig.swift; sourceTree = "<group>"; };
 		C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "resources/方正姚体.ttf"; sourceTree = "<group>"; };
 		C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "楷体_GB2312.ttf"; path = "resources/楷体_GB2312.ttf"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				6507787D1B005B4200C2BCFB /* Models.swift */,
+				C45BE63A1B2585E400B62D46 /* Server.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				6507787E1B005B4200C2BCFB /* Models.swift in Sources */,
 				C469D19E1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift in Sources */,
 				6580FE211AFB63FF00C7ACE7 /* AgendaViewController.swift in Sources */,
+				C45BE63B1B2585E400B62D46 /* Server.swift in Sources */,
 				6580FE2E1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

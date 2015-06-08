@@ -38,12 +38,10 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     dynamic var netConnect: Bool = false
     
-    dynamic var local = GBBox()
-    
     var count: Int = 0
     
     var files: GBMeeting?
-    
+    var local : GBBox?
     
     var reqBoxURL: String?
     
@@ -64,8 +62,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         //程序启动先创建Box，当box为空，则弹出对话框“当前id未注册”，否则程序轮询去getCurrent,获取当前会议。
         local = createBox()
-        print("local ========= \(local.macId)")
-        if (local is NilLiteralConvertible ){
+        if ((local?.isEqual(nil)) != nil){
             UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
             return
         }
@@ -77,7 +74,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         //定时器每隔一段时间去检测当前联网状态
         var timerHearbeat = Poller()
         timerHearbeat.start(self, method: "startHeartbeat:")
-
+        
     }
     
     func startHeartbeat(timer: NSTimer){
@@ -85,7 +82,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         //var url = "http://192.168.16.142:8088/heartbeat?id=" + GBNetwork.getMacId()
         var url = ServerConfig.getHeartBeatService()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-
+            
             if error != nil{
                 return
             }
@@ -97,16 +94,14 @@ class AppManager : NSObject, UIAlertViewDelegate {
         }
     }
     
-
+    
     
     //register current ipad id to server，返回已经注册的id并保存
     func registerCurrentId(){
         let paras = ["id":GBNetwork.getMacId()]
         
         var id: NSString = ""
-        Alamofire.request(.POST, reqBoxURL! ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) ->
-        
-        Void in
+        Alamofire.request(.POST, reqBoxURL! ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) -> Void in
             println("post data = \(data!)")
             
             if(error != nil){
@@ -146,10 +141,10 @@ class AppManager : NSObject, UIAlertViewDelegate {
     }
     
     
-    //读取本地iddata.txt文本文件记否存在，存在则返回true，否则返回false。
-    func IsIdFileExist() -> Bool {
+    //读取本地iddata.txt中的id，若不存在，则重新注册并返回id，否则直接返回iddata.txt中的id
+    func IsLocalExistID() -> Bool {
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
-   
+        
         //判断该文件是否存在，则创建该iddata. txt文件
         var manager = NSFileManager.defaultManager()
         if !manager.fileExistsAtPath(filePath){
@@ -164,7 +159,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         var result = GBBox()
         var idstr = NSString()
-        var b = IsIdFileExist()
+        var b = IsLocalExistID()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         
         //如果iddata文件夹不存在，则创建iddata.txt文件
@@ -173,7 +168,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
             var bCreateFile = manager.createFileAtPath(filePath, contents: nil, attributes: nil)
             if bCreateFile{
                 println("idData文件创建成功")
-                //idstr = GBNetwork.getMacId()
+                idstr = GBNetwork.getMacId()
             }
         }
         NSLog("filePath = %@", filePath)
@@ -183,14 +178,13 @@ class AppManager : NSObject, UIAlertViewDelegate {
         //如果不存在，则GBNetwork.getMacId()赋给id
         if (idstr.length <= 0){
             println("请重新注册id")
-            //idstr = GBNetwork.getMacId()
+            idstr = GBNetwork.getMacId()
         }
         
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
         NSLog("urlString = %@", urlString)
         
         Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-            //println("code = \(response?.statusCode)")
             if error != nil{
                 println("当前id未注册，请先注册后使用，error = \(error!)")
                 return
@@ -205,7 +199,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 result.name = (data?.objectForKey("name")) as! String
             }
             else {
-                //UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
+                UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
                 self.registerCurrentId()
             }
         }
@@ -237,8 +231,8 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 
                 DownLoadManager.isStart(true)
                 
-//                DownLoadManager.downLoadAllFile()
-//                DownLoadManager.downLoadJSON()
+                //                DownLoadManager.downLoadAllFile()
+                //                DownLoadManager.downLoadJSON()
             }
             
             if(self.current.id == id) {
@@ -248,8 +242,8 @@ class AppManager : NSObject, UIAlertViewDelegate {
             self.current = builder.CreateMeeting()
             DownLoadManager.isStart(true)
             
-//            DownLoadManager.downLoadAllFile()
-//            DownLoadManager.downLoadJSON()
+            //            DownLoadManager.downLoadAllFile()
+            //            DownLoadManager.downLoadJSON()
         }
     }
     
@@ -263,3 +257,16 @@ class AppManager : NSObject, UIAlertViewDelegate {
 
 
 
+//
+//  beifen.swift
+//  spdbapp
+//
+//  Created by GBTouchG3 on 15/6/8.
+//  Copyright (c) 2015年 shgbit. All rights reserved.
+//
+
+import UIKit
+
+class beifen: NSObject {
+   
+}

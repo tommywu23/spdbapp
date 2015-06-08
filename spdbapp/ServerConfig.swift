@@ -39,6 +39,9 @@ class ServerConfig: NSObject {
         NSLog("settings 文本文件已存在")
         return true
     }
+    
+    
+    
 
     
     class func getBoxService() -> String{
@@ -80,9 +83,4 @@ class ServerConfig: NSObject {
         }
         return dict
     }
-    
-    
-  
-
-    
 }
