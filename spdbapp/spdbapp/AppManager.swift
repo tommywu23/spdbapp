@@ -16,7 +16,8 @@ class Poller {
     func start(obj: NSObject, method: Selector) {
         stop()
         
-        timer = NSTimer(timeInterval: 3, target: obj, selector: method , userInfo: nil, repeats: true)
+        var time: Double = getSettingTime()
+        timer = NSTimer(timeInterval: time, target: obj, selector: method , userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
     }
     
@@ -29,10 +30,19 @@ class Poller {
     func isRun() -> Bool{
         return (timer != nil && timer?.valid != nil)
     }
+    
+    //获取系统设置的时间   当前默认是3s
+    func getSettingTime() -> NSTimeInterval {
+        var filePath = NSBundle.mainBundle().pathForResource("TimeSettingConfig", ofType: "plist")
+        var readData: NSMutableDictionary = NSMutableDictionary(contentsOfFile: filePath!)!
+        //println("data = \(readData)")
+        var time = readData.objectForKey("timeInterval")?.doubleValue
+        return time!
+    }
 }
 
 
-class AppManager : NSObject, UIAlertViewDelegate {
+class AppManager : NSObject {
     
     dynamic var current : GBMeeting = GBMeeting()
     dynamic var netConnect: Bool = false
@@ -49,7 +59,9 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         server.IsCreateFileOK()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+    
         var ipStr = String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding, error: nil)
+        println("ip = \(ipStr)")
         
         //配置url信息
         if (ipStr?.isEmpty != nil) {
@@ -61,11 +73,11 @@ class AppManager : NSObject, UIAlertViewDelegate {
         
         reqBoxURL = server.boxServiceUrl
         
-        //程序启动先创建Box，当box为空，则弹出对话框“当前id未注册”，否则程序轮询去getCurrent,获取当前会议。
+        //程序启动先创建Box，当box为空，则返回，否则程序轮询去getCurrent,获取当前会议。
+        println("ipadid = \(GBNetwork.getMacId())")
         local = createBox()
-        print("local ========= \(local.macId)")
-        if (local is NilLiteralConvertible){
-            UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
+        println("local.name ========= \(local.type)")
+        if (local.name.isEmpty){
             return
         }
         
@@ -73,9 +85,11 @@ class AppManager : NSObject, UIAlertViewDelegate {
         var getCurrentPoller = Poller()
         getCurrentPoller.start(self, method: "getCurrent:")
         
+        self.netConnect = false
+        
         //定时器每隔一段时间去检测当前联网状态
-        var timerHearbeat = Poller()
-        timerHearbeat.start(self, method: "startHeartbeat:")
+//        var timerHearbeat = Poller()
+//        timerHearbeat.start(self, method: "startHeartbeat:")
 
     }
     
@@ -175,6 +189,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 //idstr = GBNetwork.getMacId()
             }
         }
+        
         NSLog("filePath = %@", filePath)
         var readData = NSData(contentsOfFile: filePath)
         idstr = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
@@ -182,33 +197,80 @@ class AppManager : NSObject, UIAlertViewDelegate {
         //如果不存在，则GBNetwork.getMacId()赋给id
         if (idstr.length <= 0){
             println("请重新注册id")
-            //idstr = GBNetwork.getMacId()
+            self.registerCurrentId()
+            idstr = GBNetwork.getMacId()
         }
         
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
         NSLog("urlString = %@", urlString)
         
-        Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-            //println("code = \(response?.statusCode)")
-            if error != nil{
-                println("当前id未注册，请先注册后使用，error = \(error!)")
-                return
-            }
-            println("getdata = \(data!)")
-            
-            
-            //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
-            if(response?.statusCode == 200){
-                result.macId = (data?.objectForKey("id")) as! String
-                result.type = (data?.objectForKey("type")) as? GBMeetingType
-                result.name = (data?.objectForKey("name")) as! String
-            }
-            else {
-                //UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
-                self.registerCurrentId()
-            }
-        }
+        
+        
+//        Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+//            //当错误类型为Could not connect to the server.，则提示当前网络连接失败，并返回
+//            if error?.localizedDescription == "Could not connect to the server." {
+//                println("当前网络连接失败，请检查网络连接后重试...")
+//                return
+//            }
+//            if error != nil{
+//                println("当前id未注册，请先注册后使用，error = \(error!)")
+//                self.registerCurrentId()
+//                return
+//            }
+//            println("getdata = \(data!)")
+//            
+//            
+//            //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
+//            if(response?.statusCode == 200){
+//                result.macId = (data?.objectForKey("id")) as! String
+//                result.type = (data?.objectForKey("type")) as? GBMeetingType
+//                result.name = (data?.objectForKey("name")) as! String
+//            }
+//            else {
+//                //**
+////               self.registerCurrentId()
+//                //**
+//            }
+//        }
+        
+        var request = NSURLRequest(URL: NSURL(string: urlString)!)
+        var response: NSURLResponse?
+        var err = NSErrorPointer()
+        var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: err) as NSData?
+       
+        println("error = \(err)")
+        
+        var error: NSError?
+        var jsondata: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments, error: err)!
+        println("json=\(jsondata)")
+        
+        result.name = jsondata.objectForKey("name") as! String
+        result.macId = jsondata.objectForKey("id") as! String
+        
+        var enumStr = jsondata.objectForKey("type") as! String
+        println("enumStr = \(enumStr)")
+        result.type = EnumParser(enumStr)
+        
+        println("name = \(result.name)")
+        println("id = \(result.macId)")
+        println("type = \(result.type)")
+        
         return result
+    }
+    
+    //将从服务器上读取的数据转换为GBMeetingType
+    func EnumParser(enumStr: String) -> GBMeetingType {
+        if enumStr == "dongshihui"{
+            return GBMeetingType.DONGSHI
+        }else if enumStr == "hangban"{
+            return GBMeetingType.HANGBAN
+        }else if enumStr == "dangzheng"{
+            return GBMeetingType.DANGBAN
+        }else if enumStr == "dangweihui"{
+            return GBMeetingType.DANGWEI
+        }else {
+            return GBMeetingType.ALL
+        }
     }
     
     
@@ -222,6 +284,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
         Alamofire.request(.GET,server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil {
                 //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
+                println("error = \(error)")
                 println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
                 self.current = builder.LocalCreateMeeting()
                 return
@@ -235,9 +298,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
                 self.current = builder.CreateMeeting()
                 
                 DownLoadManager.isStart(true)
-                
-//                DownLoadManager.downLoadAllFile()
-//                DownLoadManager.downLoadJSON()
             }
             
             if(self.current.id == id) {
@@ -245,10 +305,8 @@ class AppManager : NSObject, UIAlertViewDelegate {
             }
             
             self.current = builder.CreateMeeting()
-            DownLoadManager.isStart(true)
             
-//            DownLoadManager.downLoadAllFile()
-//            DownLoadManager.downLoadJSON()
+            DownLoadManager.isStart(true)
         }
     }
     

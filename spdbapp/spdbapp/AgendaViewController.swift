@@ -24,15 +24,11 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var fileIDInfo:String?
     var fileNameInfo: String?
     
-    
-    var router = Router()
     var server = Server()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-        
+  
         lbConfType.text = "党政联系会议"
         tvAgenda?.dataSource = self
         tvAgenda?.delegate = self
@@ -43,7 +39,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
         
         getMeetingFiles()
-        
         
         //初始化时候隐藏tab bar
         hideBar()
@@ -67,9 +62,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func getMeetingFiles(){
 
         Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
-            println("data================\(data!)")
-            
-            if (err != nil || (data)!.length <= 0){
+            if (err != nil || data?.stringValue == ""){
                 var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
                 var filemanager = NSFileManager.defaultManager()
                 if filemanager.fileExistsAtPath(localJSONPath){
@@ -88,7 +81,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             var json = JSON(data!)
             if let filesInfo = json["files"].array {
                 self.filesDataInfo = filesInfo
-                //println("fileInfo = \(self.filesDataInfo)")
                 self.tvAgenda.reloadData()
                 self.createViewHeight()
             }

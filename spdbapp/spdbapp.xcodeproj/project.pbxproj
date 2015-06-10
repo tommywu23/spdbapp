@@ -10,7 +10,6 @@
 		6507787E1B005B4200C2BCFB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507787D1B005B4200C2BCFB /* Models.swift */; };
 		650778801B007FCA00C2BCFB /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507787F1B007FCA00C2BCFB /* AppManager.swift */; };
 		650778861B00820000C2BCFB /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650778851B00820000C2BCFB /* Networking.swift */; };
-		65473C371B0319110019E121 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65473C361B0319110019E121 /* Router.swift */; };
 		6580FE011AFB62DE00C7ACE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE001AFB62DE00C7ACE7 /* AppDelegate.swift */; };
 		6580FE031AFB62DE00C7ACE7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580FE021AFB62DE00C7ACE7 /* MainViewController.swift */; };
 		6580FE061AFB62DE00C7ACE7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6580FE041AFB62DE00C7ACE7 /* Main.storyboard */; };
@@ -27,6 +26,7 @@
 		C44779CC1B09A96300F37F23 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C44779C41B09A95C00F37F23 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C45BE6291B213F2C00B62D46 /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BE6281B213F2C00B62D46 /* ServerConfig.swift */; };
 		C45BE63B1B2585E400B62D46 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BE63A1B2585E400B62D46 /* Server.swift */; };
+		C466B8941B26C8B300E39B7D /* TimeSettingConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = C466B8931B26C8B300E39B7D /* TimeSettingConfig.plist */; };
 		C469D19E1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */; };
 		C47DC23F1B0ED82C004D0701 /* 方正姚体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */; };
 		C47DC2401B0ED82C004D0701 /* 楷体_GB2312.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */; };
@@ -99,7 +99,6 @@
 		6507787D1B005B4200C2BCFB /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		6507787F1B007FCA00C2BCFB /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		650778851B00820000C2BCFB /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		65473C361B0319110019E121 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		6580FDFB1AFB62DE00C7ACE7 /* spdbapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spdbapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6580FDFF1AFB62DE00C7ACE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6580FE001AFB62DE00C7ACE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +118,7 @@
 		C44779BC1B09A95C00F37F23 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		C45BE6281B213F2C00B62D46 /* ServerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerConfig.swift; path = ../ServerConfig.swift; sourceTree = "<group>"; };
 		C45BE63A1B2585E400B62D46 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		C466B8931B26C8B300E39B7D /* TimeSettingConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TimeSettingConfig.plist; path = ../TimeSettingConfig.plist; sourceTree = "<group>"; };
 		C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleConfig.swift; sourceTree = "<group>"; };
 		C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "resources/方正姚体.ttf"; sourceTree = "<group>"; };
 		C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "楷体_GB2312.ttf"; path = "resources/楷体_GB2312.ttf"; sourceTree = "<group>"; };
@@ -159,10 +159,10 @@
 		650778811B00818C00C2BCFB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C466B8931B26C8B300E39B7D /* TimeSettingConfig.plist */,
 				C427810C1B047D280061F628 /* SwiftyJSON.swift */,
 				650778851B00820000C2BCFB /* Networking.swift */,
 				C4AA12441B12D3380043358D /* Builder.swift */,
-				65473C361B0319110019E121 /* Router.swift */,
 				C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */,
 			);
 			name = Utils;
@@ -388,6 +388,7 @@
 			files = (
 				C4824D861B1DA6100098A932 /* Settings.bundle in Resources */,
 				C47DC2401B0ED82C004D0701 /* 楷体_GB2312.ttf in Resources */,
+				C466B8941B26C8B300E39B7D /* TimeSettingConfig.plist in Resources */,
 				6580FE061AFB62DE00C7ACE7 /* Main.storyboard in Resources */,
 				6580FE2F1AFC8EE400C7ACE7 /* AgendaTableViewCell.xib in Resources */,
 				6580FE0B1AFB62DE00C7ACE7 /* LaunchScreen.xib in Resources */,
@@ -418,7 +419,6 @@
 				6580FE011AFB62DE00C7ACE7 /* AppDelegate.swift in Sources */,
 				650778861B00820000C2BCFB /* Networking.swift in Sources */,
 				C4824D481B1D885E0098A932 /* DeleteManager.swift in Sources */,
-				65473C371B0319110019E121 /* Router.swift in Sources */,
 				C4AA12451B12D3380043358D /* Builder.swift in Sources */,
 				C45BE6291B213F2C00B62D46 /* ServerConfig.swift in Sources */,
 				6580FE311AFCA58400C7ACE7 /* DocViewController.swift in Sources */,

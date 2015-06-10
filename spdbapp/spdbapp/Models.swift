@@ -20,6 +20,7 @@ enum GBMeetingType {
     case HANGBAN, DANGBAN, DANGWEI, DONGSHI, ALL
 }
 
+
 class GBBase: NSObject {
     var basename = ""
 }
@@ -29,6 +30,7 @@ class GBBox: GBBase {
     var macId : String = "11-22-33-44-55-66"
     var type : GBMeetingType?
     var name: String = ""
+
     
     var connect: Bool = false
     
@@ -37,7 +39,7 @@ class GBBox: GBBase {
         type = GBMeetingType.ALL
         macId = GBNetwork.getMacId()
         name = ""
-        
+
         connect = false
     }
 }

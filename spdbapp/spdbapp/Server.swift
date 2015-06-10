@@ -14,8 +14,6 @@ class Server: NSObject {
     var fileServiceUrl = String()
     var heartBeatServiceUrl = String()
     
-    
-    
     override init(){
         super.init()
         var url = getIPStr()

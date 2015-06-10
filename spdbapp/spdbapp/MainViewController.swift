@@ -19,7 +19,6 @@ class MainViewController: UIViewController {
     
     var current = GBMeeting()
     
-    var appManager = AppManager()
     
     var local = GBBox()
     
@@ -32,9 +31,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         var netConnect = appManager.netConnect
-        
-        //create box
-        //local = appManager.createBox()
         
         settingsBundle.registerDefaultsFromSettingsBundle()
        
@@ -61,14 +57,13 @@ class MainViewController: UIViewController {
         btnReCon.backgroundColor = UIColor.grayColor()
         lbConnect.backgroundColor = UIColor.clearColor()
         
-       var options = NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old
+        var options = NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old
         appManager.addObserver(self, forKeyPath: "current", options: options, context: nil)
         appManager.addObserver(self, forKeyPath: "netConnect", options: options, context: nil)
         appManager.addObserver(self, forKeyPath: "local", options: options, context: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
-        //println("view will appear")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
     }
     
@@ -105,7 +100,9 @@ class MainViewController: UIViewController {
             }
             if response?.statusCode == 200{
                 println("netConnect ok")
-                self.appManager.netConnect = true
+                appManager.netConnect = true
+                self.lbConnect.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
+                self.lbConnect.text = "网络连接成功"
             }
             
 //            if response?.statusCode != 200{
@@ -123,13 +120,14 @@ class MainViewController: UIViewController {
     
     @IBAction func btnReConnection(sender: UIButton) {
         self.btnReCon.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-        self.lbConnect.backgroundColor = UIColor.greenColor()
+        self.lbConnect.backgroundColor = UIColor(red: 29/255, green: 134/255, blue: 25/255, alpha: 1.0)
         self.lbConnect.text = "网络正在连接..."
         var count = 3
         for var i = 0 ; i < count ; i++ {
             startHeartbeat()
             println("count = \(i+1)")
         }
+        
         
     }
     
@@ -147,6 +145,14 @@ class MainViewController: UIViewController {
                 btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
             }
         }
+        
+        if keyPath == "local"{
+            if object.local.name.isEmpty{
+                UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
+            }
+        }
+        
+        
         if keyPath == "netConnect"{
             //println("object = \(object.netConnect)")
             if object.netConnect == true {
@@ -155,17 +161,12 @@ class MainViewController: UIViewController {
                 btnReCon.hidden = true
             }
         }
-        
-        if keyPath == "local"{
-            if object.local.isEqual(nil){
-                UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
-            }
-        }
     }
     
     deinit{
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
         appManager.removeObserver(self, forKeyPath: "netConnect", context: &myContext)
+        appManager.removeObserver(self, forKeyPath: "local",context: &myContext)
     }
 
     
