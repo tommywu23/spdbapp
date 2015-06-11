@@ -32,13 +32,6 @@ class MainViewController: UIViewController {
         
         var netConnect = appManager.netConnect
         
-        settingsBundle.registerDefaultsFromSettingsBundle()
-       
-        var boxURL = server.boxServiceUrl
-        println("boxURL===================\(boxURL)")
-
-        //ServerConfig.getSettingsBundleInfo()
-
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
         style.alignment = NSTextAlignment.Center
@@ -72,7 +65,7 @@ class MainViewController: UIViewController {
     }
 
     
-    func defaultsSettingsChanged() {
+    func defaultsSettingsChanged() -> NSMutableDictionary {
         let standardDefaults = NSUserDefaults.standardUserDefaults()
         
         var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
@@ -85,8 +78,11 @@ class MainViewController: UIViewController {
             valueBasic = valuebundle!
         }
         settingsDict.setObject(valueBasic, forKey: "txtBoxURL")
+        println("url new value ============ \(valueBasic)")
+        var b = settingsDict.writeToFile(filepath, atomically: true)
+        println("b = \(b)")
         
-        settingsDict.writeToFile(filepath, atomically: true)
+        return settingsDict
     }
 
     
@@ -127,8 +123,6 @@ class MainViewController: UIViewController {
             startHeartbeat()
             println("count = \(i+1)")
         }
-        
-        
     }
     
 
@@ -154,7 +148,6 @@ class MainViewController: UIViewController {
         
         
         if keyPath == "netConnect"{
-            //println("object = \(object.netConnect)")
             if object.netConnect == true {
                 self.lbConnect.text = " 网络已连接"
                 self.lbConnect.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
@@ -162,28 +155,12 @@ class MainViewController: UIViewController {
             }
         }
     }
-    
     deinit{
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
         appManager.removeObserver(self, forKeyPath: "netConnect", context: &myContext)
         appManager.removeObserver(self, forKeyPath: "local",context: &myContext)
     }
 
-    
-    
-    
-    func showDetail() -> NSMutableDictionary {
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-        var dict = NSMutableDictionary(contentsOfFile: filePath)!
-//        dict.removeObjectForKey("txtMeetingURL")
-        
-        println("showdetail settingsInfo = \(dict)")
-       
-        return dict
-    }
-    
-  
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

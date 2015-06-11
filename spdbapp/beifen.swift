@@ -270,3 +270,161 @@ import UIKit
 class beifen: NSObject {
    
 }
+
+
+
+//根据id获取ipad所需信息
+func createBox() -> GBBox{
+    
+    var result = GBBox()
+    var idstr = NSString()
+    var b = IsIdFileExist()
+    var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
+    
+    //如果iddata文件夹不存在，则创建iddata.txt文件
+    if !b{
+        var manager = NSFileManager.defaultManager()
+        var bCreateFile = manager.createFileAtPath(filePath, contents: nil, attributes: nil)
+        if bCreateFile{
+            println("idData文件创建成功")
+            //idstr = GBNetwork.getMacId()
+        }
+    }
+    
+    NSLog("filePath = %@", filePath)
+    var readData = NSData(contentsOfFile: filePath)
+    idstr = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
+    
+    //如果不存在，则GBNetwork.getMacId()赋给id
+    if (idstr.length <= 0){
+        println("请重新注册id")
+        self.registerCurrentId()
+        idstr = GBNetwork.getMacId()
+    }
+    
+    var urlString = "\(reqBoxURL!)?id=\(idstr)"
+    NSLog("urlString = %@", urlString)
+    
+    
+    getBoxResult { (boxResult) -> () in
+        if let data: AnyObject = boxResult {
+            println("result = \(boxResult)")
+            result.macId = data.objectForKey("id") as! String
+            result.type = data.objectForKey("type") as? GBMeetingType
+            result.name = data.objectForKey("name") as! String
+            
+        }
+        
+    }
+    
+    //        Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+    //            //当错误类型为Could not connect to the server.，则提示当前网络连接失败，并返回
+    //            if error?.localizedDescription == "Could not connect to the server." {
+    //                println("当前网络连接失败，请检查网络连接后重试...")
+    //                return
+    //            }
+    //            if error != nil{
+    //                println("当前id未注册，请先注册后使用，error = \(error!)")
+    //                self.registerCurrentId()
+    //                return
+    //            }
+    //            println("getdata = \(data!)")
+    //
+    //
+    //            //NSOperationQueue.mainQueue().
+    //
+    //            //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
+    //            if(response?.statusCode == 200){
+    //                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+    //                    result.macId = (data?.objectForKey("id")) as! String
+    //                    result.type = (data?.objectForKey("type")) as? GBMeetingType
+    //                    result.name = (data?.objectForKey("name")) as! String
+    //                })
+    //
+    //            }
+    //            else {
+    //                //**
+    //                //self.registerCurrentId()
+    //                //**
+    //            }
+    //        }
+    
+    //        var request = NSURLRequest(URL: NSURL(string: urlString)!)
+    //        var queue = NSOperationQueue()
+    //
+    //        NSURLConnection.sendAsynchronousRequest(request, queue: queue) { (response: NSURLResponse!, data: NSData!, err: NSError!) -> Void in
+    //            println("data = \(data)")
+    //            var jsondata: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments, error: nil)!
+    //            println("json=\(jsondata)")
+    //
+    //            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+    //                result.name = jsondata.objectForKey("name") as! String
+    //                result.macId = jsondata.objectForKey("id") as! String
+    //
+    //                var enumStr = jsondata.objectForKey("type") as! String
+    //                println("enumStr = \(enumStr)")
+    //                result.type = self.EnumParser(enumStr)
+    //            })
+    //        }
+    
+    
+    println("name = \(result.name)")
+    println("id = \(result.macId)")
+    println("type = \(result.type)")
+    
+    
+    //        var request = NSURLRequest(URL: NSURL(string: urlString)!)
+    //        var response: NSURLResponse?
+    //        var err = NSErrorPointer()
+    //        var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: err) as NSData?
+    //
+    //        println("error = \(err)")
+    //
+    //        var error: NSError?
+    //        var jsondata: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments, error: err)!
+    //        println("json=\(jsondata)")
+    //
+    //        result.name = jsondata.objectForKey("name") as! String
+    //        result.macId = jsondata.objectForKey("id") as! String
+    //
+    //        var enumStr = jsondata.objectForKey("type") as! String
+    //        println("enumStr = \(enumStr)")
+    //        result.type = EnumParser(enumStr)
+    //
+    //        println("name = \(result.name)")
+    //        println("id = \(result.macId)")
+    //        println("type = \(result.type)")
+    
+    return result
+}
+
+
+func getBoxResult(completionHandler: (boxResult: AnyObject?) -> ()){
+    var session = NSURLSession.sharedSession()
+    var str = "http://192.168.16.142:8088/box?id=AA62C878-D10E-4386-A582-0D6084ABD6B0"
+    var urlStr = NSURL(string: str)!
+    let task = session.dataTaskWithURL(urlStr, completionHandler: { (data, response, err) -> Void in
+        //println("code = \(response.description)")
+        if err != nil{
+            println("err = \(err.description)")
+        }
+        println("data = \(data)")
+        completionHandler(boxResult: data)
+    })
+    task.resume()
+}
+
+//将从服务器上读取的数据转换为GBMeetingType
+func EnumParser(enumStr: String) -> GBMeetingType {
+    if enumStr == "dongshihui"{
+        return GBMeetingType.DONGSHI
+    }else if enumStr == "hangban"{
+        return GBMeetingType.HANGBAN
+    }else if enumStr == "dangzheng"{
+        return GBMeetingType.DANGBAN
+    }else if enumStr == "dangweihui"{
+        return GBMeetingType.DANGWEI
+    }else {
+        return GBMeetingType.ALL
+    }
+}

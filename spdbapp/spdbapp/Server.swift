@@ -14,6 +14,8 @@ class Server: NSObject {
     var fileServiceUrl = String()
     var heartBeatServiceUrl = String()
     
+    let filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+    
     override init(){
         super.init()
         var url = getIPStr()
@@ -25,26 +27,45 @@ class Server: NSObject {
     
     
     func getIPStr() -> String {
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-        var result = String(contentsOfFile: filePath)!
+        
+        var dict = NSMutableDictionary(contentsOfFile: filePath)!
+        
+        if dict.count <= 0 {
+            var value: AnyObject = "192.168.16.142"
+            var key: NSCopying = "txtBoxURL"
+            dict.setObject(value, forKey: key)
+            var b = dict.writeToFile(filePath, atomically: true) as Bool
+        }
+        
+        println("dict2 = \(dict.count)")
+        
+        var result = dict.objectForKey("txtBoxURL") as! String
+        println("dict2.urlValueresult = \(result)")
         return result
     }
     
+    func showDetail(){
+        var dict = NSMutableDictionary(contentsOfFile: self.filePath)!
+        for (key,value) in dict{
+            println("key = \(key)===while===value = \(value)")
+        }
+    }
     
     func defaultsIPStr() -> String{
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+        var dict = NSMutableDictionary()
         var result = "192.168.16.142"
-        result.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        dict.setObject(result, forKey: "txtBoxURL")
+        dict.writeToFile(self.filePath, atomically: true)
         return result
     }
     
     //创建SettingsConfig.txt存储配置界面的设定信息
     func IsCreateFileOK() -> Bool {
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+        
         var manager = NSFileManager.defaultManager()
         
-        if !manager.fileExistsAtPath(filePath){
-            var b = manager.createFileAtPath(filePath, contents: nil, attributes: nil)
+        if !manager.fileExistsAtPath(self.filePath){
+            var b = manager.createFileAtPath(self.filePath, contents: nil, attributes: nil)
             if b {
                 NSLog("settings存储URL配置文本文件创建成功")
                 return true

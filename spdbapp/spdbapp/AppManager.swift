@@ -56,30 +56,29 @@ class AppManager : NSObject {
     
     override init(){
         super.init()
-        
-        server.IsCreateFileOK()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-    
-        var ipStr = String(contentsOfFile: filePath, encoding: NSUTF8StringEncoding, error: nil)
+        
+        var dict = NSMutableDictionary(contentsOfFile: filePath)!
+        
+        var ipStr = dict.objectForKey("txtBoxURL") as! String
         println("ip = \(ipStr)")
         
+        
+        server.showDetail()
+        //server.IsCreateFileOK()
+        
+        
         //配置url信息
-        if (ipStr?.isEmpty != nil) {
+        if (ipStr.isEmpty) {
             ipStr = server.defaultsIPStr()
         }else{
             ipStr = server.getIPStr()
         }
         
-        
         reqBoxURL = server.boxServiceUrl
         
-        //程序启动先创建Box，当box为空，则返回，否则程序轮询去getCurrent,获取当前会议。
-        println("ipadid = \(GBNetwork.getMacId())")
+        //程序启动先创建Box
         local = createBox()
-        println("local.name ========= \(local.type)")
-        if (local.name.isEmpty){
-            return
-        }
         
         //定时器每隔2s检测当前current是否发生变化
         var getCurrentPoller = Poller()
@@ -88,9 +87,8 @@ class AppManager : NSObject {
         self.netConnect = false
         
         //定时器每隔一段时间去检测当前联网状态
-//        var timerHearbeat = Poller()
-//        timerHearbeat.start(self, method: "startHeartbeat:")
-
+        var timerHearbeat = Poller()
+        timerHearbeat.start(self, method: "startHeartbeat:")
     }
     
     func startHeartbeat(timer: NSTimer){
@@ -110,7 +108,6 @@ class AppManager : NSObject {
         }
     }
     
-
     
     //register current ipad id to server，返回已经注册的id并保存
     func registerCurrentId(){
@@ -204,58 +201,32 @@ class AppManager : NSObject {
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
         NSLog("urlString = %@", urlString)
         
-        
-        
-//        Alamofire.request(.GET, urlString).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-//            //当错误类型为Could not connect to the server.，则提示当前网络连接失败，并返回
-//            if error?.localizedDescription == "Could not connect to the server." {
-//                println("当前网络连接失败，请检查网络连接后重试...")
-//                return
-//            }
-//            if error != nil{
-//                println("当前id未注册，请先注册后使用，error = \(error!)")
-//                self.registerCurrentId()
-//                return
-//            }
-//            println("getdata = \(data!)")
-//            
-//            
-//            //若返回值为not find type or name则弹出“请重新注册”的对话框，并且将当前的idstr进行注册并保存
-//            if(response?.statusCode == 200){
-//                result.macId = (data?.objectForKey("id")) as! String
-//                result.type = (data?.objectForKey("type")) as? GBMeetingType
-//                result.name = (data?.objectForKey("name")) as! String
-//            }
-//            else {
-//                //**
-////               self.registerCurrentId()
-//                //**
-//            }
-//        }
-        
-        var request = NSURLRequest(URL: NSURL(string: urlString)!)
-        var response: NSURLResponse?
-        var err = NSErrorPointer()
-        var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: err) as NSData?
+        getBoxResult { (boxResult) -> () in
+            if let jsonResult: AnyObject = boxResult {
+                println("result = \(jsonResult)")
+                result.macId = jsonResult.objectForKey("id") as! String
+                result.type = jsonResult.objectForKey("type") as? GBMeetingType
+                result.name = jsonResult.objectForKey("name") as! String
+            }
+        }
        
-        println("error = \(err)")
-        
-        var error: NSError?
-        var jsondata: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.AllowFragments, error: err)!
-        println("json=\(jsondata)")
-        
-        result.name = jsondata.objectForKey("name") as! String
-        result.macId = jsondata.objectForKey("id") as! String
-        
-        var enumStr = jsondata.objectForKey("type") as! String
-        println("enumStr = \(enumStr)")
-        result.type = EnumParser(enumStr)
-        
-        println("name = \(result.name)")
-        println("id = \(result.macId)")
-        println("type = \(result.type)")
-        
         return result
+    }
+    
+    
+    func getBoxResult(completionHandler: (boxResult: AnyObject?) -> ()){
+        var session = NSURLSession.sharedSession()
+        var str = server.boxServiceUrl + "?id=" + GBNetwork.getMacId()
+        var urlStr = NSURL(string: str)!
+        let task = session.dataTaskWithURL(urlStr, completionHandler: { (data, response, err) -> Void in
+            if err != nil{
+                println("err = \(err.description)")
+                return
+            }
+            var jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil)!
+            completionHandler(boxResult: jsonResult)
+        })
+        task.resume()
     }
     
     //将从服务器上读取的数据转换为GBMeetingType
@@ -272,6 +243,8 @@ class AppManager : NSObject {
             return GBMeetingType.ALL
         }
     }
+    
+    
     
     
     //获取当前会议current

@@ -17,7 +17,6 @@ class Builder: NSObject {
     func CreateMeeting() -> GBMeeting {
       
         var current = GBMeeting()
-        //var url = NSURL(string: Router.baseURLFile + "/meeting/current")
         var url = NSURL(string: server.meetingServiceUrl)
         
         var data = NSData(contentsOfURL: url!)
