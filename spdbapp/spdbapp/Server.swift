@@ -37,10 +37,10 @@ class Server: NSObject {
             var b = dict.writeToFile(filePath, atomically: true) as Bool
         }
         
-        println("dict2 = \(dict.count)")
+        //println("dict2 = \(dict.count)")
         
         var result = dict.objectForKey("txtBoxURL") as! String
-        println("dict2.urlValueresult = \(result)")
+        //println("dict2.urlValueresult = \(result)")
         return result
     }
     

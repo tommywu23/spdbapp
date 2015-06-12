@@ -13,11 +13,11 @@ import Alamofire
 class Poller {
     var timer: NSTimer?
     
-    func start(obj: NSObject, method: Selector) {
+    func start(obj: NSObject, method: Selector,timerInter: Double) {
         stop()
         
-        var time: Double = getSettingTime()
-        timer = NSTimer(timeInterval: time, target: obj, selector: method , userInfo: nil, repeats: true)
+        //var time: Double = getSettingTime()
+        timer = NSTimer(timeInterval: timerInter, target: obj, selector: method , userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
     }
     
@@ -54,6 +54,9 @@ class AppManager : NSObject {
     
     var reqBoxURL: String?
     
+    var count = 0
+    var timerHearbeat = Poller()
+    
     override init(){
         super.init()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
@@ -65,8 +68,6 @@ class AppManager : NSObject {
         
         
         server.showDetail()
-        //server.IsCreateFileOK()
-        
         
         //配置url信息
         if (ipStr.isEmpty) {
@@ -82,30 +83,42 @@ class AppManager : NSObject {
         
         //定时器每隔2s检测当前current是否发生变化
         var getCurrentPoller = Poller()
-        getCurrentPoller.start(self, method: "getCurrent:")
+        getCurrentPoller.start(self, method: "getCurrent:", timerInter: 3.0)
         
         self.netConnect = false
-        
-        //定时器每隔一段时间去检测当前联网状态
-        var timerHearbeat = Poller()
-        timerHearbeat.start(self, method: "startHeartbeat:")
+   
+        starttimer()
     }
     
+    
+    func starttimer(){
+        //定时器每隔一段时间去检测当前联网状态
+        timerHearbeat.start(self, method: "startHeartbeat:",timerInter: 3.0)
+    }
+    
+    
+    
     func startHeartbeat(timer: NSTimer){
-        
-        //var url = "http://192.168.16.142:8088/heartbeat?id=" + GBNetwork.getMacId()
         var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-
-            if error != nil{
-                return
-            }
             
             if response?.statusCode == 200{
                 self.netConnect = true
-                //println("netConnect ok")
+                self.count = 0
+                println("netConnect ok,count = \(self.count)")
+            }
+            else{
+                self.netConnect = false
+                self.count++
+                println("netConnect fail,count = \(self.count)")
+                if self.count == 3{
+                    println("netConnect daoshijian ,count = \(self.count)")
+                    self.count = 0
+                    timer.invalidate()
+                }
             }
         }
+        //MainViewController.checkstatus(MainViewController)
     }
     
     
@@ -257,8 +270,8 @@ class AppManager : NSObject {
         Alamofire.request(.GET,server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             if error != nil {
                 //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
-                println("error = \(error)")
-                println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
+                //println("error = \(error)")
+                //println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
                 self.current = builder.LocalCreateMeeting()
                 return
             }

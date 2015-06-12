@@ -10,33 +10,32 @@ import UIKit
 import Foundation
 import Alamofire
 
+
 class MainViewController: UIViewController {
     @IBOutlet weak var btnConf: UIButton!
     @IBOutlet weak var lbConfName: UILabel!
-    @IBOutlet weak var lbConnect: UILabel!
-    @IBOutlet weak var btnReCon: UIButton!
-
-    
+    @IBOutlet weak var btnReconnect: UIButton!
+    @IBOutlet weak var lblShowState: UILabel!
+   
     var current = GBMeeting()
-    
-    
+ 
     var local = GBBox()
     
     var settingsBundle = SettingsBundleConfig()
     var heartbearCount = 0
     
     var server = Server()
+   var timer = Poller()
+    
+    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var netConnect = appManager.netConnect
         
         var style = NSMutableParagraphStyle()
         style.lineSpacing = 20
         style.alignment = NSTextAlignment.Center
         var attr = [NSParagraphStyleAttributeName : style]
-        
         
         var name = "暂无会议"
         lbConfName.attributedText = NSAttributedString(string: name, attributes : attr)
@@ -46,14 +45,92 @@ class MainViewController: UIViewController {
         btnConf.backgroundColor = UIColor.grayColor()
         btnConf.enabled = false
         
-        btnReCon.layer.cornerRadius = 8
-        btnReCon.backgroundColor = UIColor.grayColor()
-        lbConnect.backgroundColor = UIColor.clearColor()
+       timer.start(self, method: "checkstatus:",timerInter: 5.0)
+        
+        btnReconnect.layer.cornerRadius = 8
+        if appManager.netConnect == true {
+            netConnectSuccess()
+        }else{
+            btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        }
         
         var options = NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old
         appManager.addObserver(self, forKeyPath: "current", options: options, context: nil)
         appManager.addObserver(self, forKeyPath: "netConnect", options: options, context: nil)
         appManager.addObserver(self, forKeyPath: "local", options: options, context: nil)
+    }
+    
+ 
+    
+    func getReconn(){
+        self.netConnectLinking()
+        appManager.starttimer()
+    }
+    
+    
+    func checkstatus(timer: NSTimer){
+        //println("1===============\(appManager.netConnect)=====================1")
+        if appManager.netConnect {
+            self.netConnectSuccess()
+        }
+        else{
+            self.netConnectFail()
+        }
+
+    }
+    
+    
+    func startHeartbeat(timer: NSTimer){
+//        appManager.startHeartbeat(timer)
+//        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
+//        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+//            
+//            if error != nil{
+//                //println("connect error = \(error?.description)")
+//                //return
+//            }
+//
+//            if response?.statusCode == 200{
+//                appManager.netConnect = true
+//                self.count = 0
+//                self.netConnectSuccess()
+//            }
+//            else{
+//                self.count++
+//                println("netConnect fail1,count = \(self.count)")
+//                if self.count == 3{
+//                    UIAlertView(title: "网络连接失败", message: "请重试", delegate: self, cancelButtonTitle: "确定").show()
+//                    timer.invalidate()
+//                    appManager.netConnect = false
+//                    println("netConnect daoshijian1 ,count = \(self.count)")
+//                    self.count = 0
+//                    self.netConnectFail()
+//                }
+//            }
+//        }
+    }
+
+    func netConnectFail(){
+        self.lblShowState.textColor = UIColor.redColor()
+        self.lblShowState.text = "网络连接失败"
+        
+        self.btnReconnect.hidden = false
+        self.btnReconnect.backgroundColor = UIColor(red: 66/255, green: 173/255, blue: 249/255, alpha: 1)
+        self.btnReconnect.enabled = true
+    }
+    
+    func netConnectSuccess(){
+        self.lblShowState.textColor = UIColor.greenColor()
+        self.lblShowState.text = "网络已连接"
+        self.btnReconnect.hidden = true
+
+    }
+    
+    func netConnectLinking(){
+        btnReconnect.enabled = false
+        btnReconnect.backgroundColor = UIColor.grayColor()
+        lblShowState.text = "网络正在连接..."
+        lblShowState.textColor = UIColor.blueColor()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -63,7 +140,6 @@ class MainViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-
     
     func defaultsSettingsChanged() -> NSMutableDictionary {
         let standardDefaults = NSUserDefaults.standardUserDefaults()
@@ -80,52 +156,9 @@ class MainViewController: UIViewController {
         settingsDict.setObject(valueBasic, forKey: "txtBoxURL")
         println("url new value ============ \(valueBasic)")
         var b = settingsDict.writeToFile(filepath, atomically: true)
-        println("b = \(b)")
         
         return settingsDict
     }
-
-    
-    func startHeartbeat(){
-        
-        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
-        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-            
-            if error != nil{
-                println("connect error = \(error?.description)")
-            }
-            if response?.statusCode == 200{
-                println("netConnect ok")
-                appManager.netConnect = true
-                self.lbConnect.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-                self.lbConnect.text = "网络连接成功"
-            }
-            
-//            if response?.statusCode != 200{
-//                if self.heartbearCount < count{
-//                    self.heartbearCount = self.heartbearCount + 1
-//                }
-//                println("count = \(self.heartbearCount)")
-//            }
-//            if self.heartbearCount == count{
-//                self.appManager.netConnect = false
-//                self.heartbearCount = 0
-//            }
-        }
-    }
-    
-    @IBAction func btnReConnection(sender: UIButton) {
-        self.btnReCon.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-        self.lbConnect.backgroundColor = UIColor(red: 29/255, green: 134/255, blue: 25/255, alpha: 1.0)
-        self.lbConnect.text = "网络正在连接..."
-        var count = 3
-        for var i = 0 ; i < count ; i++ {
-            startHeartbeat()
-            println("count = \(i+1)")
-        }
-    }
-    
-
     
     //监听会议名是否发生改变
     private var myContext = 1
@@ -146,12 +179,12 @@ class MainViewController: UIViewController {
             }
         }
         
-        
         if keyPath == "netConnect"{
             if object.netConnect == true {
-                self.lbConnect.text = " 网络已连接"
-                self.lbConnect.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-                btnReCon.hidden = true
+                self.netConnectSuccess()
+            }
+            else{
+                self.netConnectFail()
             }
         }
     }

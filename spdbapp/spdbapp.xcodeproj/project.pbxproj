@@ -27,6 +27,7 @@
 		C45BE63B1B2585E400B62D46 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45BE63A1B2585E400B62D46 /* Server.swift */; };
 		C466B8941B26C8B300E39B7D /* TimeSettingConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = C466B8931B26C8B300E39B7D /* TimeSettingConfig.plist */; };
 		C469D19E1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */; };
+		C46F60DF1B2AA0CD00600EC0 /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F60DE1B2AA0CD00600EC0 /* ToolbarManager.swift */; };
 		C47DC23F1B0ED82C004D0701 /* 方正姚体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */; };
 		C47DC2401B0ED82C004D0701 /* 楷体_GB2312.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */; };
 		C47DC2411B0ED82C004D0701 /* simsun.ttc in Resources */ = {isa = PBXBuildFile; fileRef = C47DC23E1B0ED82C004D0701 /* simsun.ttc */; };
@@ -119,6 +120,7 @@
 		C45BE63A1B2585E400B62D46 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		C466B8931B26C8B300E39B7D /* TimeSettingConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TimeSettingConfig.plist; path = ../TimeSettingConfig.plist; sourceTree = "<group>"; };
 		C469D19D1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleConfig.swift; sourceTree = "<group>"; };
+		C46F60DE1B2AA0CD00600EC0 /* ToolbarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolbarManager.swift; path = ../ToolbarManager.swift; sourceTree = "<group>"; };
 		C47DC23C1B0ED82C004D0701 /* 方正姚体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "方正姚体.ttf"; path = "resources/方正姚体.ttf"; sourceTree = "<group>"; };
 		C47DC23D1B0ED82C004D0701 /* 楷体_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "楷体_GB2312.ttf"; path = "resources/楷体_GB2312.ttf"; sourceTree = "<group>"; };
 		C47DC23E1B0ED82C004D0701 /* simsun.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = simsun.ttc; path = resources/simsun.ttc; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				C4824D421B1D880B0098A932 /* View */,
 				C4824D461B1D88210098A932 /* Controller */,
 				6507787F1B007FCA00C2BCFB /* AppManager.swift */,
+				C46F60DE1B2AA0CD00600EC0 /* ToolbarManager.swift */,
 				6580FE001AFB62DE00C7ACE7 /* AppDelegate.swift */,
 				C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */,
 				C4824D471B1D885E0098A932 /* DeleteManager.swift */,
@@ -424,6 +427,7 @@
 				6580FE311AFCA58400C7ACE7 /* DocViewController.swift in Sources */,
 				6507787E1B005B4200C2BCFB /* Models.swift in Sources */,
 				C469D19E1B1EAD2300E2B0A3 /* SettingsBundleConfig.swift in Sources */,
+				C46F60DF1B2AA0CD00600EC0 /* ToolbarManager.swift in Sources */,
 				6580FE211AFB63FF00C7ACE7 /* AgendaViewController.swift in Sources */,
 				C45BE63B1B2585E400B62D46 /* Server.swift in Sources */,
 				6580FE2E1AFC8EE400C7ACE7 /* AgendaTableViewCell.swift in Sources */,

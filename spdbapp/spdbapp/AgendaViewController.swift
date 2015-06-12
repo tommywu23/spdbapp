@@ -9,15 +9,13 @@
 import UIKit
 import Alamofire
 
-class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UIToolbarDelegate {
+class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
     @IBOutlet weak var lbConfType: UILabel!
     @IBOutlet weak var tvAgenda: UITableView!
-    @IBOutlet weak var getTopView: UIView!
-    
-    @IBOutlet weak var tbTop: UIToolbar!
-    @IBOutlet var gesTap: UITapGestureRecognizer!
-    @IBOutlet var gesTap1: UITapGestureRecognizer!
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnReconnect: UIButton!
+    @IBOutlet weak var lblShowState: UILabel!
     
     var filesDataInfo:[JSON] = []
     
@@ -25,6 +23,9 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var fileNameInfo: String?
     
     var server = Server()
+    //var netConnect = appManager.netConnect
+    var timer = Poller()
+    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,24 +41,85 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         getMeetingFiles()
         
-        //初始化时候隐藏tab bar
-        hideBar()
+        timer.start(self, method: "checkstatus:",timerInter: 5.0)
         
-        //为uitabbar添加代理
-        tbTop.delegate = self
+        btnBack.layer.cornerRadius = 8
+        btnReconnect.layer.cornerRadius = 8
+        btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
+       
+        if appManager.netConnect == true {
+            self.netConnectSuccess()
+        }else{
+            btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        }
+    }
+    
+    func getReconn(){
+        btnReconnect.backgroundColor = UIColor.grayColor()
+        btnReconnect.enabled = false
+        lblShowState.text = "网络正在连接..."
+        lblShowState.textColor = UIColor.blueColor()
+        appManager.starttimer()
+    }
+    
+    
+    func checkstatus(timer: NSTimer){
+        //println("2===============\(appManager.netConnect)=====================2")
+        if appManager.netConnect {
+            self.netConnectSuccess()
+        }
+        else{
+            self.netConnectFail()
+        }
         
-        //gestap是对于底部的toolbar进行设置，gestap1是对头部的toolbar进行设置
-        gesTap.addTarget(self, action: "actionBar")
-        gesTap1.addTarget(self, action: "actionBar")
-        self.getTopView.addGestureRecognizer(self.gesTap1)
+    }
+    func startHeartbeat(timer: NSTimer){
+         //appManager.startHeartbeat(timer)
+//        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
+//        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+//            
+//            if response?.statusCode == 200{
+//                appManager.netConnect = true
+//                self.count = 0
+//                println("netConnect ok2,count = \(self.count)")
+//                
+//                self.netConnectSuccess()
+//                
+//            }else{
+//                self.count++
+//                println("netConnect fail2,count = \(self.count)")
+//                if self.count == 3{
+//                    appManager.netConnect = false
+//                    println("netConnect daoshijian2 ,count = \(self.count)")
+//                    self.count = 0
+//                    timer.invalidate()
+//                    
+//                    self.netConnectFail()
+//                }
+//            }
+//        }
+    }
+
+    func netConnectFail(){
+        self.lblShowState.textColor = UIColor.redColor()
+        self.lblShowState.text = "网络连接失败"
         
-        //添加定时器，每隔5s自动隐藏tar bar
-        var timer = Poller()
-        timer.start(self, method: "timerDidFire:")
+        self.btnReconnect.hidden = false
+        self.btnReconnect.backgroundColor = UIColor(red: 66/255, green: 173/255, blue: 249/255, alpha: 1)
+        self.btnReconnect.enabled = true
+    }
+    
+    func netConnectSuccess(){
+        self.lblShowState.textColor = UIColor.greenColor()
+        self.lblShowState.text = "网络已连接"
+        
+        self.btnReconnect.hidden = true
         
     }
     
-   
+    func GoBack(){
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     func getMeetingFiles(){
 
@@ -72,7 +134,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.filesDataInfo = filesInfo
                         println("fileInfo = \(self.filesDataInfo)")
                         self.tvAgenda.reloadData()
-                        self.createViewHeight()
                     }
                 }
                 return
@@ -82,47 +143,9 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let filesInfo = json["files"].array {
                 self.filesDataInfo = filesInfo
                 self.tvAgenda.reloadData()
-                self.createViewHeight()
             }
         }
     }
-    
-    //根据tableview的cell数目对tableview空白部分的toolbar显示进行设置。当count数<=6,则底部也会显示toobar，否则不显示
-    func createViewHeight(){
-        var count = self.filesDataInfo.count
-        var y = CGFloat(140 * count)
-        if count <= 6{
-            var height = CGFloat(869 - 140 * count + 10)
-            var tapView = UIView(frame: CGRectMake(0, y, 768, height))
-            tapView.backgroundColor = UIColor.clearColor()
-            self.tvAgenda.addSubview(tapView)
-            tapView.addGestureRecognizer(self.gesTap)
-        }
-    }
-    
-    
-    //屏幕滚动时，触发该事件
-    func scrollViewDidScroll(scrollView: UIScrollView){
-        hideBar()
-    }
-    
-    
-    //定时器函数，每隔5s自动隐藏tab bar
-    func timerDidFire(timer: NSTimer!){
-        if tbTop.hidden == false
-        {
-            tbTop.hidden = true
-        }
-    }
-    
-    func actionBar(){
-        tbTop.hidden = !tbTop.hidden
-    }
-    
-    func hideBar(){
-        tbTop.hidden = true
-    }
-    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filesDataInfo.count
@@ -141,8 +164,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         customColorView.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 0.85)
         cell.selectedBackgroundView =  customColorView;
         
-        cell.removeGestureRecognizer(self.gesTap)
-        
         return cell
     }
     
@@ -154,23 +175,13 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var name = rowData["name"].stringValue
         
         self.fileIDInfo = id
-        self.fileNameInfo = name
-        
+        self.fileNameInfo = name     
         
         self.performSegueWithIdentifier("toDoc", sender: self)
     }
     
-    @IBAction func btnBack(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func btnGoToHistory(sender: UIBarButtonItem) {
-        
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Create a new variable to store the instance of DocViewController
-        
         if segue.identifier ==  "toDoc" {
             var obj = segue.destinationViewController as! DocViewController
             obj.fileIDInfo = self.fileIDInfo
@@ -178,7 +189,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
