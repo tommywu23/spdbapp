@@ -35,20 +35,18 @@ class DocViewController: UIViewController {
         btnReconnect.layer.cornerRadius = 8
         btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
         
+        btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        
         if appManager.netConnect == true {
-           self.netConnectSuccess()
+            self.netConnectSuccess()
         }else{
-            btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+            //btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         }
     }
 
     
     func getReconn(){
-        btnReconnect.backgroundColor = UIColor.grayColor()
-        btnReconnect.enabled = false
-        lblShowState.text = "网络正在连接..."
-        lblShowState.textColor = UIColor.blueColor()
-        
+        self.netConnectLinking()
         
         appManager.starttimer()
     }
@@ -58,9 +56,14 @@ class DocViewController: UIViewController {
         //println("3===============\(appManager.netConnect)=====================3")
         if appManager.netConnect {
             self.netConnectSuccess()
+            self.lblShowState.reloadInputViews()
+            self.btnReconnect.reloadInputViews()
+
         }
         else{
             self.netConnectFail()
+            self.lblShowState.reloadInputViews()
+            self.btnReconnect.reloadInputViews()
         }
         
     }
@@ -76,47 +79,23 @@ class DocViewController: UIViewController {
     }
     
     func netConnectSuccess(){
-        self.lblShowState.textColor = UIColor.greenColor()
+        self.lblShowState.textColor = UIColor(red: 37/255, green: 189/255, blue: 54/255, alpha: 1.0)
         self.lblShowState.text = "网络已连接"
         
         self.btnReconnect.hidden = true
         
     }
     
-    func GoBack(){
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func netConnectLinking(){
+        btnReconnect.backgroundColor = UIColor.grayColor()
+        btnReconnect.enabled = false
+        
+        lblShowState.text = "网络正在连接..."
+        lblShowState.textColor = UIColor.blueColor()
     }
     
-    func startHeartbeat(timer: NSTimer){
-//         appManager.startHeartbeat(timer)
-
-//        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
-//        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-//            
-//            if response?.statusCode == 200{
-//                appManager.netConnect = true
-//                self.lblShowState.textColor = UIColor.greenColor()
-//                self.lblShowState.text = "网络已连接"
-//                self.btnReconnect.hidden = true
-//                
-//                self.count = 0
-//                println("netConnect ok3,count = \(self.count)")
-//                
-//            }else{
-//                self.count++
-//                println("netConnect fail3,count = \(self.count)")
-//                if self.count == 3{
-//                    appManager.netConnect = false
-//                    println("netConnect daoshijian3,count = \(self.count)")
-//                    self.count = 0
-//                    timer.invalidate()
-//                    self.lblShowState.textColor = UIColor.redColor()
-//                    self.lblShowState.text = "网络连接失败"
-//                    self.btnReconnect.backgroundColor = UIColor(red: 66/255, green: 173/255, blue: 249/255, alpha: 1)
-//                    self.btnReconnect.enabled = true
-//                }
-//            }
-//        }
+    func GoBack(){
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //获取本地pdf文档

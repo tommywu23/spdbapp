@@ -23,9 +23,8 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var fileNameInfo: String?
     
     var server = Server()
-    //var netConnect = appManager.netConnect
+    
     var timer = Poller()
-    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,58 +45,41 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         btnBack.layer.cornerRadius = 8
         btnReconnect.layer.cornerRadius = 8
         btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        
        
         if appManager.netConnect == true {
             self.netConnectSuccess()
         }else{
-            btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+            
         }
     }
     
     func getReconn(){
-        btnReconnect.backgroundColor = UIColor.grayColor()
-        btnReconnect.enabled = false
-        lblShowState.text = "网络正在连接..."
-        lblShowState.textColor = UIColor.blueColor()
+        self.netConnectLinking()
         appManager.starttimer()
     }
     
+    func GoBack(){
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
+    //每隔5s检测网络连接状态，刷新toolbar下方的控件状态
     func checkstatus(timer: NSTimer){
         //println("2===============\(appManager.netConnect)=====================2")
         if appManager.netConnect {
             self.netConnectSuccess()
+            self.lblShowState.reloadInputViews()
+            self.btnReconnect.reloadInputViews()
+
         }
         else{
             self.netConnectFail()
+            self.lblShowState.reloadInputViews()
+            self.btnReconnect.reloadInputViews()
         }
         
-    }
-    func startHeartbeat(timer: NSTimer){
-         //appManager.startHeartbeat(timer)
-//        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
-//        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-//            
-//            if response?.statusCode == 200{
-//                appManager.netConnect = true
-//                self.count = 0
-//                println("netConnect ok2,count = \(self.count)")
-//                
-//                self.netConnectSuccess()
-//                
-//            }else{
-//                self.count++
-//                println("netConnect fail2,count = \(self.count)")
-//                if self.count == 3{
-//                    appManager.netConnect = false
-//                    println("netConnect daoshijian2 ,count = \(self.count)")
-//                    self.count = 0
-//                    timer.invalidate()
-//                    
-//                    self.netConnectFail()
-//                }
-//            }
-//        }
     }
 
     func netConnectFail(){
@@ -105,34 +87,42 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.lblShowState.text = "网络连接失败"
         
         self.btnReconnect.hidden = false
-        self.btnReconnect.backgroundColor = UIColor(red: 66/255, green: 173/255, blue: 249/255, alpha: 1)
         self.btnReconnect.enabled = true
+        self.btnReconnect.backgroundColor = UIColor(red: 66/255, green: 173/255, blue: 249/255, alpha: 1)
     }
     
     func netConnectSuccess(){
-        self.lblShowState.textColor = UIColor.greenColor()
+        self.lblShowState.textColor = UIColor(red: 37/255, green: 189/255, blue: 54/255, alpha: 1.0)
         self.lblShowState.text = "网络已连接"
         
         self.btnReconnect.hidden = true
         
     }
     
-    func GoBack(){
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func netConnectLinking(){
+        btnReconnect.backgroundColor = UIColor.grayColor()
+        btnReconnect.enabled = false
+        
+        lblShowState.text = "网络正在连接..."
+        lblShowState.textColor = UIColor.blueColor()
     }
+
+    
+    
     
     func getMeetingFiles(){
 
         Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
             if (err != nil || data?.stringValue == ""){
                 var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
+                
                 var filemanager = NSFileManager.defaultManager()
                 if filemanager.fileExistsAtPath(localJSONPath){
                     var jsonLocal = filemanager.contentsAtPath(localJSONPath)
                     var json = JSON(data: jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)
                     if let filesInfo = json["files"].array {
                         self.filesDataInfo = filesInfo
-                        println("fileInfo = \(self.filesDataInfo)")
+                        println("fileInfo ==========jsonfile============ \(self.filesDataInfo)")
                         self.tvAgenda.reloadData()
                     }
                 }
@@ -141,6 +131,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             var json = JSON(data!)
             if let filesInfo = json["files"].array {
+                println("fileinfo ===============localfile================ \(filesInfo)")
                 self.filesDataInfo = filesInfo
                 self.tvAgenda.reloadData()
             }
@@ -186,9 +177,10 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             var obj = segue.destinationViewController as! DocViewController
             obj.fileIDInfo = self.fileIDInfo
             obj.fileNameInfo = self.fileNameInfo
-            
         }
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

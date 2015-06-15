@@ -49,7 +49,7 @@ class AppManager : NSObject {
     dynamic var local = GBBox()
     
     var server = Server()
-    
+
     var files: GBMeeting?
     
     var reqBoxURL: String?
@@ -59,14 +59,21 @@ class AppManager : NSObject {
     
     override init(){
         super.init()
+        
+        //判断settings存储文件是否存在，如果不存在，则创建
+        server.IsCreateFileOK()
+        
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
         
-        var dict = NSMutableDictionary(contentsOfFile: filePath)!
+        var dict = NSMutableDictionary()
+        if dict.count <= 0{
+            dict.setObject("192.168.16.142", forKey: "txtBoxURL")
+            dict.writeToFile(filePath, atomically: true)
+        }
         
         var ipStr = dict.objectForKey("txtBoxURL") as! String
         println("ip = \(ipStr)")
-        
-        
+    
         server.showDetail()
         
         //配置url信息
@@ -97,9 +104,8 @@ class AppManager : NSObject {
     }
     
     
-    
     func startHeartbeat(timer: NSTimer){
-        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
+        var url = self.server.heartBeatServiceUrl + GBNetwork.getMacId()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             
             if response?.statusCode == 200{
@@ -112,13 +118,11 @@ class AppManager : NSObject {
                 self.count++
                 println("netConnect fail,count = \(self.count)")
                 if self.count == 3{
-                    println("netConnect daoshijian ,count = \(self.count)")
                     self.count = 0
                     timer.invalidate()
                 }
             }
         }
-        //MainViewController.checkstatus(MainViewController)
     }
     
     

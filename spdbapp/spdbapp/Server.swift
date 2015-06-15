@@ -13,28 +13,34 @@ class Server: NSObject {
     var meetingServiceUrl = String()
     var fileServiceUrl = String()
     var heartBeatServiceUrl = String()
-    
+   
     let filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
     
     override init(){
         super.init()
+        
+        //self.IsCreateFileOK()
+        
         var url = getIPStr()
         boxServiceUrl = "http://" + url + ":8088/box"
         meetingServiceUrl = "http://192.168.16.141:8080/meeting/current"
         fileServiceUrl = "http://192.168.16.141:8080/file/"
         heartBeatServiceUrl = "http://" + url + ":8088/heartbeat?id="
+        
     }
+    
+
     
     
     func getIPStr() -> String {
         
-        var dict = NSMutableDictionary(contentsOfFile: filePath)!
+        var dict = NSMutableDictionary(contentsOfFile: NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt"))!
         
         if dict.count <= 0 {
             var value: AnyObject = "192.168.16.142"
             var key: NSCopying = "txtBoxURL"
             dict.setObject(value, forKey: key)
-            var b = dict.writeToFile(filePath, atomically: true) as Bool
+            var b = dict.writeToFile(NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt"), atomically: true) as Bool
         }
         
         //println("dict2 = \(dict.count)")

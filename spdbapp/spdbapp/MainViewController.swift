@@ -22,12 +22,10 @@ class MainViewController: UIViewController {
     var local = GBBox()
     
     var settingsBundle = SettingsBundleConfig()
-    var heartbearCount = 0
     
     var server = Server()
-   var timer = Poller()
+    var timer = Poller()
     
-    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,70 +43,46 @@ class MainViewController: UIViewController {
         btnConf.backgroundColor = UIColor.grayColor()
         btnConf.enabled = false
         
-       timer.start(self, method: "checkstatus:",timerInter: 5.0)
+        timer.start(self, method: "checkstatus:",timerInter: 5.0)
+        
+        btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnReconnect.layer.cornerRadius = 8
         if appManager.netConnect == true {
             netConnectSuccess()
-        }else{
-            btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         }
         
         var options = NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old
         appManager.addObserver(self, forKeyPath: "current", options: options, context: nil)
-        appManager.addObserver(self, forKeyPath: "netConnect", options: options, context: nil)
         appManager.addObserver(self, forKeyPath: "local", options: options, context: nil)
     }
     
  
-    
+    //页面下方的“重连”按钮出发的事件
     func getReconn(){
         self.netConnectLinking()
         appManager.starttimer()
     }
     
-    
+    //定时器，每隔5s刷新页面下方的toolbar控件显示
     func checkstatus(timer: NSTimer){
-        //println("1===============\(appManager.netConnect)=====================1")
+       // println("1===============\(appManager.netConnect)=====================1")
         if appManager.netConnect {
             self.netConnectSuccess()
+            self.lblShowState.reloadInputViews()
+            self.btnReconnect.reloadInputViews()
         }
         else{
-            self.netConnectFail()
+            //self.netConnectFail()
+            
+            ShowToolbarState.netConnectFail(self.lblShowState,btn: self.btnReconnect)
+            
+            self.lblShowState.reloadInputViews()
+            self.btnReconnect.reloadInputViews()
         }
+    }
+    
 
-    }
-    
-    
-    func startHeartbeat(timer: NSTimer){
-//        appManager.startHeartbeat(timer)
-//        var url = server.heartBeatServiceUrl + GBNetwork.getMacId()
-//        Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-//            
-//            if error != nil{
-//                //println("connect error = \(error?.description)")
-//                //return
-//            }
-//
-//            if response?.statusCode == 200{
-//                appManager.netConnect = true
-//                self.count = 0
-//                self.netConnectSuccess()
-//            }
-//            else{
-//                self.count++
-//                println("netConnect fail1,count = \(self.count)")
-//                if self.count == 3{
-//                    UIAlertView(title: "网络连接失败", message: "请重试", delegate: self, cancelButtonTitle: "确定").show()
-//                    timer.invalidate()
-//                    appManager.netConnect = false
-//                    println("netConnect daoshijian1 ,count = \(self.count)")
-//                    self.count = 0
-//                    self.netConnectFail()
-//                }
-//            }
-//        }
-    }
 
     func netConnectFail(){
         self.lblShowState.textColor = UIColor.redColor()
@@ -120,7 +94,7 @@ class MainViewController: UIViewController {
     }
     
     func netConnectSuccess(){
-        self.lblShowState.textColor = UIColor.greenColor()
+        self.lblShowState.textColor = UIColor(red: 37/255, green: 189/255, blue: 54/255, alpha: 1.0)
         self.lblShowState.text = "网络已连接"
         self.btnReconnect.hidden = true
 
@@ -141,9 +115,9 @@ class MainViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    
     func defaultsSettingsChanged() -> NSMutableDictionary {
         let standardDefaults = NSUserDefaults.standardUserDefaults()
-        
         var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
         var settingsDict: NSMutableDictionary = NSMutableDictionary()
         
@@ -160,6 +134,8 @@ class MainViewController: UIViewController {
         return settingsDict
     }
     
+    
+  
     //监听会议名是否发生改变
     private var myContext = 1
     //显示当前会议名
@@ -178,19 +154,10 @@ class MainViewController: UIViewController {
                 UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
             }
         }
-        
-        if keyPath == "netConnect"{
-            if object.netConnect == true {
-                self.netConnectSuccess()
-            }
-            else{
-                self.netConnectFail()
-            }
-        }
     }
+  
     deinit{
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
-        appManager.removeObserver(self, forKeyPath: "netConnect", context: &myContext)
         appManager.removeObserver(self, forKeyPath: "local",context: &myContext)
     }
 
