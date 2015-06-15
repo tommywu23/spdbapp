@@ -50,14 +50,12 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
        
         if appManager.netConnect == true {
-            self.netConnectSuccess()
-        }else{
-            
+            ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
         }
     }
     
     func getReconn(){
-        self.netConnectLinking()
+        ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
         appManager.starttimer()
     }
     
@@ -69,13 +67,12 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func checkstatus(timer: NSTimer){
         //println("2===============\(appManager.netConnect)=====================2")
         if appManager.netConnect {
-            self.netConnectSuccess()
+            ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
             self.lblShowState.reloadInputViews()
             self.btnReconnect.reloadInputViews()
-
         }
         else{
-            self.netConnectFail()
+            ShowToolbarState.netConnectFail(self.lblShowState,btn: self.btnReconnect)
             self.lblShowState.reloadInputViews()
             self.btnReconnect.reloadInputViews()
         }
