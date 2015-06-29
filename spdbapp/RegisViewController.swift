@@ -55,20 +55,58 @@ class RegisViewController: UIViewController {
             
             self.flag = true
             self.lblShowState.text = ""
-//            self.gbUser.name = data?.objectForKey("name") as! String
-//            self.gbUser.password = data?.objectForKey("password") as! String
-//            self.gbUser.type = data?.objectForKey("type") as? GBMeetingType
+            self.gbUser.name = data?.objectForKey("name") as! String
+            self.gbUser.password = data?.objectForKey("password") as! String
+            self.gbUser.type = data?.objectForKey("type") as? GBMeetingType
             
-            loginUser.name = data?.objectForKey("name") as! String
-            loginUser.password = data?.objectForKey("password") as! String
-            loginUser.type = data?.objectForKey("type") as? GBMeetingType
+//            loginUser.name = data?.objectForKey("name") as! String
+//            loginUser.password = data?.objectForKey("password") as! String
+//            loginUser.type = data?.objectForKey("type") as? GBMeetingType
 
+            
+            self.saveUser()
 
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let agendaView: AgendaViewController = storyboard.instantiateViewControllerWithIdentifier("agenda") as! AgendaViewController
             self.presentViewController(agendaView, animated: true, completion: nil)
         
         }
+    }
+    
+    func IsIdFileExist() -> Bool {
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+        
+        //判断该文件是否存在，则创建该iddata. txt文件
+        var manager = NSFileManager.defaultManager()
+        if !manager.fileExistsAtPath(filePath){
+            return false
+        }
+        return true
+    }
+
+    
+    func saveUser(){
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+//        NSFileManager.defaultManager().removeItemAtPath(filePath, error: nil)
+        var b = IsIdFileExist()
+                
+        //如果iddata文件夹不存在，则创建iddata.txt文件
+//        if !b{
+//            var manager = NSFileManager.defaultManager()
+//            var bCreateFile = manager.createFileAtPath(filePath, contents: nil, attributes: nil)
+//            if bCreateFile{
+//                println("username文件创建成功")
+//                //idstr = GBNetwork.getMacId()
+//            }
+//        }
+        
+        NSLog("filePath = %@", filePath)
+        var name = self.gbUser.name
+        var isWritten = name.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        if isWritten {
+            println("name save ok!")
+        }
+        
     }
     
 //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -24,16 +24,18 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
  
     var local = GBBox()
     
-    var gbUser = GBUser()
+//    var gbUser = GBUser()
     
+    
+    var registerVC = RegisterUserViewController()
     
     var settingsBundle = SettingsBundleConfig()
     
     var server = Server()
     var timer = Poller()
     
-    var user = GBUser()
-    var userName = String()
+    
+//    var userName = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +74,43 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         appManager.addObserver(self, forKeyPath: "current", options: options, context: nil)
         appManager.addObserver(self, forKeyPath: "local", options: options, context: nil)
         
+        createFile()
+
+        var loginPoller = Poller()
+        loginPoller.start(self, method: "getValue", timerInter: 1.0)
+        
+//        registerVC.addObserver(self, forKeyPath: "gbUser", options: options, context: nil)
+    }
+    
+    
+    func getValue(){
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+        var readData = NSData(contentsOfFile: filePath)
+        var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
+        
+        //如果不存在，则GBNetwork.getMacId()赋给id
+        if (name.length > 0){
+            self.btnRegister.hidden = true
+            self.btnConf.enabled = true
+            btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
+        }
+
+    }
+    
+    
+    func createFile()
+    {
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+        NSFileManager.defaultManager().removeItemAtPath(filePath, error: nil)
+        
+        var b = NSFileManager.defaultManager().fileExistsAtPath(filePath) ? true :false
+        if b == false{
+            var isCreateFile: Bool = NSFileManager.defaultManager().createFileAtPath(filePath, contents: nil, attributes: nil)
+            if isCreateFile == true{
+                println("uasername文件创建成功")
+            }
+        }
+        NSLog("filePath = %@", filePath)
     }
     
     func toRegis(){
@@ -168,19 +207,22 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
                 UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
             }
         }
-        
-        if keyPath == "user"{
-            if !object.gbUser.name.isEmpty {
-                self.btnConf.enabled = true
-                btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-            }
-        }
+//        
+//        if keyPath == "gbUser"{
+//            println("====================\(object.gbUser)")
+//            if !object.gbUser.name.isEmpty {
+//                self.btnConf.enabled = true
+//                btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
+//            }
+//        }
 
     }
   
     deinit{
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
         appManager.removeObserver(self, forKeyPath: "local",context: &myContext)
+        
+//        registerVC.removeObserver(self, forKeyPath: "user", context: &myContext)
         
     }
 
