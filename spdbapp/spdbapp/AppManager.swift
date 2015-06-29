@@ -16,7 +16,6 @@ class Poller {
     func start(obj: NSObject, method: Selector,timerInter: Double) {
         stop()
         
-        //var time: Double = getSettingTime()
         timer = NSTimer(timeInterval: timerInter, target: obj, selector: method , userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
     }
@@ -30,59 +29,24 @@ class Poller {
     func isRun() -> Bool{
         return (timer != nil && timer?.valid != nil)
     }
-    
-    //获取系统设置的时间   当前默认是3s
-    func getSettingTime() -> NSTimeInterval {
-        var filePath = NSBundle.mainBundle().pathForResource("TimeSettingConfig", ofType: "plist")
-        var readData: NSMutableDictionary = NSMutableDictionary(contentsOfFile: filePath!)!
-        //println("data = \(readData)")
-        var time = readData.objectForKey("timeInterval")?.doubleValue
-        return time!
-    }
 }
 
 
 class AppManager : NSObject {
-    
     dynamic var current : GBMeeting = GBMeeting()
     dynamic var netConnect: Bool = false
     dynamic var local = GBBox()
-    
+   
     var server = Server()
-
     var files: GBMeeting?
     
     var reqBoxURL: String?
-    
     var count = 0
     var timerHearbeat = Poller()
     
     override init(){
         super.init()
-        
-        //判断settings存储文件是否存在，如果不存在，则创建
-        server.IsCreateFileOK()
-        
-        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-        
-        var dict = NSMutableDictionary()
-        if dict.count <= 0{
-            dict.setObject("192.168.16.142", forKey: "txtBoxURL")
-            dict.writeToFile(filePath, atomically: true)
-        }
-        
-        var ipStr = dict.objectForKey("txtBoxURL") as! String
-        println("ip = \(ipStr)")
-    
         server.showDetail()
-        
-        //配置url信息
-        if (ipStr.isEmpty) {
-            ipStr = server.defaultsIPStr()
-        }else{
-            ipStr = server.getIPStr()
-        }
-        
         reqBoxURL = server.boxServiceUrl
         
         //程序启动先创建Box
@@ -93,19 +57,16 @@ class AppManager : NSObject {
         getCurrentPoller.start(self, method: "getCurrent:", timerInter: 3.0)
         
         self.netConnect = false
-   
         starttimer()
     }
-    
     
     func starttimer(){
         //定时器每隔一段时间去检测当前联网状态
         timerHearbeat.start(self, method: "startHeartbeat:",timerInter: 3.0)
     }
     
-    
     func startHeartbeat(timer: NSTimer){
-        var url = self.server.heartBeatServiceUrl + GBNetwork.getMacId()
+        var url = self.server.heartBeatServiceUrl + "?id=" + GBNetwork.getMacId()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             
             if response?.statusCode == 200{
@@ -191,8 +152,15 @@ class AppManager : NSObject {
         
         var result = GBBox()
         var idstr = NSString()
-        var b = IsIdFileExist()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
+        
+//        if server.getInitialIP() != "192.168.21.90"
+//        {
+//            var manager = NSFileManager.defaultManager()
+//            manager.removeItemAtPath(filePath, error: nil)
+//        }
+        
+        var b = IsIdFileExist()
         
         //如果iddata文件夹不存在，则创建iddata.txt文件
         if !b{
@@ -221,6 +189,7 @@ class AppManager : NSObject {
         getBoxResult { (boxResult) -> () in
             if let jsonResult: AnyObject = boxResult {
                 println("result = \(jsonResult)")
+    
                 result.macId = jsonResult.objectForKey("id") as! String
                 result.type = jsonResult.objectForKey("type") as? GBMeetingType
                 result.name = jsonResult.objectForKey("name") as! String
@@ -245,24 +214,7 @@ class AppManager : NSObject {
         })
         task.resume()
     }
-    
-    //将从服务器上读取的数据转换为GBMeetingType
-    func EnumParser(enumStr: String) -> GBMeetingType {
-        if enumStr == "dongshihui"{
-            return GBMeetingType.DONGSHI
-        }else if enumStr == "hangban"{
-            return GBMeetingType.HANGBAN
-        }else if enumStr == "dangzheng"{
-            return GBMeetingType.DANGBAN
-        }else if enumStr == "dangweihui"{
-            return GBMeetingType.DANGWEI
-        }else {
-            return GBMeetingType.ALL
-        }
-    }
-    
-    
-    
+ 
     
     //获取当前会议current
     func getCurrent(timer: NSTimer){
@@ -272,14 +224,13 @@ class AppManager : NSObject {
         var builder = Builder()
         
         Alamofire.request(.GET,server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+            
+            println("getCurrent err = \(error)")
+            
             if error != nil {
-                //网络出错时调用LocalCreateMeeting 方法，从本地获取会议资料创建会议
-                //println("error = \(error)")
-                //println("会议信息将直接从本地读取，本地文件地址为\(docPath)")
                 self.current = builder.LocalCreateMeeting()
                 return
             }
-            
             
             let json = JSON(data!)
             var id = json["_id"].stringValue

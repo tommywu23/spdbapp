@@ -5,51 +5,64 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="simsun.ttc">
-            <string>SimSun</string>
-            <string>SimSun</string>
+        <mutableArray key="楷体_GB2312.ttf">
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToolbarViewController" customModule="spdbapp" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBack" destination="WcD-io-d7D" id="thA-dn-NNg"/>
+                <outlet property="btnReconn" destination="Zxy-NZ-xQz" id="egv-g1-b6F"/>
+                <outlet property="btnServer" destination="SxD-IY-86V" id="MJx-Lf-Myr"/>
+                <outlet property="lblSHowState" destination="ohb-Zm-Gvp" id="LJ0-76-9En"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Li1-xe-eVT"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ToolBarView" customModule="spdbapp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="768" height="60"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANd-HA-9JU">
-                    <rect key="frame" x="8" y="5" width="80" height="40"/>
-                    <color key="backgroundColor" red="0.25882352941176467" green="0.67843137254901964" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" name="SimSun" family="SimSun" pointSize="20"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcD-io-d7D">
+                    <rect key="frame" x="10" y="5" width="80" height="40"/>
+                    <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="19"/>
                     <state key="normal" title="返回">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5A-ss-Dqd">
-                    <rect key="frame" x="95" y="5" width="80" height="40"/>
-                    <color key="backgroundColor" red="0.25882352941176467" green="0.67843137254901964" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" name="SimSun" family="SimSun" pointSize="20"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SxD-IY-86V">
+                    <rect key="frame" x="105" y="5" width="80" height="40"/>
+                    <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="19"/>
+                    <state key="normal" title="服务">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zxy-NZ-xQz">
+                    <rect key="frame" x="200" y="5" width="80" height="40"/>
+                    <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="19"/>
                     <state key="normal" title="重连">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6d9-ew-WTg">
-                    <rect key="frame" x="612" y="8" width="132" height="38"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohb-Zm-Gvp">
+                    <rect key="frame" x="620" y="8" width="150" height="40"/>
+                    <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="btnBack" destination="ANd-HA-9JU" id="ey7-vf-Hcz"/>
-                <outlet property="btnReconn" destination="i5A-ss-Dqd" id="Hzu-Pr-UYx"/>
-                <outlet property="lblConnect" destination="6d9-ew-WTg" id="pzC-hR-pU9"/>
-            </connections>
-            <point key="canvasLocation" x="956" y="411"/>
         </view>
     </objects>
 </document>

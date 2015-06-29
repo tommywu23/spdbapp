@@ -23,24 +23,24 @@
 			<string>txtBoxURL</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>  </string>
 			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>清除历史纪录</string>
 			<key>Key</key>
-			<string>clearHistory</string>
+			<string>clear_historyInfo</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<string>  </string>
 			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>清除配置信息</string>
 			<key>Key</key>
-			<string>clearData</string>
+			<string>clear_configInfo</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 	</array>
 	<key>StringsTable</key>

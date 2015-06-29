@@ -24,6 +24,8 @@ class DocViewController: UIViewController {
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
     
+    @IBOutlet weak var btnServer: UIButton!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +38,8 @@ class DocViewController: UIViewController {
         btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        btnServer.layer.cornerRadius = 8
         
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState, btn: self.btnReconnect)
@@ -51,18 +55,14 @@ class DocViewController: UIViewController {
     
     
     func checkstatus(timer: NSTimer){
-        //println("3===============\(appManager.netConnect)=====================3")
         if appManager.netConnect {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
-            self.lblShowState.reloadInputViews()
-            self.btnReconnect.reloadInputViews()
         }
         else{
             ShowToolbarState.netConnectFail(self.lblShowState,btn: self.btnReconnect)
-            self.lblShowState.reloadInputViews()
-            self.btnReconnect.reloadInputViews()
         }
-
+        self.lblShowState.reloadInputViews()
+        self.btnReconnect.reloadInputViews()
         
     }
     

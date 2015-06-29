@@ -19,35 +19,23 @@ class Server: NSObject {
     override init(){
         super.init()
         
-        //self.IsCreateFileOK()
+        self.IsCreateFileOK()
         
-        var url = getIPStr()
-        boxServiceUrl = "http://" + url + ":8088/box"
-        meetingServiceUrl = "http://192.168.16.141:8080/meeting/current"
-        fileServiceUrl = "http://192.168.16.141:8080/file/"
-        heartBeatServiceUrl = "http://" + url + ":8088/heartbeat?id="
+        var url = getInitialIP()
         
+        boxServiceUrl = "http://" + url + ":9999/box"
+        meetingServiceUrl = "http://" + url + ":9999"
+        fileServiceUrl = "http://" + url + ":9999/file/"
+        heartBeatServiceUrl = "http://" + url + ":9999/heartbeat"
     }
     
-
-    
-    
-    func getIPStr() -> String {
-        
-        var dict = NSMutableDictionary(contentsOfFile: NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt"))!
-        
-        if dict.count <= 0 {
-            var value: AnyObject = "192.168.16.142"
-            var key: NSCopying = "txtBoxURL"
-            dict.setObject(value, forKey: key)
-            var b = dict.writeToFile(NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt"), atomically: true) as Bool
-        }
-        
-        //println("dict2 = \(dict.count)")
-        
-        var result = dict.objectForKey("txtBoxURL") as! String
-        //println("dict2.urlValueresult = \(result)")
-        return result
+    func getInitialIP() -> String {
+        var dict = NSMutableDictionary(contentsOfFile: filePath)
+        println("dict ======= \(dict)")
+        var dicDefault = NSMutableDictionary(capacity: 1)
+        dicDefault.setObject("192.168.21.90", forKey: "txtBoxURL")
+        dicDefault.writeToFile(filePath, atomically: true)
+        return dicDefault.objectForKey("txtBoxURL") as! String
     }
     
     func showDetail(){
@@ -57,13 +45,6 @@ class Server: NSObject {
         }
     }
     
-    func defaultsIPStr() -> String{
-        var dict = NSMutableDictionary()
-        var result = "192.168.16.142"
-        dict.setObject(result, forKey: "txtBoxURL")
-        dict.writeToFile(self.filePath, atomically: true)
-        return result
-    }
     
     //创建SettingsConfig.txt存储配置界面的设定信息
     func IsCreateFileOK() -> Bool {
@@ -79,8 +60,30 @@ class Server: NSObject {
             NSLog("settings存储URL配置文本文件创建失败")
             return false
         }
-        NSLog("settings存储URL配置文本文件已存在")
+        //NSLog("settings存储URL配置文本文件已存在")
         return true
+    }
+    
+    
+    func clearHistoryInfo(type: String){
+        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
+        var manager = NSFileManager.defaultManager()
+        if let filelist = manager.contentsOfDirectoryAtPath(filepath, error: nil){
+            
+            println("file = \(filelist)")
+            
+            var count = filelist.count
+            for (var i = 0 ; i < count ; i++ ){
+                if filelist[i].pathExtension == type{
+                    var docpath = filepath.stringByAppendingPathComponent("\(filelist[i])")
+                    var b = manager.removeItemAtPath(docpath, error: nil)
+                    if b{
+                        println("\(filelist[i])文件删除成功")
+                    }
+                }
+            }
+        }
+        
     }
     
 }

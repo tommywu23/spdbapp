@@ -16,6 +16,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
+    @IBOutlet weak var btnServer: UIButton!
     
     var filesDataInfo:[JSON] = []
     
@@ -48,11 +49,19 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         
-       
+        btnServer.layer.cornerRadius = 8
+               
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
         }
     }
+    
+
+    
+    func getService(){
+        
+    }
+    
     
     func getReconn(){
         ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
@@ -60,57 +69,35 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func GoBack(){
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if self.presentingViewController?.presentingViewController != nil {
+            self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+        }else if self.presentingViewController != nil{
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
     }
     
     //每隔5s检测网络连接状态，刷新toolbar下方的控件状态
     func checkstatus(timer: NSTimer){
-        //println("2===============\(appManager.netConnect)=====================2")
         if appManager.netConnect {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
-            self.lblShowState.reloadInputViews()
-            self.btnReconnect.reloadInputViews()
         }
         else{
             ShowToolbarState.netConnectFail(self.lblShowState,btn: self.btnReconnect)
-            self.lblShowState.reloadInputViews()
-            self.btnReconnect.reloadInputViews()
         }
-        
+        self.lblShowState.reloadInputViews()
+        self.btnReconnect.reloadInputViews()    
     }
-
-    func netConnectFail(){
-        self.lblShowState.textColor = UIColor.redColor()
-        self.lblShowState.text = "网络连接失败"
-        
-        self.btnReconnect.hidden = false
-        self.btnReconnect.enabled = true
-        self.btnReconnect.backgroundColor = UIColor(red: 66/255, green: 173/255, blue: 249/255, alpha: 1)
-    }
-    
-    func netConnectSuccess(){
-        self.lblShowState.textColor = UIColor(red: 37/255, green: 189/255, blue: 54/255, alpha: 1.0)
-        self.lblShowState.text = "网络已连接"
-        
-        self.btnReconnect.hidden = true
-        
-    }
-    
-    func netConnectLinking(){
-        btnReconnect.backgroundColor = UIColor.grayColor()
-        btnReconnect.enabled = false
-        
-        lblShowState.text = "网络正在连接..."
-        lblShowState.textColor = UIColor.blueColor()
-    }
-
     
     
     
     func getMeetingFiles(){
 
         Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
+            
+            println("data = \(data)")
+            println("response = \(response?.statusCode)")
             if (err != nil || data?.stringValue == ""){
+                println("err = \(err?.description)")
                 var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
                 
                 var filemanager = NSFileManager.defaultManager()
@@ -119,7 +106,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     var json = JSON(data: jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)
                     if let filesInfo = json["files"].array {
                         self.filesDataInfo = filesInfo
-                        println("fileInfo ==========jsonfile============ \(self.filesDataInfo)")
+                        println("fileInfo ==========localfile============ \(self.filesDataInfo)")
                         self.tvAgenda.reloadData()
                     }
                 }
@@ -128,7 +115,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             var json = JSON(data!)
             if let filesInfo = json["files"].array {
-                println("fileinfo ===============localfile================ \(filesInfo)")
+                println("fileinfo ===============jsonfile================ \(filesInfo)")
                 self.filesDataInfo = filesInfo
                 self.tvAgenda.reloadData()
             }

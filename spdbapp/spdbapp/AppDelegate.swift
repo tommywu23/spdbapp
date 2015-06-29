@@ -8,7 +8,9 @@
 
 import UIKit
 
-var  appManager = AppManager()
+
+var appManager = AppManager()
+var loginUser = GBUser()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

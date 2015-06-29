@@ -33,4 +33,53 @@ class ShowToolbarState: NSObject {
         label.text = "网络正在连接..."
         label.textColor = UIColor.blueColor()
     }
+    
+//    
+//    class func showBottomToolbar() -> UIView{
+//        var toolbarView = ToolbarViewController(nibName: "ToolbarView", bundle: nil)
+//        var toolView = toolbarView.view
+//        var subviews = toolView.subviews
+//        
+//        var rect = toolView.frame
+//        rect.origin.y += 974
+//        toolView.frame = rect
+//        
+//        var btnBack = subviews[0] as! UIButton
+//        btnBack.layer.cornerRadius = 8
+////        btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
+//       
+//        var btnService = subviews[1] as! UIButton
+//        btnService.layer.cornerRadius = 8
+//
+//        var btnReconn = subviews[2] as! UIButton
+//        btnReconn.layer.cornerRadius = 8
+////        btnReconn.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+////        
+//        var lblShowState = subviews[3] as! UILabel
+//        
+//         return toolView
+//        
+//    }
+//    
+//    var view = self.showBottomToolbar()
+//    
+//    class func getBtnOK() -> UIButton {
+//        var view = showBottomToolbar()
+//        return view.subviews[0] as! UIButton
+//    }
+//    
+//    class func getBtnService -> UIButton{
+//        var view = showBottomToolbar()
+//        return view.subviews[1] as! UIButton
+//    }
+//    
+//    class func getBtnReconn() -> UIButton {
+//        var view = showBottomToolbar()
+//        return view.subviews[2] as! UIButton
+//    }
+//    
+//    class func getBtnService() -> UILabel{
+//        var view = showBottomToolbar()
+//        return view.subviews[3] as! UILabel
+//    }
 }

@@ -25,6 +25,12 @@ class GBBase: NSObject {
     var basename = ""
 }
 
+class GBUser: NSObject{
+    var name = String()
+    var password = String()
+    var type: GBMeetingType?
+}
+
 
 class GBBox: GBBase {
     var macId : String = "11-22-33-44-55-66"
