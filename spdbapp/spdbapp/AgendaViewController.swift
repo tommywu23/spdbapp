@@ -56,17 +56,12 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-
-    
-    func getService(){
-        
-    }
-    
     
     func getReconn(){
         ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
         appManager.starttimer()
     }
+    
     
     func GoBack(){
         if self.presentingViewController?.presentingViewController != nil {

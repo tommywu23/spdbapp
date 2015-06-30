@@ -190,9 +190,9 @@ class AppManager : NSObject {
             if let jsonResult: AnyObject = boxResult {
                 println("result = \(jsonResult)")
     
-                result.macId = jsonResult.objectForKey("id") as! String
-                result.type = jsonResult.objectForKey("type") as? GBMeetingType
-                result.name = jsonResult.objectForKey("name") as! String
+//                result.macId = jsonResult.objectForKey("id") as! String
+//                result.type = jsonResult.objectForKey("type") as? GBMeetingType
+//                result.name = jsonResult.objectForKey("name") as! String
             }
         }
        

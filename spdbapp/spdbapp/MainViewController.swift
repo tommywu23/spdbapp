@@ -24,19 +24,11 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
  
     var local = GBBox()
     
-//    var gbUser = GBUser()
-    
-    
-    var registerVC = RegisterUserViewController()
-    
     var settingsBundle = SettingsBundleConfig()
     
     var server = Server()
     var timer = Poller()
-    
-    
-//    var userName = String()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,6 +52,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         btnRegister.layer.cornerRadius = 8
         btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
         
+        btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         timer.start(self, method: "checkstatus:",timerInter: 5.0)
         
@@ -77,11 +70,22 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         createFile()
 
         var loginPoller = Poller()
-        loginPoller.start(self, method: "getValue", timerInter: 1.0)
+        loginPoller.start(self, method: "getValue", timerInter: 2.0)
         
-//        registerVC.addObserver(self, forKeyPath: "gbUser", options: options, context: nil)
     }
     
+    //ServerBox
+    func ToServerVC(){
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
+        
+        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        
+        self.presentViewController(serverBoxView, animated: false) { () -> Void in
+            serverBoxView.view.backgroundColor = UIColor.clearColor()
+        }
+    }
     
     func getValue(){
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
@@ -96,8 +100,6 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         }
 
     }
-    
-    
     func createFile()
     {
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
@@ -197,8 +199,6 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         if keyPath == "current"{
             if !object.current.name.isEmpty{
                 self.lbConfName.text = object.current.name
-//                self.btnConf.enabled = true
-//                btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
             }
         }
         
@@ -207,23 +207,13 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
                 UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
             }
         }
-//        
-//        if keyPath == "gbUser"{
-//            println("====================\(object.gbUser)")
-//            if !object.gbUser.name.isEmpty {
-//                self.btnConf.enabled = true
-//                btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
-//            }
-//        }
 
     }
   
     deinit{
         appManager.removeObserver(self, forKeyPath: "current", context: &myContext)
         appManager.removeObserver(self, forKeyPath: "local",context: &myContext)
-        
-//        registerVC.removeObserver(self, forKeyPath: "user", context: &myContext)
-        
+ 
     }
 
     

@@ -31,6 +31,14 @@ class GBUser: NSObject{
     var type: GBMeetingType?
 }
 
+class GBServer:NSObject{
+    var id = String()
+    var name = String()
+    var chairname = String()
+    var service = String()
+    var createtime = String()
+}
+
 
 class GBBox: GBBase {
     var macId : String = "11-22-33-44-55-66"
