@@ -17,6 +17,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
     @IBOutlet weak var btnServer: UIButton!
+    @IBOutlet weak var lblShowFileStatue: UILabel!
     
     var filesDataInfo:[JSON] = []
     
@@ -51,6 +52,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnServer.layer.cornerRadius = 8
+        btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
                
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
@@ -66,6 +68,19 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func GoBack(){
         self.dismissViewControllerAnimated(false, completion: nil)
+    }
+    
+    //ServerBox
+    func ToServerVC(){
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
+        
+        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        
+        self.presentViewController(serverBoxView, animated: false) { () -> Void in
+            serverBoxView.view.backgroundColor = UIColor.clearColor()
+        }
     }
     
     //每隔5s检测网络连接状态，刷新toolbar下方的控件状态
@@ -142,9 +157,15 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var name = rowData["name"].stringValue
         
         self.fileIDInfo = id
-        self.fileNameInfo = name     
+        self.fileNameInfo = name
         
-        self.performSegueWithIdentifier("toDoc", sender: self)
+        var isFileExist = DownLoadManager.isFileDownload(name)
+        if isFileExist == false{
+            self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
+        }else{
+            self.lblShowFileStatue.text = ""
+            self.performSegueWithIdentifier("toDoc", sender: self)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {

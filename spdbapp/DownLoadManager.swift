@@ -55,11 +55,6 @@ class DownLoadManager: NSObject {
             downLoadJSON()
         }
     }
-
-    
-    class func finish() {
-        
-    }
     
     //下载所有文件
 //    class func downLoadAllFile(){
@@ -125,7 +120,6 @@ class DownLoadManager: NSObject {
                 //获取所有的文件信息
                 for var i = 0 ;i < filesInfo.count ; i++ {
                     var file = filesInfo[i]
-                    
                     var fileid = file["_id"].stringValue
                     var filename = file["name"].stringValue
                     var filepath = self.server.fileServiceUrl + fileid + ".pdf"
@@ -136,30 +130,26 @@ class DownLoadManager: NSObject {
                         (temporaryURL, response) in
                         if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.AllDomainsMask)[0] as? NSURL{
                             var filenameURL = directoryURL.URLByAppendingPathComponent("\(filename)")
-                            
                             return filenameURL
                         }
                         return temporaryURL
                     }
                     //判断../Documents是否存在当前filename为名的文件，如果存在，则返回；如不存在，则下载文件
                     var b = self.isSamePDFFile(filename)
-                    
                     if b == false{
-                        //Alamofire.download(.GET, getPDFURL!, destination)
+                        Alamofire.download(.GET, getPDFURL!, destination)
                         
-                        Alamofire.download(.GET, getPDFURL!, destination).progress {
-                            (_, totalBytesRead, totalBytesExpectedToRead) in
-                            
-                            dispatch_async(dispatch_get_main_queue()) {
-                                // 6
-                                println("正在下载\(filename)，文件下载进度为：\(Float(totalBytesRead))/\(Float(totalBytesExpectedToRead))")
-                                if totalBytesRead == totalBytesExpectedToRead {
-                                    println("\(filename)下载成功")
-                                }
-                            }
-                        }
+//                        Alamofire.download(.GET, getPDFURL!, destination).progress {
+//                            (_, totalBytesRead, totalBytesExpectedToRead) in
+//                            dispatch_async(dispatch_get_main_queue()) {
+////                                println("正在下载\(filename)，文件下载进度为：\(Float(totalBytesRead))/\(Float(totalBytesExpectedToRead))")
+//                                if totalBytesRead == totalBytesExpectedToRead {
+//                                    println("\(filename)下载成功")
+//                                }
+//                            }
+//                        }
                     }else if b == true{
-                        println("第\(i+1)个文件已存在")
+                        println("\(filename)文件已存在")
                     }
                 }
             }
@@ -169,15 +159,11 @@ class DownLoadManager: NSObject {
 
     
     class func isFileDownload(name: String) -> Bool{
-        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/\(name).pdf")
+        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/\(name)")
         var manager = NSFileManager.defaultManager()
         if manager.fileExistsAtPath(filepath){
-            println("\(name)文件下载成功")
             return true
         }else{
-            
-            println("\(name)文件尚未下载")
-            
             return false
         }
         

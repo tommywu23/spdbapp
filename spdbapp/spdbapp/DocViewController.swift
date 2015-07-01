@@ -40,6 +40,7 @@ class DocViewController: UIViewController {
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnServer.layer.cornerRadius = 8
+        btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState, btn: self.btnReconnect)
@@ -49,8 +50,21 @@ class DocViewController: UIViewController {
     
     func getReconn(){
         ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
-        
         appManager.starttimer()
+    }
+    
+    
+    //ServerBox
+    func ToServerVC(){
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
+        
+        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        
+        self.presentViewController(serverBoxView, animated: false) { () -> Void in
+            serverBoxView.view.backgroundColor = UIColor.clearColor()
+        }
     }
     
     
@@ -76,7 +90,7 @@ class DocViewController: UIViewController {
         var urlString = NSURL(fileURLWithPath: "\(filePath)")
         var request = NSURLRequest(URL: urlString!)
         self.docView.loadRequest(request)
-        println("path = \(filePath)")
+//        println("path = \(filePath)")
     }
     
     override func didReceiveMemoryWarning() {

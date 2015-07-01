@@ -45,11 +45,9 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         btnConf.layer.cornerRadius = 8
         btnConf.backgroundColor = UIColor.grayColor()
         btnConf.enabled = false
-//        btnConf.addTarget(self, action: "ToAgendaVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnRegister.layer.cornerRadius = 8
         btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
-        
         
         btnServer.layer.cornerRadius = 8
         btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
@@ -57,7 +55,6 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         timer.start(self, method: "checkstatus:",timerInter: 5.0)
         
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
-        
         btnReconnect.layer.cornerRadius = 8
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
@@ -122,8 +119,6 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         
         loginVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         loginVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        
-//        btnRegister.hidden = true
         
         self.presentViewController(loginVC, animated: true) { () -> Void in
             loginVC.view.backgroundColor = UIColor.clearColor()

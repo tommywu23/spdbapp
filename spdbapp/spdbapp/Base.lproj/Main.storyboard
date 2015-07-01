@@ -23,6 +23,7 @@
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -263,6 +264,13 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F7h-MM-rap">
+                                        <rect key="frame" x="397" y="8" width="203" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="15"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -279,6 +287,7 @@
                         <outlet property="btnReconnect" destination="uFB-J0-1wR" id="dqB-sx-YDI"/>
                         <outlet property="btnServer" destination="GIF-an-8eX" id="kC3-zz-nAX"/>
                         <outlet property="lbConfType" destination="kIc-tc-ZAT" id="SVO-MK-FBk"/>
+                        <outlet property="lblShowFileStatue" destination="F7h-MM-rap" id="y7s-Rc-Z53"/>
                         <outlet property="lblShowState" destination="bn8-oK-e4t" id="kM8-Mo-6rf"/>
                         <outlet property="tvAgenda" destination="vzH-1j-s5r" id="3E5-IX-wva"/>
                         <segue destination="Pa6-Ix-LoW" kind="modal" identifier="toDoc" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="IgB-fz-fhv"/>
