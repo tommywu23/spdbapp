@@ -36,6 +36,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tvAgenda.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 1)
         tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.None
+        
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
         
@@ -64,11 +65,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func GoBack(){
-        if self.presentingViewController?.presentingViewController != nil {
-            self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
-        }else if self.presentingViewController != nil{
-            self.dismissViewControllerAnimated(false, completion: nil)
-        }
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
     
     //每隔5s检测网络连接状态，刷新toolbar下方的控件状态

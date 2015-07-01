@@ -143,6 +143,7 @@ class AppManager : NSObject {
         if !manager.fileExistsAtPath(filePath){
             return false
         }
+        println("idData文件已存在")
         return true
     }
     
@@ -154,11 +155,10 @@ class AppManager : NSObject {
         var idstr = NSString()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         
-//        if server.getInitialIP() != "192.168.21.90"
-//        {
+
 //            var manager = NSFileManager.defaultManager()
 //            manager.removeItemAtPath(filePath, error: nil)
-//        }
+
         
         var b = IsIdFileExist()
         
@@ -185,36 +185,31 @@ class AppManager : NSObject {
         
         var urlString = "\(reqBoxURL!)?id=\(idstr)"
         NSLog("urlString = %@", urlString)
+        var str = server.boxServiceUrl + "?id=" + GBNetwork.getMacId()
         
-        getBoxResult { (boxResult) -> () in
-            if let jsonResult: AnyObject = boxResult {
-                println("result = \(jsonResult)")
-    
-//                result.macId = jsonResult.objectForKey("id") as! String
-//                result.type = jsonResult.objectForKey("type") as? GBMeetingType
-//                result.name = jsonResult.objectForKey("name") as! String
+        Alamofire.request(.GET, str).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, error) -> Void in
+//            println("data = \(data!)")
+            if error != nil{
+                println("获取用户信息失败，请重试。。。")
+                return
             }
+        
+            var v = "\""
+            var err = "Error = " + v + "not find ID" + v + ";"
+            println("err = \(err)")
+            
+            if ((data?.isEqual(err)) != nil){
+                println("data = \(data)")
+            }
+            
+            result.macId = data?.objectForKey("id") as! String
+            result.type = data?.objectForKey("type") as? GBMeetingType
+            result.name = data?.objectForKey("name") as! String
         }
-       
+        
         return result
     }
     
-    
-    func getBoxResult(completionHandler: (boxResult: AnyObject?) -> ()){
-        var session = NSURLSession.sharedSession()
-        var str = server.boxServiceUrl + "?id=" + GBNetwork.getMacId()
-        var urlStr = NSURL(string: str)!
-        let task = session.dataTaskWithURL(urlStr, completionHandler: { (data, response, err) -> Void in
-            if err != nil{
-                println("err = \(err.description)")
-                return
-            }
-            var jsonResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil)!
-            completionHandler(boxResult: jsonResult)
-        })
-        task.resume()
-    }
- 
     
     //获取当前会议current
     func getCurrent(timer: NSTimer){
@@ -222,9 +217,9 @@ class AppManager : NSObject {
         var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
         
         var builder = Builder()
-        
+               
         Alamofire.request(.GET,server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
-            
+        
             println("getCurrent err = \(error)")
             
             if error != nil {
@@ -237,17 +232,15 @@ class AppManager : NSObject {
             
             if self.current.isEqual(nil)  {
                 self.current = builder.CreateMeeting()
-                
-                DownLoadManager.isStart(true)
+//                DownLoadManager.isStart(true)
             }
             
             if(self.current.id == id) {
                 return
             }
             
-            self.current = builder.CreateMeeting()
-            
-            DownLoadManager.isStart(true)
+            self.current = builder.CreateMeeting()   
+//            DownLoadManager.isStart(true)
         }
     }
     

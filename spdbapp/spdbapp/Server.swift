@@ -24,14 +24,14 @@ class Server: NSObject {
         var url = getInitialIP()
         
         boxServiceUrl = "http://" + url + ":9999/box"
-        meetingServiceUrl = "http://" + url + ":9999"
+        meetingServiceUrl = "http://" + url + ":9999/meeting"
         fileServiceUrl = "http://" + url + ":9999/file/"
         heartBeatServiceUrl = "http://" + url + ":9999/heartbeat"
     }
     
     func getInitialIP() -> String {
         var dict = NSMutableDictionary(contentsOfFile: filePath)
-        println("dict ======= \(dict)")
+//        println("dict ------- \(dict!)")
         var dicDefault = NSMutableDictionary(capacity: 1)
         dicDefault.setObject("192.168.21.90", forKey: "txtBoxURL")
         dicDefault.writeToFile(filePath, atomically: true)

@@ -34,7 +34,6 @@
 		C49E8A471B3CE9580075D059 /* RegisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E8A461B3CE9580075D059 /* RegisViewController.swift */; };
 		C4A1608B1B2E998E005AB2CB /* ShowToolbarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1608A1B2E998E005AB2CB /* ShowToolbarState.swift */; };
 		C4AA12451B12D3380043358D /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA12441B12D3380043358D /* Builder.swift */; };
-		C4DBC2701B41258A00129213 /* GetLoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBC26F1B41258A00129213 /* GetLoginUser.swift */; };
 		C4DFEB3E1B283EE6007AE9BE /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DFEB3D1B283EE6007AE9BE /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,7 +127,6 @@
 		C49E8A461B3CE9580075D059 /* RegisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisViewController.swift; path = ../RegisViewController.swift; sourceTree = "<group>"; };
 		C4A1608A1B2E998E005AB2CB /* ShowToolbarState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowToolbarState.swift; path = ../ShowToolbarState.swift; sourceTree = "<group>"; };
 		C4AA12441B12D3380043358D /* Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
-		C4DBC26F1B41258A00129213 /* GetLoginUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetLoginUser.swift; path = ../GetLoginUser.swift; sourceTree = "<group>"; };
 		C4DFEB3D1B283EE6007AE9BE /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,7 +198,6 @@
 				C4824D421B1D880B0098A932 /* View */,
 				C4824D461B1D88210098A932 /* Controller */,
 				6507787F1B007FCA00C2BCFB /* AppManager.swift */,
-				C4DBC26F1B41258A00129213 /* GetLoginUser.swift */,
 				6580FE001AFB62DE00C7ACE7 /* AppDelegate.swift */,
 				C443E65B1B0B2AEB00170344 /* DownLoadManager.swift */,
 				C4824D471B1D885E0098A932 /* DeleteManager.swift */,
@@ -421,7 +418,6 @@
 				C443E65C1B0B2AEB00170344 /* DownLoadManager.swift in Sources */,
 				6580FE031AFB62DE00C7ACE7 /* MainViewController.swift in Sources */,
 				C47E4FB31B41542200CAD26F /* ServerViewController.swift in Sources */,
-				C4DBC2701B41258A00129213 /* GetLoginUser.swift in Sources */,
 				C4DFEB3E1B283EE6007AE9BE /* SwiftyJSON.swift in Sources */,
 				6580FE011AFB62DE00C7ACE7 /* AppDelegate.swift in Sources */,
 				650778861B00820000C2BCFB /* Networking.swift in Sources */,

@@ -128,7 +128,6 @@ class DownLoadManager: NSObject {
                     
                     var fileid = file["_id"].stringValue
                     var filename = file["name"].stringValue
-//                    var filepath = Router.baseURLFile + "/file/" + fileid + ".pdf"
                     var filepath = self.server.fileServiceUrl + fileid + ".pdf"
                     
                     var getPDFURL = NSURL(string: filepath)
@@ -154,11 +153,7 @@ class DownLoadManager: NSObject {
                             dispatch_async(dispatch_get_main_queue()) {
                                 // 6
                                 println("正在下载\(filename)，文件下载进度为：\(Float(totalBytesRead))/\(Float(totalBytesExpectedToRead))")
-                                //progressIndicatorView.setProgress(Float(totalBytesRead) / Float(totalBytesExpectedToRead), animated: true)
-                                
-                                // 7
                                 if totalBytesRead == totalBytesExpectedToRead {
-                                    //progressIndicatorView.removeFromSuperview()
                                     println("\(filename)下载成功")
                                 }
                             }

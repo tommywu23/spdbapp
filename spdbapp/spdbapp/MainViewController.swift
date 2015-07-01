@@ -17,9 +17,8 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
     @IBOutlet weak var btnServer: UIButton!
-    
-    
     @IBOutlet weak var btnRegister: UIButton!
+    
     var current = GBMeeting()
  
     var local = GBBox()
@@ -40,18 +39,19 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         var name = "暂无会议"
         lbConfName.attributedText = NSAttributedString(string: name, attributes : attr)
 
+        println("=============main=============")
         
         //初始化时候btnconf背景颜色为灰色，点击无效
         btnConf.layer.cornerRadius = 8
         btnConf.backgroundColor = UIColor.grayColor()
         btnConf.enabled = false
-        btnConf.addTarget(self, action: "ToAgendaVC", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        btnServer.layer.cornerRadius = 8
+//        btnConf.addTarget(self, action: "ToAgendaVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnRegister.layer.cornerRadius = 8
         btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
         
+        
+        btnServer.layer.cornerRadius = 8
         btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         timer.start(self, method: "checkstatus:",timerInter: 5.0)
@@ -92,14 +92,15 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         var readData = NSData(contentsOfFile: filePath)
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
-        //如果不存在，则GBNetwork.getMacId()赋给id
         if (name.length > 0){
             self.btnRegister.hidden = true
             self.btnConf.enabled = true
             btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
         }
-
     }
+    
+    
+    
     func createFile()
     {
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
@@ -112,26 +113,22 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
                 println("uasername文件创建成功")
             }
         }
-        NSLog("filePath = %@", filePath)
     }
     
     func toRegis(){
-        
+ 
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC: RegisViewController = storyboard.instantiateViewControllerWithIdentifier("view") as! RegisViewController
         
         loginVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         loginVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         
+//        btnRegister.hidden = true
+        
         self.presentViewController(loginVC, animated: true) { () -> Void in
             loginVC.view.backgroundColor = UIColor.clearColor()
         }
-    }
-    
-    func ToAgendaVC(){
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let agendaView: AgendaViewController = storyboard.instantiateViewControllerWithIdentifier("agenda") as! AgendaViewController
-        self.presentViewController(agendaView, animated: true, completion: nil)
+        
     }
 
     

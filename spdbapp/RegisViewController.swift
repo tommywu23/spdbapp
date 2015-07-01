@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class RegisViewController: UIViewController {
+class RegisViewController: UIViewController,UIAlertViewDelegate {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var btnOK: UIButton!
@@ -36,6 +36,8 @@ class RegisViewController: UIViewController {
     
     }
     
+    
+    
     func goLogin(){
         let paras = ["name":txtName.text,"password":txtPwd.text]
         var url = "http:192.168.21.83:3003/login"    
@@ -45,7 +47,9 @@ class RegisViewController: UIViewController {
             Void in
             
             if error != nil{
-                println("无法连接到服务器，请检查网络设置后重试")
+                println("login err = \(error)")
+                UIAlertView(title: "提示", message: "登录失败，无法连接到服务器，请检查网络设置后重试", delegate: self, cancelButtonTitle: "确定")
+                println("登录失败，无法连接到服务器，请检查网络设置后重试")
                 self.dismissViewControllerAnimated(false, completion: nil)
                 return
             }else if(response?.statusCode != 200){
@@ -59,13 +63,11 @@ class RegisViewController: UIViewController {
             self.gbUser.name = data?.objectForKey("name") as! String
             self.gbUser.password = data?.objectForKey("password") as! String
             self.gbUser.type = data?.objectForKey("type") as? GBMeetingType
+            DownLoadManager.isStart(true)
+            println("\(self.txtName.text)登录成功===================")
             
             self.saveUser()
-
-            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let agendaView: AgendaViewController = storyboard.instantiateViewControllerWithIdentifier("agenda") as! AgendaViewController
-            self.presentViewController(agendaView, animated: true, completion: nil)
-        
+            self.dismissViewControllerAnimated(false, completion: nil)
         }
     }
     
