@@ -13,9 +13,11 @@ import Alamofire
 class Builder: NSObject {
     
     var server = Server()
+    
+    
     //Create Meeting online
     func CreateMeeting() -> GBMeeting {
-      
+        
         var current = GBMeeting()
         var url = NSURL(string: server.meetingServiceUrl)
         
@@ -23,14 +25,13 @@ class Builder: NSObject {
         if(data != nil){
             var json: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil)!
             
-            current.id = json["_id"] as! String
+            current.id = json["id"] as! String
             current.name = json["name"] as! String
-
+            println(current.name)
+            
         }
         return current
-        
     }
-    
 
 
     //Create Meeting offline
@@ -44,9 +45,9 @@ class Builder: NSObject {
             var jsonLocal = filemanager.contentsAtPath(localJSONPath)
             var json: AnyObject = NSJSONSerialization.JSONObjectWithData(jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)!
             
-            current.id = json["_id"] as! String
+            current.id = json["id"] as! String
             current.name = json["name"] as! String
-            //println(current.name)
+            println(current.name)
         }
         return current
     }

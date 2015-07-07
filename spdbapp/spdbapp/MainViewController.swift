@@ -16,7 +16,6 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     @IBOutlet weak var lbConfName: UILabel!
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
-    @IBOutlet weak var btnServer: UIButton!
     @IBOutlet weak var btnRegister: UIButton!
     
     var current = GBMeeting()
@@ -25,8 +24,10 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     
     var settingsBundle = SettingsBundleConfig()
     
-    var server = Server()
+//    var server = Server()
     var timer = Poller()
+    
+    var flag = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,18 +40,15 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         var name = "暂无会议"
         lbConfName.attributedText = NSAttributedString(string: name, attributes : attr)
 
-        println("=============main=============")
         
         //初始化时候btnconf背景颜色为灰色，点击无效
         btnConf.layer.cornerRadius = 8
         btnConf.backgroundColor = UIColor.grayColor()
         btnConf.enabled = false
         
+        
         btnRegister.layer.cornerRadius = 8
         btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        btnServer.layer.cornerRadius = 8
-        btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         timer.start(self, method: "checkstatus:",timerInter: 5.0)
         
@@ -71,31 +69,36 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         
     }
     
-    //ServerBox
-    func ToServerVC(){
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
-        
-        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        
-        self.presentViewController(serverBoxView, animated: false) { () -> Void in
-            serverBoxView.view.backgroundColor = UIColor.clearColor()
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        // Create a new variable to store the instance of DocViewController
+        if segue.identifier ==  "ToAgendaVC" {
+            //ToAgendaVC
+            var obj = segue.destinationViewController as! AgendaViewController
+            obj.meetingName = self.lbConfName.text!
+            
         }
     }
     
-    func getValue(){
+    
+    func getName() -> Bool{
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
         var readData = NSData(contentsOfFile: filePath)
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
         if (name.length > 0){
+            return true
+        }
+        return false
+    }
+    
+    func getValue(){
+        if getName() == true {
             self.btnRegister.hidden = true
             self.btnConf.enabled = true
             btnConf.backgroundColor = UIColor(red: 123/255, green: 0/255, blue: 31/255, alpha: 1.0)
         }
     }
-    
     
     
     func createFile()
@@ -114,16 +117,15 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     
     func toRegis(){
  
+//        self.btnRegister.backgroundColor = UIColor.grayColor()
+//        self.btnRegister.enabled = false
+        
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC: RegisViewController = storyboard.instantiateViewControllerWithIdentifier("view") as! RegisViewController
+        loginVC.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         
-        loginVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        loginVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         
-        self.presentViewController(loginVC, animated: true) { () -> Void in
-            loginVC.view.backgroundColor = UIColor.clearColor()
-        }
-        
+        self.presentViewController(loginVC, animated: false, completion: nil)
     }
 
     
@@ -187,7 +189,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     private var myContext = 1
     //显示当前会议名
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        
+       
         if keyPath == "current"{
             if !object.current.name.isEmpty{
                 self.lbConfName.text = object.current.name

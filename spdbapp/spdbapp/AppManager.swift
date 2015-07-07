@@ -32,13 +32,12 @@ class Poller {
 }
 
 
-class AppManager : NSObject {
-    dynamic var current : GBMeeting = GBMeeting()
+class AppManager : NSObject, UIAlertViewDelegate {
+    dynamic var current = GBMeeting()
     dynamic var netConnect: Bool = false
     dynamic var local = GBBox()
    
-    var server = Server()
-    var files: GBMeeting?
+//    var server = Server()
     
     var reqBoxURL: String?
     var count = 0
@@ -66,7 +65,7 @@ class AppManager : NSObject {
     }
     
     func startHeartbeat(timer: NSTimer){
-        var url = self.server.heartBeatServiceUrl + "?id=" + GBNetwork.getMacId()
+        var url = server.heartBeatServiceUrl + "/" + GBNetwork.getMacId()
         Alamofire.request(.GET, url).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
             
             if response?.statusCode == 200{
@@ -89,13 +88,13 @@ class AppManager : NSObject {
     
     //register current ipad id to server，返回已经注册的id并保存
     func registerCurrentId(){
-        let paras = ["id":GBNetwork.getMacId()]
+        let paras = ["id":"\(GBNetwork.getMacId())"]
         
         var id: NSString = ""
-        Alamofire.request(.POST, reqBoxURL! ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) ->
-        
-        Void in
-            println("post data = \(data!)")
+
+        Alamofire.request(.POST, reqBoxURL!, parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request, response, data, error) -> Void in
+//            println("response.code = \(response)")
+//            println("data ==================== \(data)")
             
             if(error != nil){
                 NSLog("注册当前id失败，error ＝ %@", error!.description)
@@ -108,6 +107,7 @@ class AppManager : NSObject {
                 self.idInfoSave(id)
             }
         }
+        
     }
     
     
@@ -116,13 +116,13 @@ class AppManager : NSObject {
         var idFilePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         println("该id保存地址 = \(idFilePath)")
         
-        var readData = NSData(contentsOfFile: idFilePath)
-        var content = NSString(data: readData!, encoding: NSUTF8StringEncoding)!
-        
-        if(content == id){
-            NSLog("当前ipad的id已保存")
-            return
-        }
+//        var readData = NSData(contentsOfFile: idFilePath)
+//        var content = NSString(data: readData!, encoding: NSUTF8StringEncoding)!
+//        
+//        if(content == id){
+//            NSLog("当前ipad的id已保存")
+//            return
+//        }
         
         var b = id.writeToFile(idFilePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
         if b {
@@ -155,11 +155,6 @@ class AppManager : NSObject {
         var idstr = NSString()
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/idData.txt")
         
-
-//            var manager = NSFileManager.defaultManager()
-//            manager.removeItemAtPath(filePath, error: nil)
-
-        
         var b = IsIdFileExist()
         
         //如果iddata文件夹不存在，则创建iddata.txt文件
@@ -183,30 +178,38 @@ class AppManager : NSObject {
             idstr = GBNetwork.getMacId()
         }
         
-        var urlString = "\(reqBoxURL!)?id=\(idstr)"
+        var urlString = "\(reqBoxURL!)/\(idstr)"
         NSLog("urlString = %@", urlString)
-        var str = server.boxServiceUrl + "?id=" + GBNetwork.getMacId()
+        var str = server.boxServiceUrl + "/" + GBNetwork.getMacId()
         
         Alamofire.request(.GET, str).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, error) -> Void in
-//            println("data = \(data!)")
+            println("data = \(data)")
+            println("response = \(response)")
             if error != nil{
-                println("获取用户信息失败，请重试。。。")
+                println("err = \(error)")
+                println("获取用户信息失败，请检查网络设置后重试。。。")
                 return
             }
-        
-            var v = "\""
-            var err = "Error = " + v + "not find ID" + v + ";"
-            println("err = \(err)")
             
-            if ((data?.isEqual(err)) != nil){
-                println("data = \(data)")
+            if response?.statusCode == 400{
+                var resData: String = data?.objectForKey("error") as! String
+                
+                if (resData == "not find ID"){
+                    self.registerCurrentId()
+                    return
+                }
+                else if(resData == "type or name is nil"){
+                    self.registerCurrentId()
+                    UIAlertView(title: "当前id未注册", message: "请先注册id", delegate: self, cancelButtonTitle: "确定").show()
+                    println("请至服务台注册当前id...")
+                    return
+                }
             }
             
             result.macId = data?.objectForKey("id") as! String
             result.type = data?.objectForKey("type") as? GBMeetingType
             result.name = data?.objectForKey("name") as! String
         }
-        
         return result
     }
     
@@ -228,7 +231,7 @@ class AppManager : NSObject {
             }
             
             let json = JSON(data!)
-            var id = json["_id"].stringValue
+            var id = json["id"].stringValue
             
             if self.current.isEqual(nil)  {
                 self.current = builder.CreateMeeting()

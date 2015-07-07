@@ -9,8 +9,14 @@
 import UIKit
 import Alamofire
 
-class ServerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate {
+class ServerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate, UIGestureRecognizerDelegate{
 
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var viewTop: UIView!
+    @IBOutlet weak var viewLeft: UIView!
+    @IBOutlet weak var viewRight: UIView!
+    @IBOutlet weak var viewBottom: UIView!
+    
     let servers = [
     ["name":"笔","pic":"Pan-white"],
     ["name":"纸","pic":"paper-on"],
@@ -30,6 +36,20 @@ class ServerViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.serverColView.dataSource = self
         self.serverColView.layer.cornerRadius = 8
         self.serverColView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        self.tapGesture.addTarget(self, action: "hideServerView")
+//        self.view.addGestureRecognizer(tapGesture)
+        self.viewTop.addGestureRecognizer(tapGesture)
+        self.viewBottom.addGestureRecognizer(tapGesture)
+        self.viewLeft.addGestureRecognizer(tapGesture)
+        self.viewRight.addGestureRecognizer(tapGesture)
+        
+    }
+   
+    
+    func hideServerView(){
+        println("======tsp=======")
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

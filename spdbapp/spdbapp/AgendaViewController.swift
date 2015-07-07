@@ -16,27 +16,30 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
-    @IBOutlet weak var btnServer: UIButton!
     @IBOutlet weak var lblShowFileStatue: UILabel!
+    @IBOutlet weak var lblMeetingName: UILabel!
     
-    var filesDataInfo:[JSON] = []
+    var agendaNameInfo = String()
     
-    var fileIDInfo:String?
-    var fileNameInfo: String?
-    
-    var server = Server()
-    
+    var gbAgenda = GBAgenda()
+    var gbSource = GBSource()
+    var gbSourceInfo = [GBSource]()
+    var gbAgendInfo = [GBAgenda]()
+    var agendaName = [String]()
+    var agendaId = [String]()
+    var agendaStarttime = [String]()
+    var agendaEndtime = [String]()
+    var agendaReporter = [String]()
+
     var timer = Poller()
-    
+    var meetingName = String()
     override func viewDidLoad() {
         super.viewDidLoad()
   
-        lbConfType.text = "党政联系会议"
         tvAgenda?.dataSource = self
         tvAgenda?.delegate = self
         tvAgenda?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tvAgenda.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 1)
-        tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.None
+        tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
@@ -51,12 +54,14 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
         
-        btnServer.layer.cornerRadius = 8
-        btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
-               
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        println("meeting anme = \(meetingName)")
+        self.lblMeetingName.text = meetingName
     }
     
     
@@ -70,18 +75,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.dismissViewControllerAnimated(false, completion: nil)
     }
     
-    //ServerBox
-    func ToServerVC(){
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
-        
-        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        
-        self.presentViewController(serverBoxView, animated: false) { () -> Void in
-            serverBoxView.view.backgroundColor = UIColor.clearColor()
-        }
-    }
     
     //每隔5s检测网络连接状态，刷新toolbar下方的控件状态
     func checkstatus(timer: NSTimer){
@@ -94,88 +87,126 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.lblShowState.reloadInputViews()
         self.btnReconnect.reloadInputViews()    
     }
+
     
+    func showMeetingInfo(json: JSON) {
+        if let agendasInfo = json["agenda"].array {
+            
+            //遍历议程信息,获取议程的name、id、source等信息
+            for var  i = 0 ; i < agendasInfo.count ; i++ {
+                self.gbAgenda.id = agendasInfo[i]["id"].stringValue
+                self.gbAgenda.name = agendasInfo[i]["name"].stringValue
+                self.gbAgenda.starttime = agendasInfo[i]["starttime"].stringValue
+                self.gbAgenda.endtime = agendasInfo[i]["endtime"].stringValue
+                self.gbAgenda.reporter = "report\(i)"
+
+                
+                self.gbAgendInfo.append(self.gbAgenda)
+                self.agendaName.append(self.gbAgenda.name)
+                self.agendaId.append(self.gbAgenda.id)
+                self.agendaStarttime.append(self.gbAgenda.starttime)
+                self.agendaEndtime.append(self.gbAgenda.endtime)
+                self.agendaReporter.append(self.gbAgenda.reporter)
+                self.tvAgenda.reloadData()
+            }
+            
+        }
+
+    }
     
+
     
     func getMeetingFiles(){
 
         Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
-            
-            println("data = \(data)")
-            println("response = \(response?.statusCode)")
+    
             if (err != nil || data?.stringValue == ""){
-                println("err = \(err?.description)")
+                println("aegnda getmeeting err = \(err?.description)")
                 var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
                 
                 var filemanager = NSFileManager.defaultManager()
                 if filemanager.fileExistsAtPath(localJSONPath){
                     var jsonLocal = filemanager.contentsAtPath(localJSONPath)
                     var json = JSON(data: jsonLocal!, options: NSJSONReadingOptions.AllowFragments, error: nil)
-                    if let filesInfo = json["files"].array {
-                        self.filesDataInfo = filesInfo
-                        println("fileInfo ==========localfile============ \(self.filesDataInfo)")
-                        self.tvAgenda.reloadData()
-                    }
+                   
+                    println("=================local=====================")
+                    self.showMeetingInfo(json)
                 }
                 return
             }
-            
+   
+            println("fileinfo ===============jsonfile================")
             var json = JSON(data!)
-            if let filesInfo = json["files"].array {
-                println("fileinfo ===============jsonfile================ \(filesInfo)")
-                self.filesDataInfo = filesInfo
-                self.tvAgenda.reloadData()
-            }
+            self.showMeetingInfo(json)
         }
+    }
+
+    
+//    func toDocVCSource(sender: UIButton){
+//        var rowid = sender.superview?.subviews[1].tag
+//        var colid = sender.tag
+//        self.fileNameInfo = sourceName[rowid!][colid]
+//        
+//        var isFileExist = DownLoadManager.isFileDownload(self.fileNameInfo!)
+//        if isFileExist == false{
+//            self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
+//        }else{
+//            self.lblShowFileStatue.text = ""
+//            self.performSegueWithIdentifier("toDoc", sender: self)
+//        }
+//    }
+//
+//    
+//    func toDocVCAgenda(sender: UIButton){
+//        var rowid = sender.tag
+//        self.fileNameInfo = self.agendaName[rowid]
+//        
+//        var isFileExist = DownLoadManager.isFileDownload(self.fileNameInfo!)
+//        if isFileExist == false{
+//            self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
+//        }else{
+//            self.lblShowFileStatue.text = ""
+//            self.performSegueWithIdentifier("toDoc", sender: self)
+//        }
+//    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 65
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filesDataInfo.count
+        return self.gbAgendInfo.count
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
+
+        var name = self.agendaName[indexPath.row]
+        println("segue name==================\(name)")
+        self.agendaNameInfo = name
+        self.performSegueWithIdentifier("toSource", sender: self)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AgendaTableViewCell
-        var row = indexPath.row as Int
         
-        var rowData = filesDataInfo[indexPath.row]
-        
-        cell.lbAgenda.text = rowData["name"].stringValue
-        cell.lbAgendaIndex.text = (String)(indexPath.row + 1)
-        
-        var customColorView = UIView();
-        customColorView.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 0.85)
-        cell.selectedBackgroundView =  customColorView;
-        
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AgendaTableViewCell
+        cell.lblTime.text = "\(self.agendaStarttime[indexPath.row]) - \(self.agendaEndtime[indexPath.row])"
+        cell.lblReporter.text = self.agendaReporter[indexPath.row]
+        cell.lbAgenda.text = "\(self.agendaName[indexPath.row])"
+        cell.tag = indexPath.row
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
-        var rowData: JSON = filesDataInfo[indexPath.row]
-        var id = rowData["_id"].stringValue
-        var name = rowData["name"].stringValue
-        
-        self.fileIDInfo = id
-        self.fileNameInfo = name
-        
-        var isFileExist = DownLoadManager.isFileDownload(name)
-        if isFileExist == false{
-            self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
-        }else{
-            self.lblShowFileStatue.text = ""
-            self.performSegueWithIdentifier("toDoc", sender: self)
-        }
-    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Create a new variable to store the instance of DocViewController
-        if segue.identifier ==  "toDoc" {
-            var obj = segue.destinationViewController as! DocViewController
-            obj.fileIDInfo = self.fileIDInfo
-            obj.fileNameInfo = self.fileNameInfo
+        if segue.identifier ==  "toSource" {
+            var obj = segue.destinationViewController as! SourceFileViewcontroller
+            obj.agendaNameInfo = self.agendaNameInfo
         }
     }
+    
+    
     
     
     

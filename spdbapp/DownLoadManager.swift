@@ -12,7 +12,7 @@ import Alamofire
 class DownLoadManager: NSObject {
     
     //static var router = Router.GetCurrentMeeting()
-    static let server = Server()
+//    static let server = Server()
     
     //判断当前文件夹是否存在jsondata数据，如果不存在，则继续进入下面的步骤
     //如果存在该数据，则判断当前json与本地jsonlocal是否一致，如果一致，则打印 json数据信息已经存在，return
@@ -35,11 +35,9 @@ class DownLoadManager: NSObject {
     
     
     class func isSamePDFFile(fileName: String) -> Bool {
-        
-        
         var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
         var filePath = docPath.stringByAppendingPathComponent("\(fileName)")
-        //println("path = \(filePath)")
+//        println("path = \(filePath)")
         
         var filemanager = NSFileManager.defaultManager()
         
@@ -56,105 +54,78 @@ class DownLoadManager: NSObject {
         }
     }
     
-    //下载所有文件
-//    class func downLoadAllFile(){
-//        Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
-//        if(err != nil){
-//                NSLog("download allfile error ==== %@", err!)
-//                //return
-//            }
-//            
-//            let json = JSON(data!)
-//            
-//            if let filesInfo = json["files"].array
-//            {
-//                //获取所有的文件信息
-//                for var i = 0 ;i < filesInfo.count ; i++ {
-//                    var file = filesInfo[i]
-//                    
-//                    var fileid = file["_id"].stringValue
-//                    var filename = file["name"].stringValue
-//                    
-////                    var filepath = Router.baseURLFile + "/file/" + fileid + ".pdf"
-//                    
-//                    
-//                    var filepath = self.server.fileServiceUrl + fileid + ".pdf"
-//                    var getPDFURL = NSURL(string: filepath)
-//                    
-//                    
-//                    let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
-//                        (temporaryURL, response) in
-//                        if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.AllDomainsMask)[0] as? NSURL{
-//                            var filenameURL = directoryURL.URLByAppendingPathComponent("\(filename)")
-//                            
-//                            return filenameURL
-//                        }
-//                        return temporaryURL
-//                    }
-//                    
-//                    //判断../Documents是否存在当前filename为名的文件，如果存在，则返回；如不存在，则下载文件
-//                    var b = self.isSamePDFFile(filename)
-//                    
-//                    if b == false{
-//                        Alamofire.download(.GET, getPDFURL!, destination)
-//                        println("下载\(filename)成功")
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     //-> (currentSeq: Int, totalCount: Int) -> (name: String, downSize: Int, allSize: Int)
     class func downLoadAllFile(){
         Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (_, _, data, err) -> Void in
             if(err != nil){
-                NSLog("download allfile error ==== %@", err!)
-                //return
+                NSLog("download allsourcefile error ==== %@", err!)
+                return
             }
             
             let json = JSON(data!)
-            var filecount = json["files"].array!.count
+            var meetingid = json["id"].stringValue
             
-            if let filesInfo = json["files"].array
+            if let agendasInfo = json["agenda"].array
             {
-                //获取所有的文件信息
-                for var i = 0 ;i < filesInfo.count ; i++ {
-                    var file = filesInfo[i]
-                    var fileid = file["_id"].stringValue
-                    var filename = file["name"].stringValue
-                    var filepath = self.server.fileServiceUrl + fileid + ".pdf"
+                //获取所有的议程信息
+                for var i = 0 ;i < agendasInfo.count ; i++ {
+                    var agendas = agendasInfo[i]
+                    //获取当前agenda对应的source文件
+                    var sources = agendas["source"].array!
                     
-                    var getPDFURL = NSURL(string: filepath)
-   
-                    let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
-                        (temporaryURL, response) in
-                        if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.AllDomainsMask)[0] as? NSURL{
-                            var filenameURL = directoryURL.URLByAppendingPathComponent("\(filename)")
-                            return filenameURL
+                    if let fileSourceInfo = agendas["source"].array{
+                        for var j = 0 ; j < fileSourceInfo.count ; j++ {
+                            
+                        var fileid = fileSourceInfo[j].stringValue
+                        var filename = String()
+
+                        //根据source的id去寻找对应的name
+                        if let sources = json["source"].array{
+                            for var k = 0 ; k < sources.count ; k++ {
+                                if fileid == sources[k]["id"].stringValue{
+                                    filename = sources[k]["name"].stringValue
+                                }
+                            }
                         }
-                        return temporaryURL
-                    }
-                    //判断../Documents是否存在当前filename为名的文件，如果存在，则返回；如不存在，则下载文件
-                    var b = self.isSamePDFFile(filename)
-                    if b == false{
-                        Alamofire.download(.GET, getPDFURL!, destination)
                         
-//                        Alamofire.download(.GET, getPDFURL!, destination).progress {
-//                            (_, totalBytesRead, totalBytesExpectedToRead) in
-//                            dispatch_async(dispatch_get_main_queue()) {
-////                                println("正在下载\(filename)，文件下载进度为：\(Float(totalBytesRead))/\(Float(totalBytesExpectedToRead))")
-//                                if totalBytesRead == totalBytesExpectedToRead {
-//                                    println("\(filename)下载成功")
-//                                }
-//                            }
-//                        }
-                    }else if b == true{
-                        println("\(filename)文件已存在")
+                        //http://192.168.16.141:10086/gbtouch/meetings/73c000fa-2f5b-44ef-9dff-addba27d8e18/6d1f55b9-9773-4932-a3c1-8fcc88b8ead1.pdf
+                        var filepath = "http://192.168.16.141:10086/gbtouch/meetings/\(meetingid)/\(fileid).pdf"
+//                        println("source count  filepath==============\(filepath)")
+                        var getPDFURL = NSURL(string: filepath)
+                            
+                        let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
+                            (temporaryURL, response) in
+                            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.AllDomainsMask)[0] as? NSURL{
+                                var filenameURL = directoryURL.URLByAppendingPathComponent("\(filename)")
+                                return filenameURL
+                            }
+                            return temporaryURL
+                        }
+        
+                        println("file name = \(filename)")
+                        //判断../Documents是否存在当前filename为名的文件，如果存在，则返回；如不存在，则下载文件
+                        var b = self.isSamePDFFile(filename)
+                        if b == false{
+    //                        Alamofire.download(.GET, getPDFURL!, destination)
+                            
+                            Alamofire.download(.GET, getPDFURL!, destination).progress {
+                                (_, totalBytesRead, totalBytesExpectedToRead) in
+                                dispatch_async(dispatch_get_main_queue()) {
+//                                    println("正在下载\(filename)，文件下载进度为：\(Float(totalBytesRead))/\(Float(totalBytesExpectedToRead))")
+                                    if totalBytesRead == totalBytesExpectedToRead {
+                                        println("\(filename)   下载成功")
+                                    }
+                                }
+                            }
+                        }else if b == true{
+                            println("\(filename)文件已存在")
+                        }
                     }
                 }
+              }
             }
         }
-        
     }
 
     
@@ -166,7 +137,6 @@ class DownLoadManager: NSObject {
         }else{
             return false
         }
-        
     }
     
     

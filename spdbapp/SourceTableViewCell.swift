@@ -1,19 +1,16 @@
 //
-//  AgendaTableViewCell.swift
+//  SourceTableViewCell.swift
 //  spdbapp
 //
-//  Created by tommy on 15/5/8.
+//  Created by GBTouchG3 on 15/7/7.
 //  Copyright (c) 2015年 shgbit. All rights reserved.
 //
 
 import UIKit
 
-class AgendaTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var lbAgenda: UILabel!
+class SourceTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lblTime: UILabel!
-    @IBOutlet weak var lblReporter: UILabel!
+    @IBOutlet weak var lblSourceFile: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,5 +21,5 @@ class AgendaTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

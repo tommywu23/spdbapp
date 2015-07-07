@@ -13,6 +13,7 @@ class Server: NSObject {
     var meetingServiceUrl = String()
     var fileServiceUrl = String()
     var heartBeatServiceUrl = String()
+    var loginServiceUrl = String()
    
     let filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
     
@@ -23,10 +24,13 @@ class Server: NSObject {
         
         var url = getInitialIP()
         
-        boxServiceUrl = "http://" + url + ":9999/box"
-        meetingServiceUrl = "http://" + url + ":9999/meeting"
+        boxServiceUrl = "http://192.168.16.142:18080/v1/box"
+//        meetingServiceUrl = "http://" + url + ":9999/meeting"
+        
+        meetingServiceUrl = "http:192.168.16.142:18080/v1/current"
         fileServiceUrl = "http://" + url + ":9999/file/"
-        heartBeatServiceUrl = "http://" + url + ":9999/heartbeat"
+        heartBeatServiceUrl = "http://192.168.16.142:18080/v1/heartbeat"
+        loginServiceUrl = "http:192.168.16.141:10000/user/login"
     }
     
     func getInitialIP() -> String {

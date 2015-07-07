@@ -16,7 +16,7 @@ class DocViewController: UIViewController {
     var fileIDInfo: String?
     var fileNameInfo: String?
     
-    var server = Server()
+//    var server = Server()
     var timer = Poller()
     
     @IBOutlet weak var docView: UIWebView!
@@ -24,7 +24,7 @@ class DocViewController: UIViewController {
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
     
-    @IBOutlet weak var btnServer: UIButton!
+    
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +38,7 @@ class DocViewController: UIViewController {
         btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        btnServer.layer.cornerRadius = 8
-        btnServer.addTarget(self, action: "ToServerVC", forControlEvents: UIControlEvents.TouchUpInside)
+   
         
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState, btn: self.btnReconnect)
@@ -54,18 +52,18 @@ class DocViewController: UIViewController {
     }
     
     
-    //ServerBox
-    func ToServerVC(){
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
-        
-        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        
-        self.presentViewController(serverBoxView, animated: false) { () -> Void in
-            serverBoxView.view.backgroundColor = UIColor.clearColor()
-        }
-    }
+//    //ServerBox
+//    func ToServerVC(){
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
+//        
+//        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+//        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+//        
+//        self.presentViewController(serverBoxView, animated: false) { () -> Void in
+//            serverBoxView.view.backgroundColor = UIColor.clearColor()
+//        }
+//    }
     
     
     func checkstatus(timer: NSTimer){
@@ -90,7 +88,7 @@ class DocViewController: UIViewController {
         var urlString = NSURL(fileURLWithPath: "\(filePath)")
         var request = NSURLRequest(URL: urlString!)
         self.docView.loadRequest(request)
-//        println("path = \(filePath)")
+        println("path = \(filePath)")
     }
     
     override func didReceiveMemoryWarning() {

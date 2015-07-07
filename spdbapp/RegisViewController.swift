@@ -23,9 +23,16 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
     dynamic var gbUser = GBUser()
     var flag: Bool = false
     
+//    var server = Server()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.view.backgroundColor = UIColor.clearColor()
+        self.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        
+        self.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        
         mainView.layer.cornerRadius = 8
         
         btnOK.layer.cornerRadius = 8
@@ -40,9 +47,9 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
     
     func goLogin(){
         let paras = ["name":txtName.text,"password":txtPwd.text]
-        var url = "http:192.168.21.83:3003/login"    
+//        var url = "http:192.168.16.141:10000/user/login"
         
-        Alamofire.request(.POST, url ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) ->
+        Alamofire.request(.POST, server.loginServiceUrl ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) ->
             
             Void in
             
@@ -58,14 +65,15 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
                 self.txtPwd.text = ""
                 return
             }
-                    
+            
+            self.flag = true
             self.lblShowState.text = ""
             self.gbUser.name = data?.objectForKey("name") as! String
             self.gbUser.password = data?.objectForKey("password") as! String
             self.gbUser.type = data?.objectForKey("type") as? GBMeetingType
             DownLoadManager.isStart(true)
             println("\(self.txtName.text)登录成功===================")
-            
+
             self.saveUser()
             self.dismissViewControllerAnimated(false, completion: nil)
         }
@@ -94,9 +102,20 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
     }
     
     func cancelLogin(){
+        self.flag = false
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //returnToMain  
+        if segue.identifier ==  "returnToMain" {
+            //ToAgendaVC
+            var obj = segue.destinationViewController as! MainViewController
+            obj.flag = self.flag
+            
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

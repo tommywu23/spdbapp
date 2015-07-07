@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+var server = Server()
 var appManager = AppManager()
 //var loginUser = GBUser()
 

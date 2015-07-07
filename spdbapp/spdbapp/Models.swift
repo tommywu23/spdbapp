@@ -61,13 +61,35 @@ class GBBox: GBBase {
 
 class GBMeeting: GBBase {
     var name: String = ""
-    var type : GBMeetingType = .ALL
+//    var type : GBMeetingType = .ALL
     var startTime: NSDate = NSDate()
     var status: Bool?
-    var files:[GBDoc] = []
+//    var files:[GBDoc] = []
     
     var id: String = ""
-    
+    var agenda = [GBAgenda]()
+    var source = [GBSource]()
+}
+
+class GBSource {
+    var id: String = ""
+    var type: String = ""
+    var name: String = ""
+    var sourextension: String = ""
+    var sourpublic: String = ""
+    var link: String = ""
+    var aidlink: String = ""
+    var local: String = ""
+}
+
+class GBAgenda {
+    var id: String = ""
+    var name: String = ""
+    var source: [String] = []
+    var index: String = ""
+    var starttime: String = ""
+    var endtime: String = ""
+    var reporter: String = ""
 }
 
 
