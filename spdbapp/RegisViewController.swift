@@ -47,8 +47,6 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
     
     func goLogin(){
         let paras = ["name":txtName.text,"password":txtPwd.text]
-//        var url = "http:192.168.16.141:10000/user/login"
-        
         Alamofire.request(.POST, server.loginServiceUrl ,parameters: paras, encoding: .JSON).responseJSON(options: NSJSONReadingOptions.MutableContainers) { (request,response, data, error) ->
             
             Void in
@@ -98,7 +96,6 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
         if isWritten {
             println("name save ok!")
         }
-        
     }
     
     func cancelLogin(){

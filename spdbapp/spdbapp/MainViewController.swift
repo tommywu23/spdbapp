@@ -17,6 +17,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
     @IBOutlet weak var btnRegister: UIButton!
+    @IBOutlet weak var lblShowUserName: UILabel!
     
     var current = GBMeeting()
  
@@ -24,7 +25,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     
     var settingsBundle = SettingsBundleConfig()
     
-//    var server = Server()
+    
     var timer = Poller()
     
     var flag = false
@@ -69,6 +70,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         
     }
     
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Create a new variable to store the instance of DocViewController
@@ -87,6 +89,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
         if (name.length > 0){
+            self.lblShowUserName.text = name as String
             return true
         }
         return false

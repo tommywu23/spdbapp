@@ -16,13 +16,13 @@ class DocViewController: UIViewController {
     var fileIDInfo: String?
     var fileNameInfo: String?
     
-//    var server = Server()
     var timer = Poller()
     
     @IBOutlet weak var docView: UIWebView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnReconnect: UIButton!
     @IBOutlet weak var lblShowState: UILabel!
+    @IBOutlet weak var lblShowUserName: UILabel!
     
     
    
@@ -43,6 +43,8 @@ class DocViewController: UIViewController {
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState, btn: self.btnReconnect)
         }
+        
+        self.getName()
     }
 
     
@@ -50,21 +52,6 @@ class DocViewController: UIViewController {
         ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
         appManager.starttimer()
     }
-    
-    
-//    //ServerBox
-//    func ToServerVC(){
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let serverBoxView: ServerViewController = storyboard.instantiateViewControllerWithIdentifier("ServerBox") as! ServerViewController
-//        
-//        serverBoxView.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-//        serverBoxView.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-//        
-//        self.presentViewController(serverBoxView, animated: false) { () -> Void in
-//            serverBoxView.view.backgroundColor = UIColor.clearColor()
-//        }
-//    }
-    
     
     func checkstatus(timer: NSTimer){
         if appManager.netConnect {
@@ -77,6 +64,17 @@ class DocViewController: UIViewController {
         self.btnReconnect.reloadInputViews()
         
     }
+    
+    func getName() {
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+        var readData = NSData(contentsOfFile: filePath)
+        var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
+        
+        if (name.length > 0){
+            self.lblShowUserName.text = name as String
+        }
+    }
+
     
     func GoBack(){
         self.dismissViewControllerAnimated(true, completion: nil)

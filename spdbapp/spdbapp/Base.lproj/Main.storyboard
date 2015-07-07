@@ -22,6 +22,10 @@
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -84,6 +88,13 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vu9-dm-Dun">
+                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -133,11 +144,12 @@
                         <outlet property="btnRegister" destination="FWj-bR-n1r" id="mFj-pf-zVK"/>
                         <outlet property="lbConfName" destination="cCj-fE-Z3e" id="grd-B1-BCW"/>
                         <outlet property="lblShowState" destination="fe3-5h-C4f" id="4MF-0e-G7S"/>
+                        <outlet property="lblShowUserName" destination="Vu9-dm-Dun" id="BXN-QB-XS1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="668" y="68"/>
+            <point key="canvasLocation" x="1023" y="68"/>
         </scene>
         <!--Agenda View Controller-->
         <scene sceneID="GJX-f7-i8W">
@@ -152,21 +164,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qlk-SR-xDj">
-                                        <rect key="frame" x="191" y="35" width="479" height="46"/>
+                                        <rect key="frame" x="236" y="35" width="434" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spdb_bgWhite" id="q1Z-oA-ouS">
-                                        <rect key="frame" x="19" y="11" width="200" height="81"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.039215686270000001" green="0.1960784314" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U7T-de-pw4">
-                                <rect key="frame" x="0.0" y="97" width="768" height="23"/>
+                                <rect key="frame" x="0.0" y="100" width="768" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -174,8 +182,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="65" sectionHeaderHeight="1" sectionFooterHeight="5" id="vzH-1j-s5r">
-                                <rect key="frame" x="0.0" y="120" width="780" height="904"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="30" sectionFooterHeight="30" id="vzH-1j-s5r">
+                                <rect key="frame" x="0.0" y="120" width="780" height="854"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -212,6 +220,13 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bb9-g4-LPp">
+                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -228,6 +243,7 @@
                         <outlet property="btnReconnect" destination="uFB-J0-1wR" id="dqB-sx-YDI"/>
                         <outlet property="lblMeetingName" destination="qlk-SR-xDj" id="F9c-Rh-WhI"/>
                         <outlet property="lblShowState" destination="bn8-oK-e4t" id="kM8-Mo-6rf"/>
+                        <outlet property="lblShowUserName" destination="bb9-g4-LPp" id="8Oa-Gp-JdI"/>
                         <outlet property="tvAgenda" destination="vzH-1j-s5r" id="3E5-IX-wva"/>
                         <segue destination="yjk-Ba-yZ0" kind="modal" identifier="toSource" id="b7o-qK-MHv"/>
                     </connections>
@@ -268,43 +284,66 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DBG-e7-LnJ">
+                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CNR-0c-5lF">
-                                        <rect key="frame" x="581" y="5" width="145" height="40"/>
+                                        <rect key="frame" x="615" y="5" width="145" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DBG-e7-LnJ">
-                                        <rect key="frame" x="361" y="11" width="212" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kV0-At-ntB">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="966"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="0.0" y="120" width="768" height="854"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view contentMode="scaleToFill" id="5De-rK-YqU">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7K5-hx-C65">
+                                        <rect key="frame" x="200" y="39" width="398" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.039215686274509803" green="0.19607843137254902" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qwp-3D-21A">
+                                <rect key="frame" x="0.0" y="100" width="768" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.4823529412" green="0.0" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="btnBack" destination="Ebc-Nc-vwF" id="3pJ-0U-vV1"/>
                         <outlet property="btnReconnect" destination="gp9-mJ-qtL" id="caU-Kn-zM5"/>
+                        <outlet property="lblShowAgendaName" destination="7K5-hx-C65" id="PmS-rk-1TE"/>
                         <outlet property="lblShowFileStatue" destination="DBG-e7-LnJ" id="Ob6-hW-GIh"/>
                         <outlet property="lblShowState" destination="CNR-0c-5lF" id="4oY-jI-dP1"/>
+                        <outlet property="lblShowUserName" destination="DBG-e7-LnJ" id="0uS-BX-W4i"/>
                         <outlet property="sourceTableview" destination="kV0-At-ntB" id="koa-QS-j9k"/>
                         <segue destination="Pa6-Ix-LoW" kind="modal" identifier="sourceToDoc" id="mSA-Fn-EyL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kb5-7d-5zv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2653" y="68"/>
+            <point key="canvasLocation" x="2649" y="68"/>
         </scene>
         <!--Regis View Controller-->
         <scene sceneID="Unx-vX-vRE">
@@ -434,6 +473,13 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="trE-Nc-mxc">
+                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -449,17 +495,17 @@
                         <outlet property="btnReconnect" destination="3D4-x2-Mlo" id="KTP-LH-rge"/>
                         <outlet property="docView" destination="LIC-1H-tkj" id="3AU-Ss-4qC"/>
                         <outlet property="lblShowState" destination="TDW-3V-E94" id="cJC-5c-xeN"/>
+                        <outlet property="lblShowUserName" destination="trE-Nc-mxc" id="bTf-fF-Hs0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YGo-PU-MG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3491" y="51"/>
+            <point key="canvasLocation" x="3485" y="68"/>
         </scene>
     </scenes>
     <resources>
         <image name="app_logo" width="200" height="58"/>
         <image name="app_xuanchuanci" width="148" height="65"/>
-        <image name="spdb_bgWhite" width="200" height="58"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

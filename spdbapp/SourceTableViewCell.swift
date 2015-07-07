@@ -10,7 +10,7 @@ import UIKit
 
 class SourceTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lblSourceFile: UILabel!
+    @IBOutlet weak var lblSourceFileName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

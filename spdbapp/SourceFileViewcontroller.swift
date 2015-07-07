@@ -17,8 +17,10 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var btnReconnect: UIButton!
     
     @IBOutlet weak var lblShowFileStatue: UILabel!
+    @IBOutlet weak var lblShowAgendaName: UILabel!
     
     @IBOutlet weak var lblShowState: UILabel!
+    @IBOutlet weak var lblShowUserName: UILabel!
     
     var agendaNameInfo = String()
     
@@ -46,15 +48,30 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         
         sourceTableview.delegate = self
         sourceTableview.dataSource = self
+        sourceTableview.tableFooterView = UIView(frame: CGRectZero)
         sourceTableview.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        sourceTableview.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-
-        var cell = UINib(nibName: "SourceTableViewCell", bundle: nil)
-        sourceTableview.registerNib(cell, forCellReuseIdentifier: "cell")
         
         getSourceFile()
+        getName()
     }
     
+    
+    func getName() {
+        self.lblShowAgendaName.text = self.agendaNameInfo
+        
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+        var readData = NSData(contentsOfFile: filePath)
+        var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
+        
+        if (name.length > 0){
+            self.lblShowUserName.text = name as String
+        }
+    }
+
+    
+    override func viewWillAppear(animated: Bool) {
+        
+    }
     
     func getReconn(){
         ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
@@ -77,17 +94,16 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
                         for var  j = 0 ; j < sourcesInfo.count ; j++ {
                             self.gbSource.id = sourcesInfo[j].stringValue
 
-                             if let sources = json["source"].array{
+                            if let sources = json["source"].array{
                                 for var k = 0 ; k < sources.count ; k++ {
                                     if self.gbSource.id == sources[k]["id"].stringValue{
                                         self.gbSource.name = sources[k]["name"].stringValue
-//                                        println("id===\(self.gbSource.id)\nname===\(self.gbSource.name)")
                                     }
                                 }
                             }
                             
-                             gbSourceName.append(self.gbSource.name)
-                             sourceTableview.reloadData()
+                            gbSourceName.append(self.gbSource.name)
+                            sourceTableview.reloadData()
 
                         }
                     }
@@ -96,13 +112,15 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    
+    
     func getSourceFile(){
         Alamofire.request(.GET, server.meetingServiceUrl).responseJSON(options: NSJSONReadingOptions.AllowFragments) { (request, response, data, err) -> Void in
             
             //            println("data = \(data)")
             
             if (err != nil || data?.stringValue == ""){
-                println("aegnda getmeeting err = \(err?.description)")
+                println("source getmeeting err = \(err?.description)")
                 var localJSONPath = NSHomeDirectory().stringByAppendingPathComponent("Documents/jsondata.txt")
                 
                 var filemanager = NSFileManager.defaultManager()
@@ -127,17 +145,25 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         return self.gbSourceName.count
     }
     
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SourceTableViewCell
-        cell.lblSourceFile.text = self.gbSourceName[indexPath.row]
+        let cellIdentify = "SourceTableViewCell"
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+       
+        
+        cell.textLabel?.font = UIFont(name: "KaiTi_GB2312", size: 20.0)
+        cell.textLabel?.text = self.gbSourceName[indexPath.row].stringByDeletingPathExtension
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         var name = self.gbSourceName[indexPath.row]
-        println("segur name==================\(name)")
+        println("segue name==================\(name)")
         self.sourceNameInfo = name
         
         var isFileExist = DownLoadManager.isFileDownload(self.sourceNameInfo)
@@ -148,8 +174,6 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
             self.performSegueWithIdentifier("sourceToDoc", sender: self)
         }
         
-//        self.performSegueWithIdentifier("sourceToDoc", sender: self)
-
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

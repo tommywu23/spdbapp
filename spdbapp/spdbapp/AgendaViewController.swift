@@ -18,6 +18,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var lblShowState: UILabel!
     @IBOutlet weak var lblShowFileStatue: UILabel!
     @IBOutlet weak var lblMeetingName: UILabel!
+    @IBOutlet weak var lblShowUserName: UILabel!
     
     var agendaNameInfo = String()
     
@@ -40,6 +41,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda?.delegate = self
         tvAgenda?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        tvAgenda.tableFooterView = UIView(frame: CGRectZero)
         
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
@@ -57,6 +59,8 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
         }
+        
+        self.getName()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -114,6 +118,17 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
+    
+    func getName() {
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/UserInfo.txt")
+        var readData = NSData(contentsOfFile: filePath)
+        var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
+        
+        if (name.length > 0){
+            self.lblShowUserName.text = name as String
+        }
+    }
+
 
     
     func getMeetingFiles(){
@@ -140,35 +155,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.showMeetingInfo(json)
         }
     }
-
-    
-//    func toDocVCSource(sender: UIButton){
-//        var rowid = sender.superview?.subviews[1].tag
-//        var colid = sender.tag
-//        self.fileNameInfo = sourceName[rowid!][colid]
-//        
-//        var isFileExist = DownLoadManager.isFileDownload(self.fileNameInfo!)
-//        if isFileExist == false{
-//            self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
-//        }else{
-//            self.lblShowFileStatue.text = ""
-//            self.performSegueWithIdentifier("toDoc", sender: self)
-//        }
-//    }
-//
-//    
-//    func toDocVCAgenda(sender: UIButton){
-//        var rowid = sender.tag
-//        self.fileNameInfo = self.agendaName[rowid]
-//        
-//        var isFileExist = DownLoadManager.isFileDownload(self.fileNameInfo!)
-//        if isFileExist == false{
-//            self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
-//        }else{
-//            self.lblShowFileStatue.text = ""
-//            self.performSegueWithIdentifier("toDoc", sender: self)
-//        }
-//    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 65
