@@ -36,9 +36,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
     dynamic var current = GBMeeting()
     dynamic var netConnect: Bool = false
     dynamic var local = GBBox()
-   
-//    var server = Server()
-    
+  
     var reqBoxURL: String?
     var count = 0
     var timerHearbeat = Poller()

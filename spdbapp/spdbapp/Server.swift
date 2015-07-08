@@ -24,20 +24,29 @@ class Server: NSObject {
         
         var url = getInitialIP()
         
-        boxServiceUrl = "http://192.168.16.142:18080/v1/box"
-        meetingServiceUrl = "http:192.168.16.142:18080/v1/current"
-//        fileServiceUrl = "http://" + url + ":9999/file/"
-        heartBeatServiceUrl = "http://192.168.16.142:18080/v1/heartbeat"
-        loginServiceUrl = "http:192.168.16.141:10000/user/login"
+//        boxServiceUrl = "http://192.168.16.142:18080/v1/box"
+//        meetingServiceUrl = "http://192.168.16.142:18080/v1/current"
+//        heartBeatServiceUrl = "http://192.168.16.142:18080/v1/heartbeat"
+        
+        boxServiceUrl = "http://" + url + ":18080/v1/box"
+        meetingServiceUrl = "http://" + url + ":18080/v1/current"
+        heartBeatServiceUrl = "http://" + url + ":18080/v1/heartbeat"
+        loginServiceUrl = "http://192.168.16.141:10000/user/login"
     }
     
     func getInitialIP() -> String {
         var dict = NSMutableDictionary(contentsOfFile: filePath)
-//        println("dict ------- \(dict!)")
-        var dicDefault = NSMutableDictionary(capacity: 1)
-        dicDefault.setObject("192.168.16.142", forKey: "txtBoxURL")
-        dicDefault.writeToFile(filePath, atomically: true)
-        return dicDefault.objectForKey("txtBoxURL") as! String
+        
+        showDetail()
+        
+        if dict?.count < 1{
+            var dicDefault = NSMutableDictionary(capacity: 1)
+            dicDefault.setObject("192.168.16.142", forKey: "txtBoxURL")
+            dicDefault.writeToFile(filePath, atomically: true)
+            return dicDefault.objectForKey("txtBoxURL") as! String
+        }
+        return dict?.objectForKey("txtBoxURL") as! String
+      
     }
     
     func showDetail(){
@@ -85,7 +94,6 @@ class Server: NSObject {
                 }
             }
         }
-        
     }
     
 }

@@ -19,8 +19,8 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var lblShowFileStatue: UILabel!
     @IBOutlet weak var lblShowAgendaName: UILabel!
     
-    @IBOutlet weak var lblShowState: UILabel!
     @IBOutlet weak var lblShowUserName: UILabel!
+    @IBOutlet weak var lblShowState: UILabel!
     
     var agendaNameInfo = String()
     

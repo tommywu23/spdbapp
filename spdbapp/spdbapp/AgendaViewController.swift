@@ -168,6 +168,8 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
 
+        cell.contentView.frame = CGRectMake(0, 5, 768, 70)
+
         var name = self.agendaName[indexPath.row]
         println("segue name==================\(name)")
         self.agendaNameInfo = name

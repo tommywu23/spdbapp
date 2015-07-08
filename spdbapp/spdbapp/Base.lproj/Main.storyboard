@@ -27,6 +27,7 @@
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -297,10 +298,10 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DBG-e7-LnJ">
-                                        <rect key="frame" x="415" y="8" width="180" height="40"/>
+                                        <rect key="frame" x="216" y="5" width="200" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
-                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="15"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CNR-0c-5lF">
@@ -308,6 +309,13 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6If-7Y-hDG">
+                                        <rect key="frame" x="431" y="5" width="165" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -348,7 +356,7 @@
                         <outlet property="lblShowAgendaName" destination="7K5-hx-C65" id="PmS-rk-1TE"/>
                         <outlet property="lblShowFileStatue" destination="DBG-e7-LnJ" id="Ob6-hW-GIh"/>
                         <outlet property="lblShowState" destination="CNR-0c-5lF" id="4oY-jI-dP1"/>
-                        <outlet property="lblShowUserName" destination="DBG-e7-LnJ" id="0uS-BX-W4i"/>
+                        <outlet property="lblShowUserName" destination="6If-7Y-hDG" id="eNM-fE-p9K"/>
                         <outlet property="sourceTableview" destination="kV0-At-ntB" id="koa-QS-j9k"/>
                         <segue destination="Pa6-Ix-LoW" kind="modal" identifier="sourceToDoc" id="mSA-Fn-EyL"/>
                     </connections>

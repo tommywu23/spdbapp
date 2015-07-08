@@ -10,14 +10,13 @@ import UIKit
 
 var server = Server()
 var appManager = AppManager()
-//var loginUser = GBUser()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    //static var manager = AppManager()
-
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         return true
     }
@@ -25,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        
+        println("applicationWillResignActive")
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -45,6 +46,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func defaultsSettingsChanged() {
+        let standardDefaults = NSUserDefaults.standardUserDefaults()
+        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+        var settingsDict: NSMutableDictionary = NSMutableDictionary()
+        
+        // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
+        var value = standardDefaults.stringForKey("txtBoxURL")
+        if value == nil{
+            value = "192.168.16.142"
+        }
+        
+        settingsDict.setObject(value!, forKey: "txtBoxURL")
+        
+        var b = settingsDict.writeToFile(filepath, atomically: true)
+        println("url new value ============ \(value)")
+        
+        var isClearHistoryInfo = standardDefaults.boolForKey("clear_historyInfo")
+        if isClearHistoryInfo == true{
+            server.clearHistoryInfo("pdf")
+        }
+        
+        var isClearConfigInfo = standardDefaults.boolForKey("clear_configInfo")
+        if isClearConfigInfo == true{
+            server.clearHistoryInfo("txt")
+        }
+    }
+
 
 }
 

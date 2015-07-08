@@ -167,7 +167,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
         var value = standardDefaults.stringForKey("txtBoxURL")
         if value == nil{
-            value = "192.168.21.90"
+            value = "192.168.16.142"
         }
    
         settingsDict.setObject(value!, forKey: "txtBoxURL")
