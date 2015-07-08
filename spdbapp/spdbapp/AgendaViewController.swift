@@ -42,6 +42,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tvAgenda.tableFooterView = UIView(frame: CGRectZero)
+        tvAgenda.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 1.0)
         
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
@@ -125,7 +126,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
         if (name.length > 0){
-            self.lblShowUserName.text = name as String
+            self.lblShowUserName.text = "当前用户:\(name)"
         }
     }
 
@@ -171,6 +172,10 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         println("segue name==================\(name)")
         self.agendaNameInfo = name
         self.performSegueWithIdentifier("toSource", sender: self)
+        
+        var selectedView = UIView(frame: cell.frame)
+        selectedView.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 0.8)
+        cell.selectedBackgroundView = selectedView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -33,4 +33,6 @@ class ShowToolbarState: NSObject {
         label.text = "网络正在连接..."
         label.textColor = UIColor.blueColor()
     }
+    
+ 
 }

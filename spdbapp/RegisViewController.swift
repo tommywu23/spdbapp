@@ -23,8 +23,6 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
     dynamic var gbUser = GBUser()
     var flag: Bool = false
     
-//    var server = Server()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     

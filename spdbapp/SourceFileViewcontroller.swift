@@ -64,7 +64,7 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
         if (name.length > 0){
-            self.lblShowUserName.text = name as String
+            self.lblShowUserName.text = "当前用户:\(name)"
         }
     }
 

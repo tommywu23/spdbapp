@@ -26,6 +26,7 @@
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
             <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -89,10 +90,10 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vu9-dm-Dun">
-                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <rect key="frame" x="415" y="8" width="180" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
-                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -170,8 +171,12 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" id="g4S-mX-HD8">
+                                        <rect key="frame" x="36" y="23" width="200" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.039215686270000001" green="0.1960784314" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.019607843137254902" green="0.1803921568627451" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U7T-de-pw4">
                                 <rect key="frame" x="0.0" y="100" width="768" height="20"/>
@@ -183,7 +188,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="30" sectionFooterHeight="30" id="vzH-1j-s5r">
-                                <rect key="frame" x="0.0" y="120" width="780" height="854"/>
+                                <rect key="frame" x="0.0" y="178" width="780" height="796"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -221,15 +226,22 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bb9-g4-LPp">
-                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <rect key="frame" x="415" y="8" width="180" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
-                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     时间           议程名                       汇报人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wif-4f-lZq">
+                                <rect key="frame" x="0.0" y="120" width="1092" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="26"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -285,10 +297,10 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DBG-e7-LnJ">
-                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <rect key="frame" x="415" y="8" width="180" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
-                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CNR-0c-5lF">
@@ -426,7 +438,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QR-Lp-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1092" y="1195"/>
+            <point key="canvasLocation" x="71" y="977"/>
         </scene>
         <!--Doc View Controller-->
         <scene sceneID="xyK-Bk-83V">
@@ -474,10 +486,10 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="trE-Nc-mxc">
-                                        <rect key="frame" x="480" y="4" width="115" height="40"/>
+                                        <rect key="frame" x="415" y="8" width="180" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
-                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -506,6 +518,7 @@
     <resources>
         <image name="app_logo" width="200" height="58"/>
         <image name="app_xuanchuanci" width="148" height="65"/>
+        <image name="logo" width="552" height="169"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

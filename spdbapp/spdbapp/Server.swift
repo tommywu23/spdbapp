@@ -25,10 +25,8 @@ class Server: NSObject {
         var url = getInitialIP()
         
         boxServiceUrl = "http://192.168.16.142:18080/v1/box"
-//        meetingServiceUrl = "http://" + url + ":9999/meeting"
-        
         meetingServiceUrl = "http:192.168.16.142:18080/v1/current"
-        fileServiceUrl = "http://" + url + ":9999/file/"
+//        fileServiceUrl = "http://" + url + ":9999/file/"
         heartBeatServiceUrl = "http://192.168.16.142:18080/v1/heartbeat"
         loginServiceUrl = "http:192.168.16.141:10000/user/login"
     }
@@ -37,7 +35,7 @@ class Server: NSObject {
         var dict = NSMutableDictionary(contentsOfFile: filePath)
 //        println("dict ------- \(dict!)")
         var dicDefault = NSMutableDictionary(capacity: 1)
-        dicDefault.setObject("192.168.21.90", forKey: "txtBoxURL")
+        dicDefault.setObject("192.168.16.142", forKey: "txtBoxURL")
         dicDefault.writeToFile(filePath, atomically: true)
         return dicDefault.objectForKey("txtBoxURL") as! String
     }

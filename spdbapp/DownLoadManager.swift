@@ -10,10 +10,7 @@ import UIKit
 import Alamofire
 
 class DownLoadManager: NSObject {
-    
-    //static var router = Router.GetCurrentMeeting()
-//    static let server = Server()
-    
+
     //判断当前文件夹是否存在jsondata数据，如果不存在，则继续进入下面的步骤
     //如果存在该数据，则判断当前json与本地jsonlocal是否一致，如果一致，则打印 json数据信息已经存在，return
     class func isSameJSONData(jsondata: NSData) -> Bool {
@@ -35,9 +32,7 @@ class DownLoadManager: NSObject {
     
     
     class func isSamePDFFile(fileName: String) -> Bool {
-        var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
-        var filePath = docPath.stringByAppendingPathComponent("\(fileName)")
-//        println("path = \(filePath)")
+        var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/\(fileName)")
         
         var filemanager = NSFileManager.defaultManager()
         
@@ -72,7 +67,7 @@ class DownLoadManager: NSObject {
                 for var i = 0 ;i < agendasInfo.count ; i++ {
                     var agendas = agendasInfo[i]
                     //获取当前agenda对应的source文件
-                    var sources = agendas["source"].array!
+//                    var sources = agendas["source"].array!
                     
                     if let fileSourceInfo = agendas["source"].array{
                         for var j = 0 ; j < fileSourceInfo.count ; j++ {
