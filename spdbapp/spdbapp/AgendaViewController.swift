@@ -40,9 +40,9 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda?.dataSource = self
         tvAgenda?.delegate = self
         tvAgenda?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        tvAgenda.tableFooterView = UIView(frame: CGRectZero)
-        tvAgenda.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 1.0)
+        tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.None
+//        tvAgenda.tableFooterView = UIView(frame: CGRectZero)
+         //tvAgenda.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 1.0)
         
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
@@ -158,7 +158,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 65
+        return 80
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -168,15 +168,13 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
 
-        cell.contentView.frame = CGRectMake(0, 5, 768, 70)
-
         var name = self.agendaName[indexPath.row]
         println("segue name==================\(name)")
         self.agendaNameInfo = name
         self.performSegueWithIdentifier("toSource", sender: self)
         
         var selectedView = UIView(frame: cell.frame)
-        selectedView.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 0.8)
+        selectedView.backgroundColor = UIColor(red: 26/255, green: 46/255, blue: 97/255, alpha: 0.9)
         cell.selectedBackgroundView = selectedView
     }
     

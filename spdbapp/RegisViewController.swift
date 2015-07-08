@@ -28,7 +28,6 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
     
         self.view.backgroundColor = UIColor.clearColor()
         self.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        
         self.modalPresentationStyle = UIModalPresentationStyle.FormSheet
         
         mainView.layer.cornerRadius = 8

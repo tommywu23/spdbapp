@@ -119,14 +119,10 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     }
     
     func toRegis(){
- 
-//        self.btnRegister.backgroundColor = UIColor.grayColor()
-//        self.btnRegister.enabled = false
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC: RegisViewController = storyboard.instantiateViewControllerWithIdentifier("view") as! RegisViewController
         loginVC.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        
         
         self.presentViewController(loginVC, animated: false, completion: nil)
     }
@@ -150,41 +146,41 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         self.btnReconnect.reloadInputViews()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    
-    func defaultsSettingsChanged() {
-        let standardDefaults = NSUserDefaults.standardUserDefaults()
-        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-        var settingsDict: NSMutableDictionary = NSMutableDictionary()
-        
-        // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
-        var value = standardDefaults.stringForKey("txtBoxURL")
-        if value == nil{
-            value = "192.168.16.142"
-        }
-   
-        settingsDict.setObject(value!, forKey: "txtBoxURL")
-        
-        var b = settingsDict.writeToFile(filepath, atomically: true)
-        println("url new value ============ \(value)")
-        
-        var isClearHistoryInfo = standardDefaults.boolForKey("clear_historyInfo")
-        if isClearHistoryInfo == true{
-            server.clearHistoryInfo("pdf")
-        }
-        
-        var isClearConfigInfo = standardDefaults.boolForKey("clear_configInfo")
-        if isClearConfigInfo == true{
-            server.clearHistoryInfo("txt")
-        }
-    }
+//    override func viewDidAppear(animated: Bool) {
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
+//    }
+//    
+//    override func viewDidDisappear(animated: Bool) {
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
+//    }
+//    
+//    
+//    func defaultsSettingsChanged() {
+//        let standardDefaults = NSUserDefaults.standardUserDefaults()
+//        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
+//        var settingsDict: NSMutableDictionary = NSMutableDictionary()
+//        
+//        // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
+//        var value = standardDefaults.stringForKey("txtBoxURL")
+//        if value == nil{
+//            value = "192.168.16.142"
+//        }
+//   
+//        settingsDict.setObject(value!, forKey: "txtBoxURL")
+//        
+//        var b = settingsDict.writeToFile(filepath, atomically: true)
+//        println("url new value ============ \(value)")
+//        
+//        var isClearHistoryInfo = standardDefaults.boolForKey("clear_historyInfo")
+//        if isClearHistoryInfo == true{
+//            server.clearHistoryInfo("pdf")
+//        }
+//        
+//        var isClearConfigInfo = standardDefaults.boolForKey("clear_configInfo")
+//        if isClearConfigInfo == true{
+//            server.clearHistoryInfo("txt")
+//        }
+//    }
     
     
   

@@ -153,8 +153,11 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentify = "SourceTableViewCell"
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-       
         
+        var imgView = UIImageView(frame: CGRectMake(0, 0, 768, 55))
+        imgView.image = UIImage(named: "cell_bgred")
+        cell.addSubview(imgView)
+       
         cell.textLabel?.font = UIFont(name: "KaiTi_GB2312", size: 20.0)
         cell.textLabel?.text = self.gbSourceName[indexPath.row].stringByDeletingPathExtension
         return cell
