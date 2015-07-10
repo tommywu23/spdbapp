@@ -9,9 +9,11 @@
 import UIKit
 
 class AgendaTableViewCell: UITableViewCell {
-    @IBOutlet weak var lbAgendaIndex: UILabel!
+    
     @IBOutlet weak var lbAgenda: UILabel!
 
+    @IBOutlet weak var lblTime: UILabel!
+    @IBOutlet weak var lblReporter: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

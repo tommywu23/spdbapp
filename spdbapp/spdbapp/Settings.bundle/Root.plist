@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>配置信息</string>
+		</dict>
+		<dict>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>DefaultValue</key>
+			<string>192.168.16.142</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>服务器: </string>
+			<key>Key</key>
+			<string>txtBoxURL</string>
+			<key>AutocapitalizationType</key>
+			<string>Sentences</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>清除历史文档</string>
+			<key>Key</key>
+			<string>clear_historyInfo</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>清除配置信息</string>
+			<key>Key</key>
+			<string>clear_configInfo</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

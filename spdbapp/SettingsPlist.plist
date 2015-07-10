@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>txtBoxURL</key>
+	<string>192.168.16.141</string>
+	<key>txtMeetingURL</key>
+	<string>192.168.16.142</string>
+	<key>clearHistory</key>
+	<string></string>
+	<key>clearData</key>
+	<string></string>
+</dict>
+</plist>

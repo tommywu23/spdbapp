@@ -1,61 +1,130 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="方正姚体.ttf">
-            <string>FZYTJW--GB1-0</string>
+        <mutableArray key="楷体_GB2312.ttf">
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
+            <string>KaiTi_GB2312</string>
         </mutableArray>
     </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="mainVC" definesPresentationContext="YES" id="BYZ-38-t0r" customClass="MainViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="RnY-T6-3XM">
-                                <rect key="frame" x="36" y="40" width="200" height="58"/>
+                            <view contentMode="scaleToFill" id="Az3-EO-jDP">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" id="RnY-T6-3XM">
+                                <rect key="frame" x="36" y="37" width="200" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app_xuanchuanci" translatesAutoresizingMaskIntoConstraints="NO" id="JP7-ao-EbR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_xuanchuanci" id="JP7-ao-EbR">
                                 <rect key="frame" x="605" y="48" width="148" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Duz-g1-hn6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Duz-g1-hn6">
                                 <rect key="frame" x="0.0" y="120" width="768" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn5-sL-fjc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jn5-sL-fjc">
                                 <rect key="frame" x="0.0" y="154" width="768" height="870"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBg-4z-qvc">
-                                <rect key="frame" x="305" y="615" width="160" height="55"/>
+                            <view contentMode="scaleToFill" id="iiX-HU-aiQ">
+                                <rect key="frame" x="0.0" y="974" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fe3-5h-C4f">
+                                        <rect key="frame" x="615" y="5" width="145" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ldc-6A-ZUE">
+                                        <rect key="frame" x="17" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352941176467" green="0.67843137254901964" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="19"/>
+                                        <state key="normal" title="重连">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vu9-dm-Dun">
+                                        <rect key="frame" x="415" y="5" width="180" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.14509803921568626" green="0.74117647058823533" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CBg-4z-qvc">
+                                <rect key="frame" x="304" y="485" width="160" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="24"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="进    入">
+                                <state key="normal" title="进   入">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="und-vf-3cF" kind="modal" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="3GV-ZV-zGg"/>
+                                    <segue destination="und-vf-3cF" kind="modal" identifier="ToAgendaVC" id="8Pe-zq-vAW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="暂无会议" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCj-fE-Z3e">
-                                <rect key="frame" x="130" y="300" width="508" height="180"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FWj-bR-n1r">
+                                <rect key="frame" x="304" y="485" width="160" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="24"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="登   录">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无会议" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cCj-fE-Z3e">
+                                <rect key="frame" x="130" y="297" width="508" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="32"/>
@@ -69,120 +138,404 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="btnConf" destination="CBg-4z-qvc" id="Sln-Pt-Wya"/>
+                        <outlet property="btnReconnect" destination="ldc-6A-ZUE" id="BBE-We-gjV"/>
+                        <outlet property="btnRegister" destination="FWj-bR-n1r" id="mFj-pf-zVK"/>
                         <outlet property="lbConfName" destination="cCj-fE-Z3e" id="grd-B1-BCW"/>
+                        <outlet property="lblShowState" destination="fe3-5h-C4f" id="4MF-0e-G7S"/>
+                        <outlet property="lblShowUserName" destination="Vu9-dm-Dun" id="BXN-QB-XS1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="40"/>
+            <point key="canvasLocation" x="1023" y="68"/>
         </scene>
         <!--Agenda View Controller-->
         <scene sceneID="GJX-f7-i8W">
             <objects>
-                <viewController id="und-vf-3cF" customClass="AgendaViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UsY-4G-YLJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="yIt-lF-syk"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="agenda" id="und-vf-3cF" customClass="AgendaViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1sq-K4-UHx">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="K5D-na-Jky">
-                                <rect key="frame" x="36" y="40" width="200" height="58"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7T-de-pw4">
-                                <rect key="frame" x="0.0" y="120" width="768" height="35"/>
+                            <view contentMode="scaleToFill" id="8H9-ve-2O7">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pufalogo_white" id="g4S-mX-HD8">
+                                        <rect key="frame" x="36" y="20" width="200" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qlk-SR-xDj">
+                                        <rect key="frame" x="310" y="8" width="380" height="84"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.13333333333333333" green="0.24705882352941178" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U7T-de-pw4">
+                                <rect key="frame" x="0.0" y="100" width="768" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" red="0.56078431370000004" green="0.0039215686269999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="120" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="vzH-1j-s5r">
-                                <rect key="frame" x="0.0" y="155" width="768" height="869"/>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="30" sectionFooterHeight="30" id="vzH-1j-s5r">
+                                <rect key="frame" x="0.0" y="170" width="780" height="804"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="未获取版本信息" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIc-tc-ZAT">
-                                <rect key="frame" x="601" y="54" width="200" height="65"/>
-                                <fontDescription key="fontDescription" name="FZYTJW--GB1-0" family="FZYaoTi-M06S" pointSize="22"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" id="Eqd-5J-mZj">
+                                <rect key="frame" x="0.0" y="974" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="slp-7U-MXS">
+                                        <rect key="frame" x="10" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="返回">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bn8-oK-e4t">
+                                        <rect key="frame" x="615" y="5" width="145" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uFB-J0-1wR">
+                                        <rect key="frame" x="110" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="重连">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bb9-g4-LPp">
+                                        <rect key="frame" x="415" y="5" width="180" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.1450980392" green="0.74117647060000003" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    时间                议程名                    汇报人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wif-4f-lZq">
+                                <rect key="frame" x="0.0" y="120" width="1092" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="26"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="lbConfType" destination="kIc-tc-ZAT" id="SVO-MK-FBk"/>
+                        <outlet property="btnBack" destination="slp-7U-MXS" id="WrQ-a2-gwn"/>
+                        <outlet property="btnReconnect" destination="uFB-J0-1wR" id="dqB-sx-YDI"/>
+                        <outlet property="lblMeetingName" destination="qlk-SR-xDj" id="F9c-Rh-WhI"/>
+                        <outlet property="lblShowState" destination="bn8-oK-e4t" id="kM8-Mo-6rf"/>
+                        <outlet property="lblShowUserName" destination="bb9-g4-LPp" id="8Oa-Gp-JdI"/>
                         <outlet property="tvAgenda" destination="vzH-1j-s5r" id="3E5-IX-wva"/>
-                        <segue destination="Pa6-Ix-LoW" kind="modal" identifier="toDoc" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="IgB-fz-fhv"/>
+                        <segue destination="yjk-Ba-yZ0" kind="modal" identifier="toSource" id="b7o-qK-MHv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DyT-0m-p1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1445" y="40"/>
+            <point key="canvasLocation" x="1849" y="68"/>
+        </scene>
+        <!--Source File Viewcontroller-->
+        <scene sceneID="CqX-Ed-viz">
+            <objects>
+                <viewController id="yjk-Ba-yZ0" customClass="SourceFileViewcontroller" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HUR-B5-Cq1">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="s5m-Kw-bhm">
+                                <rect key="frame" x="0.0" y="974" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ebc-Nc-vwF">
+                                        <rect key="frame" x="10" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="返回">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gp9-mJ-qtL">
+                                        <rect key="frame" x="107" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="重连">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DBG-e7-LnJ">
+                                        <rect key="frame" x="216" y="5" width="200" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="15"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CNR-0c-5lF">
+                                        <rect key="frame" x="615" y="5" width="145" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6If-7Y-hDG">
+                                        <rect key="frame" x="431" y="5" width="165" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.1450980392" green="0.74117647060000003" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kV0-At-ntB">
+                                <rect key="frame" x="0.0" y="120" width="768" height="854"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" id="5De-rK-YqU">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pufalogo_white" id="93F-5Q-0Jo">
+                                        <rect key="frame" x="36" y="20" width="200" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7K5-hx-C65">
+                                        <rect key="frame" x="298" y="8" width="380" height="84"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qwp-3D-21A">
+                                <rect key="frame" x="0.0" y="100" width="768" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.4823529412" green="0.0" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnBack" destination="Ebc-Nc-vwF" id="3pJ-0U-vV1"/>
+                        <outlet property="btnReconnect" destination="gp9-mJ-qtL" id="caU-Kn-zM5"/>
+                        <outlet property="lblShowAgendaName" destination="7K5-hx-C65" id="PmS-rk-1TE"/>
+                        <outlet property="lblShowFileStatue" destination="DBG-e7-LnJ" id="Ob6-hW-GIh"/>
+                        <outlet property="lblShowState" destination="CNR-0c-5lF" id="4oY-jI-dP1"/>
+                        <outlet property="lblShowUserName" destination="6If-7Y-hDG" id="eNM-fE-p9K"/>
+                        <outlet property="sourceTableview" destination="kV0-At-ntB" id="koa-QS-j9k"/>
+                        <segue destination="Pa6-Ix-LoW" kind="modal" identifier="sourceToDoc" id="mSA-Fn-EyL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kb5-7d-5zv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2649" y="68"/>
+        </scene>
+        <!--Regis View Controller-->
+        <scene sceneID="Unx-vX-vRE">
+            <objects>
+                <viewController storyboardIdentifier="view" modalPresentationStyle="currentContext" id="RmB-cf-a8W" customClass="RegisViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="center" id="dnA-s2-QV1">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="y08-br-Hlw">
+                                <rect key="frame" x="160" y="372" width="448" height="280"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8y-Gx-Idg">
+                                        <rect key="frame" x="108" y="64" width="61" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="cheng" borderStyle="roundedRect" minimumFontSize="17" id="rRN-ke-A0t">
+                                        <rect key="frame" x="204" y="59" width="150" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="join" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密   码:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iIW-E1-zU1">
+                                        <rect key="frame" x="108" y="113" width="61" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="111111" borderStyle="roundedRect" minimumFontSize="17" id="SZ8-Bt-TPn">
+                                        <rect key="frame" x="204" y="108" width="150" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="z8Q-95-4Qo">
+                                        <rect key="frame" x="274" y="190" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="取消">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kh4-PX-lWn">
+                                        <rect key="frame" x="244" y="152" width="163" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="13"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="65O-K2-evA">
+                                        <rect key="frame" x="101" y="190" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="确定">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="btnCancel" destination="z8Q-95-4Qo" id="vs7-Xm-NPx"/>
+                        <outlet property="btnOK" destination="65O-K2-evA" id="bTP-hu-zse"/>
+                        <outlet property="lblShowState" destination="Kh4-PX-lWn" id="aar-5P-FVs"/>
+                        <outlet property="mainView" destination="y08-br-Hlw" id="LbD-5d-hkB"/>
+                        <outlet property="txtName" destination="rRN-ke-A0t" id="Ndt-Tb-tXF"/>
+                        <outlet property="txtPwd" destination="SZ8-Bt-TPn" id="NKg-9S-hGg"/>
+                        <segue destination="BYZ-38-t0r" kind="modal" identifier="returnToMain" id="wmK-qk-vmV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2QR-Lp-JfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200" y="68"/>
         </scene>
         <!--Doc View Controller-->
         <scene sceneID="xyK-Bk-83V">
             <objects>
-                <viewController id="Pa6-Ix-LoW" customClass="DocViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ATF-NZ-mqf"/>
-                        <viewControllerLayoutGuide type="bottom" id="7yW-x5-YCH"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="DocVC" id="Pa6-Ix-LoW" customClass="DocViewController" customModule="spdbapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lol-Wi-SER">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIC-1H-tkj">
-                                <rect key="frame" x="-35" y="-190" width="810" height="1220"/>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" id="LIC-1H-tkj">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="jEX-nJ-1ZW" appends="YES" id="Sor-wZ-mKN"/>
-                                </connections>
                             </webView>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edw-RU-7X0">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="49"/>
-                                <color key="backgroundColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <tabBarItem id="3SD-ue-sI5"/>
-                                    <tabBarItem id="fqK-XC-ejM"/>
-                                </items>
-                                <color key="tintColor" red="0.1333333333" green="0.2470588235" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="selectedImageTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </tabBar>
+                            <view contentMode="scaleToFill" id="XVK-aD-Kez">
+                                <rect key="frame" x="0.0" y="974" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yGO-kT-HUQ">
+                                        <rect key="frame" x="10" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="返回">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络连接失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TDW-3V-E94">
+                                        <rect key="frame" x="615" y="5" width="145" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3D4-x2-Mlo">
+                                        <rect key="frame" x="110" y="5" width="80" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.67843137249999996" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <state key="normal" title="重连">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="trE-Nc-mxc">
+                                        <rect key="frame" x="415" y="5" width="180" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="KaiTi_GB2312" family="KaiTi_GB2312" pointSize="20"/>
+                                        <color key="textColor" red="0.1450980392" green="0.74117647060000003" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="btnBack" destination="yGO-kT-HUQ" id="1Qm-Ud-Bsp"/>
+                        <outlet property="btnReconnect" destination="3D4-x2-Mlo" id="KTP-LH-rge"/>
                         <outlet property="docView" destination="LIC-1H-tkj" id="3AU-Ss-4qC"/>
-                        <outlet property="gesTap" destination="jEX-nJ-1ZW" id="fOr-Wd-rtF"/>
-                        <outlet property="tbTop" destination="edw-RU-7X0" id="wMG-F9-2Xb"/>
+                        <outlet property="lblShowState" destination="TDW-3V-E94" id="cJC-5c-xeN"/>
+                        <outlet property="lblShowUserName" destination="trE-Nc-mxc" id="bTf-fF-Hs0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YGo-PU-MG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="jEX-nJ-1ZW"/>
             </objects>
-            <point key="canvasLocation" x="2316" y="40"/>
+            <point key="canvasLocation" x="3485" y="68"/>
         </scene>
     </scenes>
     <resources>
         <image name="app_logo" width="200" height="58"/>
         <image name="app_xuanchuanci" width="148" height="65"/>
+        <image name="pufalogo_white" width="1024" height="341"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
 </document>
