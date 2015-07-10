@@ -44,7 +44,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="0.10196078431372549" green="0.1803921568627451" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.13333333333333333" green="0.24705882352941178" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.019607843140000001" green="0.18039215689999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
@@ -52,7 +52,7 @@
                 <outlet property="lblReporter" destination="0NE-ha-S5X" id="Q7r-nJ-hBn"/>
                 <outlet property="lblTime" destination="bAc-6J-mD8" id="rrK-nS-Qaj"/>
             </connections>
-            <point key="canvasLocation" x="490" y="461.5"/>
+            <point key="canvasLocation" x="490" y="461"/>
         </tableViewCell>
     </objects>
     <resources>

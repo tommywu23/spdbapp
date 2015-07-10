@@ -32,14 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
+//        
+//         NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
 //        var defaults = NSUserDefaults.standardUserDefaults()
 //        defaults.synchronize()
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-         NSNotificationCenter.defaultCenter().removeObserver(self)
+//         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -50,33 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func defaultsSettingsChanged() {
-        let standardDefaults = NSUserDefaults.standardUserDefaults()
-        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-        var settingsDict: NSMutableDictionary = NSMutableDictionary()
-        
-        // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
-        var value = standardDefaults.stringForKey("txtBoxURL")
-        if value == nil{
-            value = "192.168.16.142"
-        }
-        
-        settingsDict.setObject(value!, forKey: "txtBoxURL")
-        
-        var b = settingsDict.writeToFile(filepath, atomically: true)
-        println("url new value ============ \(value)")
-        
-        var isClearHistoryInfo = standardDefaults.boolForKey("clear_historyInfo")
-        if isClearHistoryInfo == true{
-            server.clearHistoryInfo("pdf")
-        }
-        
-        var isClearConfigInfo = standardDefaults.boolForKey("clear_configInfo")
-        if isClearConfigInfo == true{
-            server.clearHistoryInfo("txt")
-        }
-    }
-
+   
 
 }
 

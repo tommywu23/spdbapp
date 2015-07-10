@@ -20,7 +20,7 @@ class Server: NSObject {
     override init(){
         super.init()
         
-        self.IsCreateFileOK()
+//        self.IsCreateFileOK()
         
         var url = getInitialIP()
         
@@ -35,45 +35,38 @@ class Server: NSObject {
     }
     
     func getInitialIP() -> String {
-        var dict = NSMutableDictionary(contentsOfFile: filePath)
-        
-        showDetail()
-        
-        if dict?.count < 1{
-            var dicDefault = NSMutableDictionary(capacity: 1)
-            dicDefault.setObject("192.168.16.142", forKey: "txtBoxURL")
-            dicDefault.writeToFile(filePath, atomically: true)
-            return dicDefault.objectForKey("txtBoxURL") as! String
+        var defaults = NSUserDefaults.standardUserDefaults()
+        println("defaults = \(defaults)")
+        var value = defaults.stringForKey("txtBoxURL")
+        println("url = \(value)")
+        if (value?.isEmpty == nil) {
+            defaults.setObject("192.168.16.142", forKey: "txtBoxURL")
+            defaults.synchronize()
+            return defaults.objectForKey("txtBoxURL") as! String
         }
-        return dict?.objectForKey("txtBoxURL") as! String
-      
-    }
-    
-    func showDetail(){
-        var dict = NSMutableDictionary(contentsOfFile: self.filePath)!
-        for (key,value) in dict{
-            println("key = \(key)===while===value = \(value)")
-        }
+        
+        defaults.synchronize()
+        return value!
     }
     
     
     //创建SettingsConfig.txt存储配置界面的设定信息
-    func IsCreateFileOK() -> Bool {
-        
-        var manager = NSFileManager.defaultManager()
-        
-        if !manager.fileExistsAtPath(self.filePath){
-            var b = manager.createFileAtPath(self.filePath, contents: nil, attributes: nil)
-            if b {
-                NSLog("settings存储URL配置文本文件创建成功")
-                return true
-            }
-            NSLog("settings存储URL配置文本文件创建失败")
-            return false
-        }
-        //NSLog("settings存储URL配置文本文件已存在")
-        return true
-    }
+//    func IsCreateFileOK() -> Bool {
+//        
+//        var manager = NSFileManager.defaultManager()
+//        
+//        if !manager.fileExistsAtPath(self.filePath){
+//            var b = manager.createFileAtPath(self.filePath, contents: nil, attributes: nil)
+//            if b {
+//                NSLog("settings存储URL配置文本文件创建成功")
+//                return true
+//            }
+//            NSLog("settings存储URL配置文本文件创建失败")
+//            return false
+//        }
+//        //NSLog("settings存储URL配置文本文件已存在")
+//        return true
+//    }
     
     
     func clearHistoryInfo(type: String){

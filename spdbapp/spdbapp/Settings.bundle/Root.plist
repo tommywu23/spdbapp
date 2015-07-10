@@ -21,12 +21,16 @@
 			<string>服务器: </string>
 			<key>Key</key>
 			<string>txtBoxURL</string>
+			<key>AutocapitalizationType</key>
+			<string>Sentences</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>清除历史纪录</string>
+			<string>清除历史文档</string>
 			<key>Key</key>
 			<string>clear_historyInfo</string>
 			<key>DefaultValue</key>

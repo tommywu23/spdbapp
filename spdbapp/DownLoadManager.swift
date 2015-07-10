@@ -30,6 +30,10 @@ class DownLoadManager: NSObject {
         return false
     }
     
+    class func downLoadSession(){
+        
+    }
+    
     
     class func isSamePDFFile(fileName: String) -> Bool {
         var filePath = NSHomeDirectory().stringByAppendingPathComponent("Documents/\(fileName)")

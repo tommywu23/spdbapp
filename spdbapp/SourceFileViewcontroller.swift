@@ -30,7 +30,7 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
     var gbSourceName = [String]()
     
     var sourceNameInfo = String()
-    
+    var timer = Poller()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,21 +39,41 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         btnReconnect.layer.cornerRadius = 8
         btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
         
-        btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        timer.start(self, method: "checkstatus:",timerInter: 5.0)
         
+        btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        btnReconnect.layer.cornerRadius = 8
         if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
         }
-
+        
         
         sourceTableview.delegate = self
         sourceTableview.dataSource = self
+        sourceTableview.separatorStyle = UITableViewCellSeparatorStyle.None
         sourceTableview.tableFooterView = UIView(frame: CGRectZero)
         sourceTableview.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+
+        var cell = UINib(nibName: "SourceTableViewCell", bundle: nil)
+        sourceTableview.registerNib(cell, forCellReuseIdentifier: "cell")
         
         getSourceFile()
         getName()
     }
+    
+    //定时器，每隔5s刷新页面下方的toolbar控件显示
+    func checkstatus(timer: NSTimer){
+        if appManager.netConnect {
+            ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
+        }
+        else{
+            ShowToolbarState.netConnectFail(self.lblShowState,btn: self.btnReconnect)
+        }
+        self.lblShowState.reloadInputViews()
+        self.btnReconnect.reloadInputViews()
+    }
+
     
     
     func getName() {
@@ -63,15 +83,11 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         var readData = NSData(contentsOfFile: filePath)
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
-        if (name.length > 0){
+        if (name.length > 0 && appManager.netConnect == true){
             self.lblShowUserName.text = "当前用户:\(name)"
         }
     }
 
-    
-    override func viewWillAppear(animated: Bool) {
-        
-    }
     
     func getReconn(){
         ShowToolbarState.netConnectLinking(self.lblShowState, btn: self.btnReconnect)
@@ -94,6 +110,7 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
                         for var  j = 0 ; j < sourcesInfo.count ; j++ {
                             self.gbSource.id = sourcesInfo[j].stringValue
 
+                            //根据当前source文件的id寻找对应的source文件的name
                             if let sources = json["source"].array{
                                 for var k = 0 ; k < sources.count ; k++ {
                                     if self.gbSource.id == sources[k]["id"].stringValue{
@@ -145,21 +162,14 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         return self.gbSourceName.count
     }
     
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentify = "SourceTableViewCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SourceTableViewCell
         
-        var imgView = UIImageView(frame: CGRectMake(0, 0, 768, 55))
-        imgView.image = UIImage(named: "cell_bgred")
-        cell.addSubview(imgView)
-       
-        cell.textLabel?.font = UIFont(name: "KaiTi_GB2312", size: 20.0)
-        cell.textLabel?.text = self.gbSourceName[indexPath.row].stringByDeletingPathExtension
+        cell.lblShowSourceFileName.text = self.gbSourceName[indexPath.row].stringByDeletingPathExtension
         return cell
     }
     
@@ -169,12 +179,16 @@ class SourceFileViewcontroller: UIViewController, UITableViewDelegate, UITableVi
         println("segue name==================\(name)")
         self.sourceNameInfo = name
         
+        
         var isFileExist = DownLoadManager.isFileDownload(self.sourceNameInfo)
         if isFileExist == false{
+            
+//            cell.detailTextLabel?.text = "该文件尚在下载，请稍后..."
             self.lblShowFileStatue.text = "该文件尚在下载，请稍后..."
         }else{
+            cell.detailTextLabel?.text = ""
             self.lblShowFileStatue.text = ""
-            self.performSegueWithIdentifier("sourceToDoc", sender: self)
+//            self.performSegueWithIdentifier("sourceToDoc", sender: self)
         }
         
     }

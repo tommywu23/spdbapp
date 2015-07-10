@@ -49,7 +49,9 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         
         
         btnRegister.layer.cornerRadius = 8
-        btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
+        btnRegister.enabled = false
+        btnRegister.backgroundColor = UIColor.grayColor()
+//        btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
         
         timer.start(self, method: "checkstatus:",timerInter: 5.0)
         
@@ -88,7 +90,7 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         var readData = NSData(contentsOfFile: filePath)
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
-        if (name.length > 0){
+        if (name.length > 0 && appManager.netConnect == true){
             self.lblShowUserName.text = "当前用户:\(name)"
             return true
         }
@@ -136,8 +138,11 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
     
     //定时器，每隔5s刷新页面下方的toolbar控件显示
     func checkstatus(timer: NSTimer){
-        if appManager.netConnect {
+        if appManager.netConnect == true {
             ShowToolbarState.netConnectSuccess(self.lblShowState,btn: self.btnReconnect)
+            self.btnRegister.enabled = true
+            self.btnRegister.backgroundColor = UIColor(red: 123/255, green: 0, blue: 31/255, alpha: 1)
+            self.btnRegister.addTarget(self, action: "toRegis", forControlEvents: UIControlEvents.TouchUpInside)
         }
         else{
             ShowToolbarState.netConnectFail(self.lblShowState,btn: self.btnReconnect)
@@ -146,42 +151,44 @@ class MainViewController: UIViewController,UIAlertViewDelegate {
         self.btnReconnect.reloadInputViews()
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
-//    }
-//    
-//    override func viewDidDisappear(animated: Bool) {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
-//    }
-//    
-//    
-//    func defaultsSettingsChanged() {
-//        let standardDefaults = NSUserDefaults.standardUserDefaults()
-//        var filepath = NSHomeDirectory().stringByAppendingPathComponent("Documents/SettingsConfig.txt")
-//        var settingsDict: NSMutableDictionary = NSMutableDictionary()
-//        
-//        // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
-//        var value = standardDefaults.stringForKey("txtBoxURL")
-//        if value == nil{
-//            value = "192.168.16.142"
-//        }
-//   
-//        settingsDict.setObject(value!, forKey: "txtBoxURL")
-//        
-//        var b = settingsDict.writeToFile(filepath, atomically: true)
-//        println("url new value ============ \(value)")
-//        
-//        var isClearHistoryInfo = standardDefaults.boolForKey("clear_historyInfo")
-//        if isClearHistoryInfo == true{
-//            server.clearHistoryInfo("pdf")
-//        }
-//        
-//        var isClearConfigInfo = standardDefaults.boolForKey("clear_configInfo")
-//        if isClearConfigInfo == true{
-//            server.clearHistoryInfo("txt")
-//        }
-//    }
     
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "defaultsSettingsChanged", name: NSUserDefaultsDidChangeNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func defaultsSettingsChanged() {
+        let standardDefaults = NSUserDefaults.standardUserDefaults()
+        
+        // 监听txtFileURL是否发生改变  默认情况下是192.168.16.142
+        var value = standardDefaults.stringForKey("txtBoxURL")
+        println("value = \(value)")
+        if (value?.isEmpty == true){
+            standardDefaults.setObject("192.168.16.142", forKey: "txtBoxURL")
+            standardDefaults.synchronize()
+        }
+
+        println("url new value ============ \(value)")
+        standardDefaults.synchronize()
+        
+        var isClearHistoryInfo = standardDefaults.boolForKey("clear_historyInfo")
+        println("isclearpdffile = \(isClearHistoryInfo)")
+        if isClearHistoryInfo == true{
+            server.clearHistoryInfo("pdf")
+            isClearHistoryInfo = false
+            standardDefaults.synchronize()
+        }
+        
+        var isClearConfigInfo = standardDefaults.boolForKey("clear_configInfo")
+        if isClearConfigInfo == true{
+            server.clearHistoryInfo("txt")
+            isClearHistoryInfo = false
+            standardDefaults.synchronize()
+        }
+    }
     
   
     //监听会议名是否发生改变

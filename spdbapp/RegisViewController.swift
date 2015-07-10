@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class RegisViewController: UIViewController,UIAlertViewDelegate {
+class RegisViewController: UIViewController,UIAlertViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var btnOK: UIButton!
@@ -30,6 +30,11 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
         self.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.modalPresentationStyle = UIModalPresentationStyle.FormSheet
         
+        txtName.delegate = self
+        txtPwd.delegate = self
+        
+        txtName.becomeFirstResponder()
+        
         mainView.layer.cornerRadius = 8
         
         btnOK.layer.cornerRadius = 8
@@ -38,6 +43,15 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
         btnCancel.layer.cornerRadius = 8
         btnCancel.addTarget(self, action: "cancelLogin", forControlEvents: UIControlEvents.TouchUpInside)
     
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == txtName{
+            txtPwd.becomeFirstResponder()
+        }else if textField == txtPwd{
+            goLogin()
+        }
+        return true
     }
     
     
@@ -50,7 +64,7 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
             
             if error != nil{
                 println("login err = \(error)")
-                UIAlertView(title: "提示", message: "登录失败，无法连接到服务器，请检查网络设置后重试", delegate: self, cancelButtonTitle: "确定")
+                UIAlertView(title: "提示", message: "登录失败，无法连接到服务器，请检查网络设置后重试", delegate: self, cancelButtonTitle: "确定").show()
                 println("登录失败，无法连接到服务器，请检查网络设置后重试")
                 self.dismissViewControllerAnimated(false, completion: nil)
                 return
@@ -107,7 +121,6 @@ class RegisViewController: UIViewController,UIAlertViewDelegate {
             //ToAgendaVC
             var obj = segue.destinationViewController as! MainViewController
             obj.flag = self.flag
-            
         }
     }
 

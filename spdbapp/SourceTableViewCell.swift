@@ -2,7 +2,7 @@
 //  SourceTableViewCell.swift
 //  spdbapp
 //
-//  Created by GBTouchG3 on 15/7/7.
+//  Created by GBTouchG3 on 15/7/9.
 //  Copyright (c) 2015年 shgbit. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 
 class SourceTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lblSourceFileName: UILabel!
+    @IBOutlet weak var lblShowSourceFileName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

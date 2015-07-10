@@ -12,9 +12,6 @@ import Alamofire
 
 class Builder: NSObject {
     
-    var server = Server()
-    
-    
     //Create Meeting online
     func CreateMeeting() -> GBMeeting {
         

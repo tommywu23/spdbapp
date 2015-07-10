@@ -38,6 +38,7 @@ class DocViewController: UIViewController {
         btnBack.addTarget(self, action: "GoBack", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnReconnect.addTarget(self, action: "getReconn", forControlEvents: UIControlEvents.TouchUpInside)
+        btnReconnect.layer.cornerRadius = 8
    
         
         if appManager.netConnect == true {
@@ -70,7 +71,7 @@ class DocViewController: UIViewController {
         var readData = NSData(contentsOfFile: filePath)
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
-        if (name.length > 0){
+        if (name.length > 0 && appManager.netConnect == true){
             self.lblShowUserName.text = "当前用户:\(name)"
         }
     }

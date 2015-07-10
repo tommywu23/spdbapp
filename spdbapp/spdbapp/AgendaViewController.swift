@@ -41,9 +41,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tvAgenda?.delegate = self
         tvAgenda?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tvAgenda.separatorStyle = UITableViewCellSeparatorStyle.None
-//        tvAgenda.tableFooterView = UIView(frame: CGRectZero)
-         //tvAgenda.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 1.0)
-        
+
         var cell = UINib(nibName: "AgendaTableViewCell", bundle: nil)
         self.tvAgenda.registerNib(cell, forCellReuseIdentifier: "cell")
         
@@ -92,7 +90,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.lblShowState.reloadInputViews()
         self.btnReconnect.reloadInputViews()    
     }
-
     
     func showMeetingInfo(json: JSON) {
         if let agendasInfo = json["agenda"].array {
@@ -104,8 +101,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.gbAgenda.starttime = agendasInfo[i]["starttime"].stringValue
                 self.gbAgenda.endtime = agendasInfo[i]["endtime"].stringValue
                 self.gbAgenda.reporter = "report\(i)"
-
-                
+        
                 self.gbAgendInfo.append(self.gbAgenda)
                 self.agendaName.append(self.gbAgenda.name)
                 self.agendaId.append(self.gbAgenda.id)
@@ -125,7 +121,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var readData = NSData(contentsOfFile: filePath)
         var name = NSString(data: readData!, encoding: NSUTF8StringEncoding)! as NSString
         
-        if (name.length > 0){
+        if (name.length > 0 && appManager.netConnect == true){
             self.lblShowUserName.text = "当前用户:\(name)"
         }
     }
@@ -157,10 +153,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.gbAgendInfo.count
     }
@@ -173,17 +165,20 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.agendaNameInfo = name
         self.performSegueWithIdentifier("toSource", sender: self)
         
-        var selectedView = UIView(frame: cell.frame)
-        selectedView.backgroundColor = UIColor(red: 26/255, green: 46/255, blue: 97/255, alpha: 0.9)
-        cell.selectedBackgroundView = selectedView
+//        var selectedView = UIView(frame: cell.frame)
+//        selectedView.backgroundColor = UIColor(red: 34/255, green: 63/255, blue: 117/255, alpha: 0.9)
+//        cell.selectedBackgroundView = selectedView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AgendaTableViewCell
+        
         cell.lblTime.text = "\(self.agendaStarttime[indexPath.row]) - \(self.agendaEndtime[indexPath.row])"
         cell.lblReporter.text = self.agendaReporter[indexPath.row]
         cell.lbAgenda.text = "\(self.agendaName[indexPath.row])"
+        
+        
         cell.tag = indexPath.row
         return cell
     }
@@ -196,9 +191,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             obj.agendaNameInfo = self.agendaNameInfo
         }
     }
-    
-    
-    
+
     
     
     override func didReceiveMemoryWarning() {

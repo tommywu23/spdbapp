@@ -43,7 +43,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     override init(){
         super.init()
-        server.showDetail()
         reqBoxURL = server.boxServiceUrl
         
         //程序启动先创建Box
@@ -214,7 +213,6 @@ class AppManager : NSObject, UIAlertViewDelegate {
     
     //获取当前会议current
     func getCurrent(timer: NSTimer){
-        //var router = Router.GetCurrentMeeting()
         var docPath = NSHomeDirectory().stringByAppendingPathComponent("Documents")
         
         var builder = Builder()
@@ -233,7 +231,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
             
             if self.current.isEqual(nil)  {
                 self.current = builder.CreateMeeting()
-//                DownLoadManager.isStart(true)
+                DownLoadManager.isStart(true)
             }
             
             if(self.current.id == id) {
@@ -241,7 +239,7 @@ class AppManager : NSObject, UIAlertViewDelegate {
             }
             
             self.current = builder.CreateMeeting()   
-//            DownLoadManager.isStart(true)
+            DownLoadManager.isStart(true)
         }
     }
     
